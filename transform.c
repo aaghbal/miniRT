@@ -1,31 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   transform.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/31 18:36:33 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/09/21 18:03:57 by aaghbal          ###   ########.fr       */
+/*   Created: 2023/09/21 16:46:06 by aaghbal           #+#    #+#             */
+/*   Updated: 2023/09/21 19:22:49 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-double mx(int x)
+t_ray transform(t_ray r, double **m)
 {
-	return ((x - WIDTH / 2) * (10.0 / WIDTH));
-}
-double my(int x)
-{
-	return (-(x - HEIGHT/2)*(10.0/HEIGHT));
+	t_ray ray;
+
+	ray.origine = mul_mat_point(m, r.origine);
+	ray.direction = mul_mat_vector(m , r.direction);
+	return (ray);
 }
 
-int px(double x)
+void	set_transform(t_sphere *s, double **t)
 {
-	return (x * WIDTH / 10 + WIDTH/2);
-}
-int py(double x)
-{
-	return ((-x) * HEIGHT / 10 + HEIGHT/2);
+	s->trans = t;
 }

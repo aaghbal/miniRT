@@ -1,31 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   sphere.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/31 18:36:33 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/09/21 18:03:57 by aaghbal          ###   ########.fr       */
+/*   Created: 2023/09/21 14:43:46 by aaghbal           #+#    #+#             */
+/*   Updated: 2023/09/21 19:22:22 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-double mx(int x)
+t_sphere sphere()
 {
-	return ((x - WIDTH / 2) * (10.0 / WIDTH));
-}
-double my(int x)
-{
-	return (-(x - HEIGHT/2)*(10.0/HEIGHT));
+	t_sphere s;
+
+	s.trans = identity();
+	return (s);
 }
 
-int px(double x)
+t_intersect *new_intersec(double min, double max, t_sphere sp)
 {
-	return (x * WIDTH / 10 + WIDTH/2);
-}
-int py(double x)
-{
-	return ((-x) * HEIGHT / 10 + HEIGHT/2);
+	t_intersect *new;
+
+	new = malloc(sizeof(t_intersect));
+	new->min = min;
+	new->max = max;
+	new->s = sp;
+	new->next = NULL;
+	return (new);
 }

@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:13:01 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/09/20 19:37:01 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/09/21 19:14:46 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,38 @@ typedef struct  s_shearing
 	
 }t_shearing;
 
+typedef struct s_ray
+{
+	t_point origine;
+	t_vector direction;
+}t_ray;
 
+typedef struct s_sphere
+{
+	double **trans;
+}t_sphere;
+
+typedef struct s_intersec
+{
+	double min;
+	double max;
+	t_sphere s;
+	struct s_intersec *next;
+}t_intersect;
+
+typedef struct s_data
+{
+	double a;
+	double b;
+	double c;
+	double discr;
+}t_data;
+
+typedef struct t_intersection
+{
+	double t;
+	t_sphere sp;
+}t_intersection;
 // vector_point
 
 t_vector create_vector(double x, double y, double z);
@@ -131,4 +162,25 @@ double mx(int x);
 double my(int x);
 int px(double x);
 int py(double x);
+
+/// ray
+
+t_ray ray(t_point origine, t_vector direc);
+t_point position(t_ray ray, double t);
+
+// sphere
+
+t_sphere sphere();
+t_intersect *new_intersec(double min,double max,  t_sphere sp);
+t_intersect *intersect(t_sphere sp, t_ray r);
+
+// transform 
+
+t_ray transform(t_ray r, double **m);
+void	set_transform(t_sphere *s, double **t);
+
+// normal
+t_vector normal_at(t_sphere *sp, t_point word_point);
+t_vector reflect(t_vector in, t_vector normal);
+
 #endif
