@@ -6,15 +6,15 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 11:04:38 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/09/20 10:15:28 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/09/22 14:19:57 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-float **orientation(t_tuple left, t_tuple true_up, t_tuple forward)
+double **orientation(t_vector left, t_vector true_up, t_vector forward)
 {
-	float **m;
+	double **m;
 
 	m = identity();
 	m[0][0] = left.x;
@@ -29,26 +29,16 @@ float **orientation(t_tuple left, t_tuple true_up, t_tuple forward)
 	return(m);
 }
 
-t_tuple cross_product(t_tuple v1, t_tuple v2)
+double **view_transformation(t_point from, t_point to, t_vector up)
 {
-	t_tuple res;
+	t_vector forward;
+	t_vector upn;
+	t_vector left;
+	t_vector true_up;
+	double **res;
 
-	res.x = (v1.y * v2.z) - (v1.z * v2.y);
-	res.y = (v1.z * v2.x) - (v1.x * v2.z);
-	res.z = (v1.x * v2.y) - (v1.y * v2.x);
-	return (res);
-}
-
-float **view_transformation(t_tuple from, t_tuple to, t_tuple up)
-{
-	t_tuple forward;
-	t_tuple left;
-	t_tuple true_up;
-	t_tuple upn;
-	float **res;
-
-	forward = normali(substraction(to, from));
-	upn = normali(up);
+	forward = normalize(sub_to_point(to, from));
+	upn = normalize(up);
 	left = cross_product(forward, upn);
 	true_up = cross_product(left, forward);
 	res = multiple_matrice(orientation(left, true_up, forward),

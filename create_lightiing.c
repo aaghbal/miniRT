@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 16:35:35 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/09/17 10:25:23 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/09/22 10:59:11 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,43 @@ int main()
 		i++; 
 	}
 	mlx_loop(mlx);	
+}
+
+int main()
+{
+	int i = 0;
+	int j;
+	t_canvas c = create_canvas(1000, 1000);
+	t_mlx *mlx = mlx_init(c.width, c.height, "test", true);
+	t_mlx_image *img = mlx_new_image(mlx, c.width, c.height);
+	mlx_image_to_window(mlx, img, 0, 0);
+	t_sphere s = sphere();
+	s.m.color = create_color(1, 0.9, 0.9);
+	s.trans = scaling(10, 0.01, 10);
+	s.m.specular = 0;
+	t_light l = point_light(create_point(-10, -10, -10), create_color(1, 1, 1));
+	while (i < c.width)
+	{
+		double x = mx(i);
+		j = 0;
+		while (j < c.height)
+		{
+			double y = mx(j);
+			t_ray r = ray(create_point(0, 0, -5), normalize(sub_to_point(create_point(x, y, 10),create_point(0, 0, -5))));
+			t_intersect *res = intersect(s, r);
+			t_point point = position(r, res->min);
+			t_vector normal = normal_at(&res->s, point);
+			t_vector eye = negating_vect(r.direction);
+			t_color ca = lighting(res->s.m, l, point, eye, normal);
+			if (res->min)
+				mlx_putpixel(img, i, j, conv_color(ca.red, ca.green, ca.blue));
+			else
+				mlx_putpixel(img, i, j, conv_color(0, 0, 0));
+				
+			j++;
+		}
+		i++;
+	}
+	mlx_loop(mlx);
+	// printf("d   (%.f, %.f, %.f, %.f)\n", r2.direction.x, r2.direction.y, r2.direction.z, r2.direction.w);
 }

@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 15:31:08 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/09/21 17:21:00 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/09/22 15:49:34 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_intersect *intersect(t_sphere sp, t_ray ray)
 	t_ray		r;
 
 	res = NULL;
-	r = transform(ray, inverse_matrix(sp.sp));
+	r = transform(ray, inverse_matrix(sp.trans));
 	t_vector sph_to_ray = sub_to_point(r.origine, create_point(0, 0, 0));
 	data.a = dot_product(r.direction, r.direction);
 	data.b = 2 * dot_product(r.direction, sph_to_ray);
@@ -39,4 +39,35 @@ t_intersect *intersect(t_sphere sp, t_ray ray)
 	else
 		res = new_intersec(t2, t1, sp);	
 	return (res); 
+}
+t_intersect *intersect_world(t_word w, t_ray r)
+{
+	t_intersect *xs;
+	t_intersect *new;
+	int i;
+	
+	i = 0;
+	while (i < 6)
+	{
+		new = intersect(w.s[i], r);
+		printf ("%d : %f  %f\n",i, new->min, new->max);
+		if (!xs)
+			xs = new;
+		else if (new->min < xs->min)
+			add_front(&xs, new);
+		else
+			add_back(&xs, new);
+		i++;
+	}
+	printf("----------------------\n");
+	return (xs);
+}
+
+t_intersection intersection(double t, t_sphere s)
+{
+	t_intersection i;
+
+	i.t = t;
+	i.sp = s;
+	return(i);
 }

@@ -6,19 +6,31 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 13:35:55 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/09/16 14:10:58 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/09/22 13:37:25 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_light point_light(t_tuple pos, t_tuple intensit)
+t_light point_light(t_point pos, t_color intensit)
 {
 	t_light l;
 
-	l.intensity = intensit;
 	l.position = pos;
+	l.intensity = intensit;
 	return (l);
+}
+
+t_material material(void)
+{
+	t_material m;
+
+	m.color = create_color(1, 1, 1);
+	m.ambient = 0.1;
+	m.diffuse = 0.9;
+	m.specular = 0.9;
+	m.shininess = 200.0;
+	return (m);
 }
 
 // t_mater material()
@@ -27,67 +39,40 @@ t_light point_light(t_tuple pos, t_tuple intensit)
 // 	return(m);
 // }
 
-unsigned char float_to_char(float n)
-{
-	if (n < 0)
-		n = 0.0;
-	else if (n > 1)
-		n = 1.0;
-	return ((unsigned char) ceil(n * 255));
-}
 
-unsigned int conv_color(float r, float g, float b)
+t_color lighting(t_material m, t_light light, t_point point, t_vector eyev, t_vector normalv)
 {
-	unsigned char rc;
-	unsigned char gc;
-	unsigned char bc;
-	unsigned int final_color;
-	
-	final_color = 0;
-	rc = float_to_char(r);
-	gc = float_to_char(g);
-	bc = float_to_char(b);
-	final_color |= (rc << 24);
-	final_color |= (gc << 16);
-	final_color |= (bc << 8);
-	final_color |= 255;
-	return (final_color);
-}
-
-t_tuple lighting(t_mater m, t_light light, t_tuple point, t_tuple eyev, t_tuple normalv)
-{
-	t_tuple effective_color;
-	t_tuple lightv;
-	t_tuple ambient;
-	t_tuple defuse;
-	t_tuple specular;
-	t_tuple reflectv;
-	t_tuple res;
+	t_color effective_color;
+	t_vector lightv;
+	t_color ambient;
+	t_color defuse;
+	t_color specular;
+	t_vector reflectv;
+	t_color res;
 	double lihgt_dot_normal;
 	double reflect_dot_eye;
 	double factor = 0;
-	
-	effective_color = multip_to_point(m.color, light.intensity);
-	lightv = normali(substraction(light.position , point));
-	ambient = multip(effective_color, m.ambient);
-	lihgt_dot_normal = dot(lightv, normalv);
+	effective_color = mul_color(m.color, light.intensity);
+	lightv = normalize(sub_to_point(light.position , point));
+	ambient = mul_by_scaler(effective_color, m.ambient);
+	lihgt_dot_normal = dot_product(lightv, normalv);
 	if (lihgt_dot_normal < 0)
 	{
-		defuse = create_tuple(0, 0, 0, 1);
-		specular = create_tuple(0, 0, 0, 1);
+		defuse = create_color(0, 0, 0);
+		specular = create_color(0, 0, 0);
 	}
 	else
-		defuse = multip(multip(effective_color, m.diffuse), lihgt_dot_normal);
-	reflectv = reflect(multip(lightv, -1), normalv);
-	reflect_dot_eye = dot(reflectv, eyev);
+		defuse = mul_by_scaler(mul_by_scaler(effective_color, m.diffuse), lihgt_dot_normal);
+	reflectv = reflect(negating_vect(lightv), normalv);
+	reflect_dot_eye = dot_product(reflectv, eyev);
 	if (reflect_dot_eye > 0)
 	{
 		factor = pow(reflect_dot_eye, m.shininess);
-		specular = multip(multip(light.intensity, m.specular), factor);
+		specular = mul_by_scaler(mul_by_scaler(light.intensity, m.specular), factor);
 	}
 	else
-		specular = create_tuple(0, 0, 0, 1);
-	t_tuple te1 = add(ambient, defuse);
-	res = add(te1, specular);
+		specular = create_color(0, 0, 0);
+	t_color te1 = adding_color(ambient, defuse);
+	res = adding_color(te1, specular);
 	return (res);
 }

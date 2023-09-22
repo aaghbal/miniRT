@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:13:01 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/09/21 19:14:46 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/09/22 14:55:50 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,19 @@ typedef struct s_ray
 	t_vector direction;
 }t_ray;
 
+typedef struct s_material
+{
+	t_color color;
+	double ambient;
+	double diffuse;
+	double specular;
+	double shininess;
+}t_material;
+
 typedef struct s_sphere
 {
 	double **trans;
+	t_material m;
 }t_sphere;
 
 typedef struct s_intersec
@@ -102,6 +112,41 @@ typedef struct t_intersection
 	double t;
 	t_sphere sp;
 }t_intersection;
+
+
+typedef struct s_light
+{
+	t_point position;
+	t_color intensity;
+}t_light;
+
+typedef struct s_word
+{
+	t_sphere *s;
+	t_light l;
+}t_word;
+
+typedef struct s_comps
+{
+	double t;
+	t_sphere obj;
+	t_point point;
+	t_vector eyev;
+	t_vector normalv;
+	bool inside;
+}t_comps;
+
+typedef struct s_camera
+{
+	double hsize;
+	double vsize;
+	double field_of_view;
+	double half_width;
+	double half_height;
+	double pixel_size;
+	double **trans;
+}t_camera;
+
 // vector_point
 
 t_vector create_vector(double x, double y, double z);
@@ -172,7 +217,11 @@ t_point position(t_ray ray, double t);
 
 t_sphere sphere();
 t_intersect *new_intersec(double min,double max,  t_sphere sp);
+t_intersect *intersect_world(t_word w, t_ray r);
+void	add_back(t_intersect **lst, t_intersect *new);
+void	add_front(t_intersect **lst, t_intersect *new);
 t_intersect *intersect(t_sphere sp, t_ray r);
+t_intersection intersection(double t, t_sphere s);
 
 // transform 
 
@@ -183,4 +232,21 @@ void	set_transform(t_sphere *s, double **t);
 t_vector normal_at(t_sphere *sp, t_point word_point);
 t_vector reflect(t_vector in, t_vector normal);
 
+//light
+
+t_light point_light(t_point pos, t_color intensit);
+t_material material(void);
+t_color lighting(t_material m, t_light light, t_point point, t_vector eyev, t_vector normalv);
+
+// word 
+t_word default_word();
+t_word word(t_sphere *s, t_light l);
+t_comps prepare_computations(t_intersection i, t_ray ray);
+t_color shade_hit(t_word w, t_comps com);
+t_intersect hit(t_intersect *res);
+t_color color_at(t_word w, t_ray r);
+double **view_transformation(t_point from, t_point to, t_vector up);
+t_ray ray_for_pixel(t_camera camera, double px, double py);
+t_camera camera(double hsize, double vsize, double field_view);
+void render(t_camera c, t_word w);
 #endif

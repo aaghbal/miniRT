@@ -6,34 +6,34 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 11:51:09 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/09/17 12:55:22 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/09/22 13:56:00 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_comps prepare_computations(t_oneinters inter, t_ray ray)
+t_comps prepare_computations(t_intersection i, t_ray ray)
 {
 	t_comps com;
 
 	com.inside = false;
-	com.t = inter.inters;  
-	com.object = inter.object;
-	com.point = positione(ray, com.t);
-	com.eyev = multip(ray.direction, -1);
-	com.normalv = normal_at(&inter.object.sp, com.point);
-	if(dot(com.normalv, com.eyev) < 0)
+	com.t = i.t;  
+	com.obj = i.sp;
+	com.point = position(ray, com.t);
+	com.eyev = negating_vect(ray.direction);
+	com.normalv = normal_at(&com.obj, com.point);
+	if(dot_product(com.normalv, com.eyev) < 0)
 	{
 		com.inside = true;
-		com.normalv = multip(com.normalv, -1);
+		com.normalv = negating_vect(com.normalv);
 	}
 	return (com);
 }
 
-t_tuple shade_hit(t_word w, t_comps com, t_min m)
+t_color shade_hit(t_word w, t_comps com)
 {
-	t_tuple col;
+	t_color col;
 
-	col = lighting(w.sp[m.sp].materia, w.light, com.point, com.eyev, com.normalv);
+	col = lighting(com.obj.m, w.l, com.point, com.eyev, com.normalv);
 	return (col);
 }
