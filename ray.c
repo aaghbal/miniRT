@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 13:05:10 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/09/22 15:48:52 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/09/23 08:13:44 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,18 @@ t_intersect hit(t_intersect *res)
 {
 	t_intersect r;
 
-	r.min = res.;
-	r.max = 0.0;
-	int i = 0;
+	r.min = 10000;
+	r.max = 0;
 	while (res)
 	{
-		if (res->min < r.min)
+		if(res->min < r.min && res->min > 0)
 		{
-
-			return (*res);
+			r.min = res->min;
+			r.s = res->s;
 		}
 		res = res->next;
-		i++;
 	}
+	if(r.min == 10000)
+		r.min = 0;
 	return(r);
 }

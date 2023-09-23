@@ -23,8 +23,6 @@ t_color color_at(t_word w, t_ray r)
 	col = create_color(0, 0, 0);
 	xs = intersect_world(w, r);
 	h = hit(xs);
-	printf("hit %f\n", h.min);
-	puts("********************");
 	if (h.min == 0)
 		return (col);
 	i = intersection(h.min, h.s);	

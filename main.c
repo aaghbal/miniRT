@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:08:58 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/09/22 15:32:05 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/09/23 09:35:08 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,25 +42,25 @@ t_sphere *create_sphere(void)
 	sp[1] = sphere();
 	sp[1].m.color = create_color(1,0.9,0.9);
 	sp[1].m.specular = 0;
-	double **sc = scaling(10, 0.01, 10);
-	double **rx = rotation_x(M_PI / 2);
-	double **res1 = multiple_matrice(sc, rx);
-	double **ry = rotation_y((M_PI / 4) * -1);
-	res1 = multiple_matrice(res1, ry);
 	double **tran = translation(0, 0, 5);
-	res1 = multiple_matrice(res1, tran);
+	double **ry = rotation_y(((M_PI * -1) / 4));
+	double **res1 = multiple_matrice(tran, ry);
+	double **rx = rotation_x(M_PI / 2);
+	res1 = multiple_matrice(res1, rx);
+	double **sc = scaling(10, 0.01, 10);
+	res1 = multiple_matrice(res1, sc);
 	sp[1].trans = res1;
 	//////////////////////////////////////
 	sp[2] = sphere();
 	sp[2].m.color = create_color(1,0.9,0.9);
 	sp[2].m.specular = 0;
-	sc = scaling(10, 0.01, 10);
-	rx = rotation_x(M_PI / 2);
-	res1 = multiple_matrice(sc, rx);
-	ry = rotation_y((-M_PI / 4) * -1);
-	res1 = multiple_matrice(res1, ry);
 	tran = translation(0, 0, 5);
-	res1 = multiple_matrice(res1, tran);
+	ry = rotation_y((M_PI / 4));
+	res1 = multiple_matrice(tran, ry);
+	rx = rotation_x(M_PI / 2);
+	res1 = multiple_matrice(res1, rx);
+	sc = scaling(10, 0.01, 10);
+	res1 = multiple_matrice(res1, sc);
 	sp[2].trans = res1;
 	// /////////////////////////////////////////
 	sp[3] = sphere();
@@ -88,7 +88,7 @@ int main()
 	t_sphere *s = create_sphere();
 	t_light l = point_light(create_point(-10, 10, -10), create_color(1, 1, 1));
 	t_word w = word(s, l);
-	t_camera c = camera(500, 500, M_PI/ 3);
+	t_camera c = camera(800, 800, M_PI/ 3);
 	c.trans = view_transformation(create_point(0, 1.5, -5), create_point(0, 1, 0), create_vector(0, 1, 0));
 	render(c, w);
 	// t_ray r = ray_for_pixel(c, 100, 50);

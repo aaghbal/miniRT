@@ -50,7 +50,6 @@ t_intersect *intersect_world(t_word w, t_ray r)
 	while (i < 6)
 	{
 		new = intersect(w.s[i], r);
-		printf ("%d : %f  %f\n",i, new->min, new->max);
 		if (!xs)
 			xs = new;
 		else if (new->min < xs->min)
@@ -59,7 +58,6 @@ t_intersect *intersect_world(t_word w, t_ray r)
 			add_back(&xs, new);
 		i++;
 	}
-	printf("----------------------\n");
 	return (xs);
 }
 
