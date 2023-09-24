@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:13:01 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/09/23 22:16:53 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/09/24 21:59:57 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ typedef struct s_light
 typedef struct s_word
 {
 	t_sphere *s;
-	t_light l;
+	t_light *l;
 }t_word;
 
 typedef struct s_comps
@@ -240,7 +240,7 @@ t_color lighting(t_material m, t_light light, t_point point, t_vector eyev, t_ve
 
 // word 
 t_word default_word();
-t_word word(t_sphere *s, t_light l);
+t_word word(t_sphere *s, t_light *l);
 t_comps prepare_computations(t_intersection i, t_ray ray);
 t_color shade_hit(t_word w, t_comps com, int n_obj);
 t_intersect hit(t_intersect *res);
@@ -251,6 +251,5 @@ t_camera camera(double hsize, double vsize, double field_view);
 void render(t_camera c, t_word w);
 
 /////////////
-bool is_shadowed(t_word w, t_point point, int n_obj);
-
+bool is_shadowed(t_word w, t_point point, int n_obj, t_light l);
 #endif

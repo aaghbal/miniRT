@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:08:58 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/09/24 11:49:47 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/09/24 21:52:17 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,11 @@ t_sphere *create_sphere(void)
 int main()
 {
 	t_sphere *s = create_sphere();
-	t_light l = point_light(create_point(-10, 10, -10), create_color(1, 1, 1));
+	t_light *l = malloc(sizeof(t_light) * 2);
+	l[0] = point_light(create_point(-10, 10, -10), create_color(1, 1, 1));
+	l[1] = point_light(create_point(10, 10, -10), create_color(0.5, 0.5, 0.5));
 	t_word w = word(s, l);
-	t_camera c = camera(500, 700, M_PI/ 3);
+	t_camera c = camera(500, 500, M_PI/ 3);
 	c.trans = view_transformation(create_point(0, 1.5, -5), create_point(0, 1, 0), create_vector(0, 1, 0));
 	 render(c, w);
 	
