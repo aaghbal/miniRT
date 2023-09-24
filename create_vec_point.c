@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 09:41:44 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/09/20 15:27:03 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/09/23 22:17:51 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,4 @@ t_point create_point(double x, double y, double z)
 	p.z = z;
 	p.w = 1.0;
 	return (p);
-}
-
-bool equal(double a, double b)
-{
-	if (fabs(a - b) < epsilon)
-		return (true);
-	return (false);
 }

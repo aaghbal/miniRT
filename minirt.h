@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:13:01 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/09/23 09:30:57 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/09/23 22:16:53 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 #include <stdbool.h>
 
 
-#define epsilon 0.00001
+#define EPSILON 0.00001
 
 #define WIDTH 1000
 #define HEIGHT 1000
@@ -94,7 +94,6 @@ typedef struct s_sphere
 typedef struct s_intersec
 {
 	double min;
-	double max;
 	t_sphere s;
 	struct s_intersec *next;
 }t_intersect;
@@ -134,6 +133,7 @@ typedef struct s_comps
 	t_vector eyev;
 	t_vector normalv;
 	bool inside;
+	t_point over_point;
 }t_comps;
 
 typedef struct s_camera
@@ -202,7 +202,7 @@ double **rotation_z(double rad);
 double **shearing(t_shearing data);
 
 /// utils 
-
+bool equal(double a, double b);
 double mx(int x);
 double my(int x);
 int px(double x);
@@ -216,8 +216,8 @@ t_point position(t_ray ray, double t);
 // sphere
 
 t_sphere sphere();
-t_intersect *new_intersec(double min,double max,  t_sphere sp);
-t_intersect *intersect_world(t_word w, t_ray r);
+t_intersect *new_intersec(double min, t_sphere sp);
+t_intersect *intersect_world(t_word w, t_ray r, int n_object);
 void	add_back(t_intersect **lst, t_intersect *new);
 void	add_front(t_intersect **lst, t_intersect *new);
 t_intersect *intersect(t_sphere sp, t_ray r);
@@ -236,17 +236,21 @@ t_vector reflect(t_vector in, t_vector normal);
 
 t_light point_light(t_point pos, t_color intensit);
 t_material material(void);
-t_color lighting(t_material m, t_light light, t_point point, t_vector eyev, t_vector normalv);
+t_color lighting(t_material m, t_light light, t_point point, t_vector eyev, t_vector normalv, bool shadowed);
 
 // word 
 t_word default_word();
 t_word word(t_sphere *s, t_light l);
 t_comps prepare_computations(t_intersection i, t_ray ray);
-t_color shade_hit(t_word w, t_comps com);
+t_color shade_hit(t_word w, t_comps com, int n_obj);
 t_intersect hit(t_intersect *res);
-t_color color_at(t_word w, t_ray r);
+t_color color_at(t_word w, t_ray r, int n_object);
 double **view_transformation(t_point from, t_point to, t_vector up);
 t_ray ray_for_pixel(t_camera camera, double px, double py);
 t_camera camera(double hsize, double vsize, double field_view);
 void render(t_camera c, t_word w);
+
+/////////////
+bool is_shadowed(t_word w, t_point point, int n_obj);
+
 #endif

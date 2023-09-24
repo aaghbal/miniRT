@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 13:35:55 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/09/22 13:37:25 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/09/23 21:54:59 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,9 @@ t_material material(void)
 // }
 
 
-t_color lighting(t_material m, t_light light, t_point point, t_vector eyev, t_vector normalv)
+t_color lighting(t_material m, t_light light, t_point point, t_vector eyev, t_vector normalv, bool shadowed)
 {
+	// (void)shadowed;
 	t_color effective_color;
 	t_vector lightv;
 	t_color ambient;
@@ -55,6 +56,8 @@ t_color lighting(t_material m, t_light light, t_point point, t_vector eyev, t_ve
 	effective_color = mul_color(m.color, light.intensity);
 	lightv = normalize(sub_to_point(light.position , point));
 	ambient = mul_by_scaler(effective_color, m.ambient);
+	if(shadowed)
+		return (ambient);
 	lihgt_dot_normal = dot_product(lightv, normalv);
 	if (lihgt_dot_normal < 0)
 	{

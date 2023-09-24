@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:08:58 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/09/23 09:35:08 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/09/24 11:49:47 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,12 +88,17 @@ int main()
 	t_sphere *s = create_sphere();
 	t_light l = point_light(create_point(-10, 10, -10), create_color(1, 1, 1));
 	t_word w = word(s, l);
-	t_camera c = camera(800, 800, M_PI/ 3);
+	t_camera c = camera(500, 700, M_PI/ 3);
 	c.trans = view_transformation(create_point(0, 1.5, -5), create_point(0, 1, 0), create_vector(0, 1, 0));
-	render(c, w);
+	 render(c, w);
+	
+	// t_word w = default_word();
+	// t_point point = create_point(-2, 2, -2);
+	// printf("is %d\n", is_shadowed(w, point, 2));
+	// t_camera c = camera(800, 800, M_PI/ 3);
+	// c.trans = view_transformation(create_point(0, 1.5, -5), create_point(0, 1, 0), create_vector(0, 1, 0));
+	// render(c, w);
 	// t_ray r = ray_for_pixel(c, 100, 50);
-	// printf("o   (%f, %f, %f, %f)\n", r.origine.x, r.origine.y, r.origine.z, r.origine.w);
-	// printf("d   (%f, %f, %f, %.f)\n", r.direction.x, r.direction.y, r.direction.z, r.direction.w);
 	
 	// t_intersect *xs = intersect_world(w, r);
 	// int i = 0;

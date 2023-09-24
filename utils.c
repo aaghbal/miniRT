@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 18:36:33 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/09/23 09:30:43 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/09/23 22:16:40 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,12 @@ int py(double x)
 	return ((-x) * HEIGHT / 10 + HEIGHT/2);
 }
 
+bool equal(double a, double b)
+{
+	if (fabs(a - b) < EPSILON)
+		return (true);
+	return (false);
+}
 // double	**join_matr_ind(double **m)
 // {
 // 	int i = 0;

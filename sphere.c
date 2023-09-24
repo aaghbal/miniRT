@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 14:43:46 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/09/22 11:38:00 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/09/23 21:20:32 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,12 @@ t_sphere sphere()
 	return (s);
 }
 
-t_intersect *new_intersec(double min, double max, t_sphere sp)
+t_intersect *new_intersec(double min, t_sphere sp)
 {
 	t_intersect *new;
 
 	new = malloc(sizeof(t_intersect));
 	new->min = min;
-	new->max = max;
 	new->s = sp;
 	new->next = NULL;
 	return (new);

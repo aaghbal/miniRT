@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 13:05:10 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/09/23 08:13:44 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/09/23 22:32:19 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,7 @@ t_intersect hit(t_intersect *res)
 {
 	t_intersect r;
 
-	r.min = 10000;
-	r.max = 0;
+	r.min = __DBL_MAX__;
 	while (res)
 	{
 		if(res->min < r.min && res->min > 0)
@@ -47,7 +46,7 @@ t_intersect hit(t_intersect *res)
 		}
 		res = res->next;
 	}
-	if(r.min == 10000)
+	if(r.min == __DBL_MAX__)
 		r.min = 0;
 	return(r);
 }
