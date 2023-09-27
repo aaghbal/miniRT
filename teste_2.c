@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 13:13:33 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/09/21 18:15:58 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/09/27 13:01:22 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int main()
 	t_mlx *mlx = mlx_init(WIDTH, HEIGHT, "test", false);
 	t_mlx_image *img = mlx_new_image(mlx, WIDTH, HEIGHT);
 	mlx_image_to_window(mlx, img, 0, 0);
-	t_sphere sp;
+	t_shape sp;
 	sp.trans = identity();
 	float i = 0;
 	float j = 0;
@@ -52,7 +52,7 @@ int main()
 	////////////////////////////
 	int i = 0;
 	int j;
-	t_sphere s = sphere();
+	t_shape s = sphere();
 	print_matrice(s.sp);
 	while (i < c.width)
 	{

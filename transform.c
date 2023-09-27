@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 16:46:06 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/09/21 19:22:49 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/09/25 17:40:25 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_ray transform(t_ray r, double **m)
 	return (ray);
 }
 
-void	set_transform(t_sphere *s, double **t)
+void	set_transform(t_shape *s, double **t)
 {
-	s->trans = t;
+	s->tranform = t;
 }

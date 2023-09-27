@@ -6,13 +6,13 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 18:35:58 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/09/24 16:00:17 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/09/27 17:59:48 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_vector normal_at(t_sphere *sp, t_point word_point)
+t_vector normal_at(t_shape *sp, t_point word_point)
 {
 	double **inv;
 	t_point object_point;
@@ -20,7 +20,7 @@ t_vector normal_at(t_sphere *sp, t_point word_point)
 	t_vector world_normal;
 	t_vector vect;
 
-	inv = inverse_matrix(sp->trans);
+	inv = inverse_gauss(sp->tranform);
 	object_point = mul_mat_point(inv, word_point);
 	object_normal = sub_to_point(object_point, create_point(0, 0, 0));
 	world_normal = mul_mat_vector(transposing(inv), object_normal);

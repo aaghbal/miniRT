@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 13:05:10 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/09/23 22:32:19 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/09/27 16:12:38 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ t_intersect hit(t_intersect *res)
 	r.min = __DBL_MAX__;
 	while (res)
 	{
+		// printf("%f\n", res->min);
 		if(res->min < r.min && res->min > 0)
 		{
 			r.min = res->min;

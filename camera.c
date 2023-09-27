@@ -6,12 +6,11 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 14:33:38 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/09/24 16:00:32 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/09/27 18:12:29 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
 
 
 t_camera camera(double hsize, double vsize, double field_view)
@@ -57,7 +56,7 @@ t_ray ray_for_pixel(t_camera camera, double px, double py)
 	yoffset = (py + 0.5) * camera.pixel_size;
 	word_x = camera.half_width - xoffset;
 	word_y = camera.half_height - yoffset;
-	inv = inverse_matrix(camera.trans);
+	inv = inverse_gauss(camera.trans);
 	pixel = mul_mat_point(inv, create_point(word_x, word_y, -1));
 	origine = mul_mat_point(inv, create_point(0, 0, 0));
 	direc = normalize(sub_to_point(pixel, origine));
@@ -72,7 +71,6 @@ void render(t_camera c, t_word w)
 	t_ray r;
 
 	i = 0;
-	// t_canvas image = create_canvas(c.vsize, c.hsize);
 	t_mlx *mlx = mlx_init(c.vsize, c.hsize, "test", true);
 	t_mlx_image *img = mlx_new_image(mlx, c.vsize, c.hsize);
 	mlx_image_to_window(mlx, img, 0, 0);
@@ -83,7 +81,7 @@ void render(t_camera c, t_word w)
 		{
 			r = ray_for_pixel(c, i, j);
 			t_color col = color_at(w, r, 6);
-			mlx_putpixel(img, i, j, conv_color(col.red, col.green, col.blue));			
+			mlx_putpixel(img, i, j, conv_color(col.red, col.green, col.blue));
 			j++;
 		}
 		i++; 

@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 10:47:36 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/09/21 19:22:34 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/09/27 13:01:22 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@
 // 	return(ray2);
 // }
 
-// void set_transformation(t_sphere *sp, float **t)
+// void set_transformation(t_shape *sp, float **t)
 // {
 // 	sp->trans = t;
 // }
 
-// t_tuple normal_at(t_sphere *sp, t_tuple word_point)
+// t_tuple normal_at(t_shape *sp, t_tuple word_point)
 // {
 // 	t_tuple obj_point;
 // 	t_tuple obj_normal;

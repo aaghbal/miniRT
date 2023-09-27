@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 16:35:35 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/09/22 10:59:11 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/09/27 13:01:22 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int main()
 	t_mlx *mlx = mlx_init(WIDTH, HEIGHT, "test", true);
 	t_mlx_image *img = mlx_new_image(mlx, WIDTH, HEIGHT);
 	mlx_image_to_window(mlx, img, 0, 0);
-	t_sphere sp;
+	t_shape sp;
 	t_tuple light_pos = create_tuple(0, 10, -10, 1);
 	t_tuple light_col = create_tuple(1 ,1, 1, 1);
 	t_light light = point_light(light_pos, light_col);
@@ -71,7 +71,7 @@ int main()
 	t_mlx *mlx = mlx_init(c.width, c.height, "test", true);
 	t_mlx_image *img = mlx_new_image(mlx, c.width, c.height);
 	mlx_image_to_window(mlx, img, 0, 0);
-	t_sphere s = sphere();
+	t_shape s = sphere();
 	s.m.color = create_color(1, 0.9, 0.9);
 	s.trans = scaling(10, 0.01, 10);
 	s.m.specular = 0;

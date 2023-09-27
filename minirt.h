@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:13:01 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/09/24 21:59:57 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/09/27 18:11:39 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,18 +85,6 @@ typedef struct s_material
 	double shininess;
 }t_material;
 
-typedef struct s_sphere
-{
-	double **trans;
-	t_material m;
-}t_sphere;
-
-typedef struct s_intersec
-{
-	double min;
-	t_sphere s;
-	struct s_intersec *next;
-}t_intersect;
 
 typedef struct s_data
 {
@@ -106,10 +94,16 @@ typedef struct s_data
 	double discr;
 }t_data;
 
+typedef struct s_shape
+{
+	double **tranform;
+	t_material m;
+}t_shape;
+
 typedef struct t_intersection
 {
 	double t;
-	t_sphere sp;
+	t_shape sp;
 }t_intersection;
 
 
@@ -119,16 +113,11 @@ typedef struct s_light
 	t_color intensity;
 }t_light;
 
-typedef struct s_word
-{
-	t_sphere *s;
-	t_light *l;
-}t_word;
 
 typedef struct s_comps
 {
 	double t;
-	t_sphere obj;
+	t_shape obj;
 	t_point point;
 	t_vector eyev;
 	t_vector normalv;
@@ -148,6 +137,18 @@ typedef struct s_camera
 }t_camera;
 
 // vector_point
+typedef struct s_word
+{
+	t_shape *s;
+	t_light *l;
+}t_word;
+
+typedef struct s_intersec
+{
+	double min;
+	t_shape s;
+	struct s_intersec *next;
+}t_intersect;
 
 t_vector create_vector(double x, double y, double z);
 t_point create_point(double x, double y, double z);
@@ -215,21 +216,21 @@ t_point position(t_ray ray, double t);
 
 // sphere
 
-t_sphere sphere();
-t_intersect *new_intersec(double min, t_sphere sp);
+t_shape test_shape(void);
+t_intersect *new_intersec(double min, t_shape sp);
 t_intersect *intersect_world(t_word w, t_ray r, int n_object);
 void	add_back(t_intersect **lst, t_intersect *new);
 void	add_front(t_intersect **lst, t_intersect *new);
-t_intersect *intersect(t_sphere sp, t_ray r);
-t_intersection intersection(double t, t_sphere s);
+t_intersect *intersect(t_shape s, t_ray ra);
+t_intersection intersection(double t, t_shape s);
 
 // transform 
 
 t_ray transform(t_ray r, double **m);
-void	set_transform(t_sphere *s, double **t);
+void	set_transform(t_shape *s, double **t);
 
 // normal
-t_vector normal_at(t_sphere *sp, t_point word_point);
+t_vector normal_at(t_shape *sp, t_point word_point);
 t_vector reflect(t_vector in, t_vector normal);
 
 //light
@@ -240,7 +241,7 @@ t_color lighting(t_material m, t_light light, t_point point, t_vector eyev, t_ve
 
 // word 
 t_word default_word();
-t_word word(t_sphere *s, t_light *l);
+t_word word(t_shape *s, t_light *l);
 t_comps prepare_computations(t_intersection i, t_ray ray);
 t_color shade_hit(t_word w, t_comps com, int n_obj);
 t_intersect hit(t_intersect *res);
@@ -252,4 +253,6 @@ void render(t_camera c, t_word w);
 
 /////////////
 bool is_shadowed(t_word w, t_point point, int n_obj, t_light l);
+double  **inverse_gauss(double **n);
+void print_matrice(double **m);
 #endif

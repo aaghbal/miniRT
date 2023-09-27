@@ -6,22 +6,14 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 14:43:46 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/09/23 21:20:32 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/09/27 13:09:59 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_sphere sphere()
-{
-	t_sphere s;
 
-	s.trans = identity();
-	s.m = material();
-	return (s);
-}
-
-t_intersect *new_intersec(double min, t_sphere sp)
+t_intersect *new_intersec(double min, t_shape sp)
 {
 	t_intersect *new;
 
