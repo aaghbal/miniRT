@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 14:33:38 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/09/27 18:12:29 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/09/28 18:37:38 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void render(t_camera c, t_word w)
 		while (j < c.hsize)
 		{
 			r = ray_for_pixel(c, i, j);
-			t_color col = color_at(w, r, 6);
+			t_color col = color_at(w, r, 4);
 			mlx_putpixel(img, i, j, conv_color(col.red, col.green, col.blue));
 			j++;
 		}

@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:08:58 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/09/27 18:57:56 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/09/28 19:09:11 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,65 +33,46 @@ void print_matrice(double **m)
 t_shape *create_shape(void)
 {
 	t_shape *sp;
-	sp = malloc(sizeof(t_shape) * 6);
+	sp = malloc(sizeof(t_shape) * 4);
 	sp[0] = test_shape();
-	sp[0].m.color = create_color(1,0.9,0.9);
-	sp[0].m.specular = 0;
-	sp[0].tranform = scaling(10, 0.01, 10);
-	//////////////////////////////////////
-	sp[1] = test_shape();
-	sp[1].m.color = create_color(1,0.9,0.9);
-	sp[1].m.specular = 0;
-	double **tran = translation(0, 0, 5);
-	double **ry = rotation_y(((M_PI * -1) / 4));
-	double **res1 = multiple_matrice(tran, ry);
-	double **rx = rotation_x(M_PI / 2);
-	res1 = multiple_matrice(res1, rx);
-	double **sc = scaling(10, 0.01, 10);
-	res1 = multiple_matrice(res1, sc);
-	sp[1].tranform = res1;
-	//////////////////////////////////////
-	sp[2] = test_shape();
-	sp[2].m.color = create_color(1,0.9,0.9);
-	sp[2].m.specular = 0;
-	tran = translation(0, 0, 5);
-	ry = rotation_y((M_PI / 4));
-	res1 = multiple_matrice(tran, ry);
-	rx = rotation_x(M_PI / 2);
-	res1 = multiple_matrice(res1, rx);
-	sc = scaling(10, 0.01, 10);
-	res1 = multiple_matrice(res1, sc);
-	sp[2].tranform = res1;
+	sp[0].tranform = translation(-0.5, 1, 0.5);
+	sp[0].m.color = create_color(1, 0.9, 0.9);
+	sp[0].m.diffuse = 0.7;
+	sp[0].m.specular = 0.3;
+	sp[0].obj = pla;
 	// /////////////////////////////////////////
-	sp[3] = test_shape();
-	sp[3].tranform = translation(-0.5, 1, 0.5);
-	sp[3].m.color = create_color(0.1, 1, 0.5);
-	sp[3].m.diffuse = 0.7;
-	sp[3].m.specular = 0.3;
+	sp[1] = test_shape();
+	sp[1].tranform = translation(-0.5, 1, 0.5);
+	sp[1].m.color = create_color(0.1, 1, 0.5);
+	sp[1].m.diffuse = 0.7;
+	sp[1].m.specular = 0.3;
+	sp[1].obj = sph;
 	
 	// /////////////////////////////////////////
-	sp[4] = test_shape();
-	sp[4].tranform = multiple_matrice(translation(1.5, 0.5, -0.5) ,scaling(0.5, 0.5, 0.5));
-	sp[4].m.color = create_color(0.5, 1, 0.1);
-	sp[4].m.diffuse = 0.7;
-	sp[4].m.specular = 0.3;
+	sp[2] = test_shape();
+	sp[2].tranform = multiple_matrice(translation(1.5, 0.5, -0.5) ,scaling(0.5, 0.5, 0.5));
+	sp[2].m.color = create_color(1.5, 1, 0.1);
+	sp[2].m.diffuse = 0.7;
+	sp[2].m.specular = 0.3;
+	sp[2].obj = sph;
 	// /////////////////////////
-	sp[5] = test_shape();
-	sp[5].tranform = scaling(1.5, 0.5, 0.5);//multiple_matrice(translation(-1.5, 0.33, -0.75) ,scaling(0.33, 0.33, 0.33));
-	sp[5].m.color = create_color(1, 0.8, 0.1);
-	sp[5].m.diffuse = 0.7;
-	sp[5].m.specular = 0.3;
+	sp[3] = test_shape();
+	sp[3].tranform = multiple_matrice(translation(-1.5, 0.33, -0.75) ,scaling(0.33, 0.33, 0.33));
+	sp[3].m.color = create_color(1, 0.8, 0.1);
+	sp[3].m.diffuse = 0.7;
+	sp[3].m.specular = 0.3;
+	sp[3].obj = sph;
 	return (sp);
 }
 int main()
 {
 	t_shape *s = create_shape();
-	t_light *l = malloc(sizeof(t_light) * 2);
+	t_light *l = malloc(sizeof(t_light));
 	l[0] = point_light(create_point(-10, 10, -10), create_color(1, 1, 1));
-	l[1] = point_light(create_point(10, 10, -10), create_color(0.5, 0.5, 0.5));
+	// l[1] = point_light(create_point(10, 10, -10), create_color(0.5, 0.5, 0.5));
 	t_word w = word(s, l);
-	t_camera c = camera(500, 500, M_PI/ 3);
-	c.trans = view_transformation(create_point(0, 2.5, -3), create_point(0,-1, 0), create_vector(0, 1, 0));
+	t_camera c = camera(500, 500, M_PI/ 2);
+	c.trans = view_transformation(create_point(0, 1.5, -5), create_point(0,1, 0), create_vector(0, 1, 0));
 	 render(c, w);
 	
 	// t_word w = default_word();

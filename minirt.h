@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:13:01 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/09/27 18:11:39 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/09/28 18:42:43 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,13 @@
 
 #define WIDTH 1000
 #define HEIGHT 1000
+
+typedef enum s_obj
+{
+	sph,
+	pla,
+	cyl
+}t_obj;
 
 typedef struct s_vector
 {
@@ -92,12 +99,16 @@ typedef struct s_data
 	double b;
 	double c;
 	double discr;
+	double		t1;
+	double		t2;
 }t_data;
 
 typedef struct s_shape
 {
 	double **tranform;
 	t_material m;
+	double **ivers_tran;
+	t_obj  obj;
 }t_shape;
 
 typedef struct t_intersection
@@ -255,4 +266,16 @@ void render(t_camera c, t_word w);
 bool is_shadowed(t_word w, t_point point, int n_obj, t_light l);
 double  **inverse_gauss(double **n);
 void print_matrice(double **m);
+
+//inverse matrix
+
+double	**join_matr_ind(double **m);
+int swap_diagonal_element(double **mat, int i);
+void swap_row(double **mat, int swaprow , int i);
+double	**copy_result(double **mat);
+
+// plan
+
+double plan_intersect(t_shape s, t_ray ray);
+t_vector plan_normal_at(t_shape *sp, t_point word_point);
 #endif

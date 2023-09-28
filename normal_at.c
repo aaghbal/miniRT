@@ -6,11 +6,18 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 18:35:58 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/09/27 17:59:48 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/09/28 18:26:32 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+t_vector plan_normal_at(t_shape *sp, t_point word_point)
+{
+	(void)sp;
+	(void)word_point;
+	return(create_vector(0, 1, 0));
+}
 
 t_vector normal_at(t_shape *sp, t_point word_point)
 {

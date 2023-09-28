@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 11:51:09 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/09/27 15:36:34 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/09/28 19:00:52 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ t_comps prepare_computations(t_intersection i, t_ray ray)
 	com.obj = i.sp;
 	com.point = position(ray, com.t);
 	com.eyev = negating_vect(ray.direction);
-	com.normalv = normal_at(&com.obj, com.point);
+	if (i.sp.obj == sph)
+		com.normalv = normal_at(&com.obj, com.point);
+	else if (i.sp.obj == sph)
+		com.normalv = plan_normal_at(&com.obj, com.point);
 	com.over_point = add_point_vector(com.point, scaler_vect(com.normalv, EPSILON));
 	if(dot_product(com.normalv, com.eyev) < 0)
 	{
@@ -44,7 +47,6 @@ t_color shade_hit(t_word w, t_comps com, int n_obj)
 		col = adding_color(col ,lighting(com.obj.m, w.l[i], com.point, com.eyev,
 			com.normalv, shadowed));
 		i++;
-		// printf("%f %f  %f\n", col.red, col.green, col.blue);
 	}
 	return (col);
 }

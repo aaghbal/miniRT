@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:43:20 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/09/27 17:40:30 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/09/28 19:07:00 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ t_color color_at(t_word w, t_ray r, int n_object)
 	col = create_color(0, 0, 0);
 	xs = intersect_world(w, r, n_object);
 	h = hit(xs);
+	// printf("%f   %d\n", h.min, h.s.obj);
 	if (equal(h.min, 0))
 		return (create_color(0, 0, 0));
 	i = intersection(h.min, h.s);
