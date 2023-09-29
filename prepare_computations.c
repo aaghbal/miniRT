@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 11:51:09 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/09/28 19:00:52 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/09/29 15:03:21 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ t_comps prepare_computations(t_intersection i, t_ray ray)
 	com.point = position(ray, com.t);
 	com.eyev = negating_vect(ray.direction);
 	if (i.sp.obj == sph)
-		com.normalv = normal_at(&com.obj, com.point);
-	else if (i.sp.obj == sph)
+		com.normalv = sphere_normal_at(&com.obj, com.point);
+	else if (i.sp.obj == pla)
 		com.normalv = plan_normal_at(&com.obj, com.point);
 	com.over_point = add_point_vector(com.point, scaler_vect(com.normalv, EPSILON));
 	if(dot_product(com.normalv, com.eyev) < 0)

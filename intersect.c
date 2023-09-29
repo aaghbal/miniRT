@@ -6,24 +6,26 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 15:31:08 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/09/28 18:47:08 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/09/29 16:42:43 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
+
 double plan_intersect(t_shape s, t_ray ray)
 {
-	(void)s;
+	t_ray		r;
 	double			t;
 
-	if (equal(fabs(ray.direction.y), EPSILON))
+	r = transform(ray, inverse_gauss(s.tranform));
+	if (equal(r.direction.y, EPSILON))
 		return (0);
-	t = -ray.origine.y / ray.direction.y;
+	t = -r.origine.y / r.direction.y;
 	return (t);
 }
 
-t_intersect *intersect(t_shape s, t_ray ray)
+t_intersect *sphere_intersect(t_shape s, t_ray ray)
 {
 	t_intersect *res;
 	t_data		data;
@@ -50,6 +52,7 @@ t_intersect *intersect(t_shape s, t_ray ray)
 		return(new_intersec(data.t2, s));
 	return (new_intersec(0, s)); 
 }
+
 t_intersect *intersect_world(t_word w, t_ray r, int n_object)
 {
 	t_intersect *xs;
@@ -61,7 +64,7 @@ t_intersect *intersect_world(t_word w, t_ray r, int n_object)
 	while (i < n_object)
 	{
 		if (w.s[i].obj == sph)
-			new = intersect(w.s[i], r);
+			new = sphere_intersect(w.s[i], r);
 		else if (w.s[i].obj == pla)
 			new = new_intersec(plan_intersect(w.s[i], r), w.s[i]);
 		if (!xs)

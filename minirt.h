@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:13:01 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/09/28 18:42:43 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/09/29 16:14:59 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,8 @@ typedef struct s_data
 	double discr;
 	double		t1;
 	double		t2;
+	double		y0;
+	double		y1;
 }t_data;
 
 typedef struct s_shape
@@ -109,6 +111,9 @@ typedef struct s_shape
 	t_material m;
 	double **ivers_tran;
 	t_obj  obj;
+	bool	closed;
+	double min;
+	double max;
 }t_shape;
 
 typedef struct t_intersection
@@ -232,7 +237,7 @@ t_intersect *new_intersec(double min, t_shape sp);
 t_intersect *intersect_world(t_word w, t_ray r, int n_object);
 void	add_back(t_intersect **lst, t_intersect *new);
 void	add_front(t_intersect **lst, t_intersect *new);
-t_intersect *intersect(t_shape s, t_ray ra);
+t_intersect *sphere_intersect(t_shape s, t_ray ray);
 t_intersection intersection(double t, t_shape s);
 
 // transform 
@@ -241,7 +246,7 @@ t_ray transform(t_ray r, double **m);
 void	set_transform(t_shape *s, double **t);
 
 // normal
-t_vector normal_at(t_shape *sp, t_point word_point);
+t_vector sphere_normal_at(t_shape *sp, t_point word_point);
 t_vector reflect(t_vector in, t_vector normal);
 
 //light
@@ -278,4 +283,11 @@ double	**copy_result(double **mat);
 
 double plan_intersect(t_shape s, t_ray ray);
 t_vector plan_normal_at(t_shape *sp, t_point word_point);
+
+// cyl
+
+t_intersect *cyl_intersect(t_shape s, t_ray ray);
+t_vector cyl_normal_at(t_shape s, t_point point);
+void ft_swap(double *t0, double *t1);
+
 #endif

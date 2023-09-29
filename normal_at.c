@@ -6,20 +6,33 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 18:35:58 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/09/28 18:26:32 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/09/29 15:05:18 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_vector plan_normal_at(t_shape *sp, t_point word_point)
+t_vector cyl_normal_at(t_shape s, t_point point)
 {
-	(void)sp;
-	(void)word_point;
-	return(create_vector(0, 1, 0));
+	(void)s;
+	return (create_vector(point.x, 0, point.z));
 }
 
-t_vector normal_at(t_shape *sp, t_point word_point)
+t_vector plan_normal_at(t_shape *sp, t_point word_point)
+{
+	double **inv;
+	(void)word_point;
+	t_vector world_normal;
+	t_vector vect;
+	
+	inv = inverse_gauss(sp->tranform);
+	world_normal = mul_mat_vector(transposing(inv), create_vector(0, 1, 0));
+	world_normal.w = 0;
+	vect = normalize(world_normal);
+	return (vect);
+}
+
+t_vector sphere_normal_at(t_shape *sp, t_point word_point)
 {
 	double **inv;
 	t_point object_point;
