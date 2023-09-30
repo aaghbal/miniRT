@@ -6,7 +6,7 @@
 #    By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/06 15:13:12 by aaghbal           #+#    #+#              #
-#    Updated: 2023/09/29 18:27:13 by aaghbal          ###   ########.fr        #
+#    Updated: 2023/09/30 17:41:10 by aaghbal          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ SRC = main.c create_vec_point.c add_vector_point.c sub_vector_point.c \
 		rotation.c utils.c ray.c sphere.c intersect.c transform.c normal_at.c \
 		light.c word.c prepare_computations.c color_at.c view_transformation.c \
 		camera.c shadow.c inverse_matrix.c shape.c inverse_matrix_1.c \
-		intersect_sphere.c 
+		intersect_sphere.c intersect_cones.c 
 
 OB_SRC = $(SRC:.c=.o)
 RM = rm -rf

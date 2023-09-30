@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 15:31:08 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/09/29 16:42:43 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/09/30 18:33:50 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,12 @@ t_intersect *sphere_intersect(t_shape s, t_ray ray)
 		res = new_intersec(0, s);
 		return (res);
 	}
-	data.t1 = (-data.b - sqrt(data.discr)) / (2 * data.a); 
-	data.t2 = (-data.b + sqrt(data.discr)) / (2 * data.a);
-	if(data.t1 < data.t2 && data.t1 > 0)
-		return (new_intersec(data.t1, s));
-	else if (data.t2 > 0)
-		return(new_intersec(data.t2, s));
+	data.t0 = (-data.b - sqrt(data.discr)) / (2 * data.a); 
+	data.t1 = (-data.b + sqrt(data.discr)) / (2 * data.a);
+	if(data.t0 < data.t1 && data.t0 > 0)
+		return (new_intersec(data.t0, s));
+	else if (data.t1 > 0)
+		return(new_intersec(data.t1, s));
 	return (new_intersec(0, s)); 
 }
 
@@ -67,6 +67,8 @@ t_intersect *intersect_world(t_word w, t_ray r, int n_object)
 			new = sphere_intersect(w.s[i], r);
 		else if (w.s[i].obj == pla)
 			new = new_intersec(plan_intersect(w.s[i], r), w.s[i]);
+		else if (w.s[i].obj == cyl)
+			new = cyl_intersect(w.s[i], r);
 		if (!xs)
 			xs = new;
 		else if (new->min < xs->min)

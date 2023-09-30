@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:13:01 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/09/29 16:14:59 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/09/30 18:25:35 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <stdbool.h>
-
+#include <pthread.h>
 
 #define EPSILON 0.00001
 
@@ -32,7 +32,8 @@ typedef enum s_obj
 {
 	sph,
 	pla,
-	cyl
+	cyl,
+	con
 }t_obj;
 
 typedef struct s_vector
@@ -99,8 +100,8 @@ typedef struct s_data
 	double b;
 	double c;
 	double discr;
+	double		t0;
 	double		t1;
-	double		t2;
 	double		y0;
 	double		y1;
 }t_data;
@@ -108,6 +109,7 @@ typedef struct s_data
 typedef struct s_shape
 {
 	double **tranform;
+	double	raduis;
 	t_material m;
 	double **ivers_tran;
 	t_obj  obj;
@@ -165,6 +167,12 @@ typedef struct s_intersec
 	t_shape s;
 	struct s_intersec *next;
 }t_intersect;
+
+typedef struct s_thread
+{
+	int start_x;
+	int start_y;
+}	t_thread;
 
 t_vector create_vector(double x, double y, double z);
 t_point create_point(double x, double y, double z);
@@ -288,6 +296,11 @@ t_vector plan_normal_at(t_shape *sp, t_point word_point);
 
 t_intersect *cyl_intersect(t_shape s, t_ray ray);
 t_vector cyl_normal_at(t_shape s, t_point point);
+t_intersect *intersect_caps(t_shape s, t_ray r, t_intersect *xs);
 void ft_swap(double *t0, double *t1);
+
+// cone  
+t_intersect *cone_intersect(t_shape s, t_ray ray);
+t_vector cone_normal_at(t_shape s, t_point word_point);
 
 #endif
