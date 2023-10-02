@@ -12,9 +12,9 @@
 
 #include "minirt.h"
 
-t_vector negating_vect(t_vector v)
+t_vector	negating_vect(t_vector v)
 {
-	t_vector n;
+	t_vector	n;
 
 	n.x = v.x * -1.0;
 	n.y = v.y * -1.0;
@@ -23,9 +23,9 @@ t_vector negating_vect(t_vector v)
 	return (n);
 }
 
-t_point negating_point(t_point p)
+t_point	negating_point(t_point p)
 {
-	t_point n;
+	t_point	n;
 
 	n.x = p.x * -1.0;
 	n.y = p.y * -1.0;
@@ -34,9 +34,9 @@ t_point negating_point(t_point p)
 	return (n);
 }
 
-t_vector scaler_vect(t_vector v, double s)
+t_vector	scaler_vect(t_vector v, double s)
 {
-	t_vector res;
+	t_vector	res;
 
 	res.x = v.x * s;
 	res.y = v.y * s;
@@ -45,9 +45,9 @@ t_vector scaler_vect(t_vector v, double s)
 	return (res);
 }
 
-t_point scaler_point(t_point p, double s)
+t_point	scaler_point(t_point p, double s)
 {
-	t_point res;
+	t_point	res;
 
 	res.x = p.x * s;
 	res.y = p.y * s;
@@ -56,9 +56,9 @@ t_point scaler_point(t_point p, double s)
 	return (res);
 }
 
-t_vector div_scaler_vect(t_vector v, double s)
+t_vector	div_scaler_vect(t_vector v, double s)
 {
-	t_vector res;
+	t_vector	res;
 
 	res.x = v.x / s;
 	res.y = v.y / s;
@@ -66,4 +66,3 @@ t_vector div_scaler_vect(t_vector v, double s)
 	res.w = v.w / s;
 	return (res);
 }
-

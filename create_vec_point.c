@@ -12,9 +12,9 @@
 
 #include "minirt.h"
 
-t_vector create_vector(double x, double y, double z)
+t_vector	create_vector(double x, double y, double z)
 {
-	t_vector v;
+	t_vector	v;
 
 	v.x = x;
 	v.y = y;
@@ -23,9 +23,9 @@ t_vector create_vector(double x, double y, double z)
 	return (v);
 }
 
-t_point create_point(double x, double y, double z)
+t_point	create_point(double x, double y, double z)
 {
-	t_point p;
+	t_point	p;
 
 	p.x = x;
 	p.y = y;

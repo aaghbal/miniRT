@@ -6,15 +6,15 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 11:04:20 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/09/20 11:11:57 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/01 14:50:28 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_vector sub_to_point(t_point p1, t_point p2)
+t_vector	sub_to_point(t_point p1, t_point p2)
 {
-	t_vector v;
+	t_vector	v;
 
 	v.x = p1.x - p2.x;
 	v.y = p1.y - p2.y;
@@ -23,9 +23,9 @@ t_vector sub_to_point(t_point p1, t_point p2)
 	return (v);
 }
 
-t_point sub_point_vect(t_point p, t_vector v)
+t_point	sub_point_vect(t_point p, t_vector v)
 {
-	t_point res;
+	t_point	res;
 
 	res.x = p.x - v.x;
 	res.y = p.y - v.y;
@@ -34,9 +34,9 @@ t_point sub_point_vect(t_point p, t_vector v)
 	return (res);
 }
 
-t_vector sub_to_vector(t_vector v1, t_vector v2)
+t_vector	sub_to_vector(t_vector v1, t_vector v2)
 {
-	t_vector v;
+	t_vector	v;
 
 	v.x = v1.x - v2.x;
 	v.y = v1.y - v2.y;

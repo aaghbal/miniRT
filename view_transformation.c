@@ -6,17 +6,17 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 11:04:38 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/09/22 14:19:57 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/02 11:54:42 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-double **orientation(t_vector left, t_vector true_up, t_vector forward)
+double	**orientation(t_vector left, t_vector true_up, t_vector forward, t_free **f)
 {
-	double **m;
+	double	**m;
 
-	m = identity();
+	m = identity(f);
 	m[0][0] = left.x;
 	m[0][1] = left.y;
 	m[0][2] = left.z;
@@ -26,22 +26,22 @@ double **orientation(t_vector left, t_vector true_up, t_vector forward)
 	m[2][0] = forward.x * -1;
 	m[2][1] = forward.y * -1;
 	m[2][2] = forward.z * -1;
-	return(m);
+	return (m);
 }
 
-double **view_transformation(t_point from, t_point to, t_vector up)
+double	**view_transformation(t_point from, t_point to, t_vector up, t_free **f)
 {
-	t_vector forward;
-	t_vector upn;
-	t_vector left;
-	t_vector true_up;
-	double **res;
+	t_vector	forward;
+	t_vector	upn;
+	t_vector	left;
+	t_vector	true_up;
+	double		**res;
 
 	forward = normalize(sub_to_point(to, from));
 	upn = normalize(up);
 	left = cross_product(forward, upn);
 	true_up = cross_product(left, forward);
-	res = multiple_matrice(orientation(left, true_up, forward),
-			translation(from.x * -1, from.y * -1, from.z * -1));
+	res = multiple_matrice(orientation(left, true_up, forward, f),
+			translation(from.x * -1, from.y * -1, from.z * -1, f), f);
 	return (res);
 }

@@ -12,13 +12,11 @@
 
 #include "minirt.h"
 
-
-t_canvas create_canvas(int w, int e)
+t_canvas	create_canvas(int w, int e)
 {
-	t_canvas ca;
+	t_canvas	ca;
 
 	ca.width = w;
 	ca.height = e;
 	return (ca);
 }
-

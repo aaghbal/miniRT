@@ -1,58 +1,54 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sphere.c                                           :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/21 14:43:46 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/02 11:24:24 by aaghbal          ###   ########.fr       */
+/*   Created: 2023/10/02 10:43:42 by aaghbal           #+#    #+#             */
+/*   Updated: 2023/10/02 13:10:19 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_intersect	*new_intersec(double min, t_shape sp, t_free **f)
+t_free	*new_addr(void *address)
 {
-	t_intersect	*new;
+	t_free	*new;
 
-	new = malloc(sizeof(t_intersect));
-	add_addr(f, new_addr(new));
-	new->min = min;
-	new->s = sp;
+	new = malloc(sizeof(t_free));
+	new->add = address;
+	new->last = NULL;
 	new->next = NULL;
 	return (new);
 }
 
-t_intersect	*last(t_intersect *lst)
+void	add_addr(t_free **lst, t_free *new)
 {
-	if (lst == NULL)
-		return (lst);
-	while (lst && lst->next != NULL)
-		lst = lst->next;
-	return (lst);
-}
-
-void	add_back(t_intersect **lst, t_intersect *new)
-{
-	t_intersect	*p;
-
 	if (lst != NULL)
 	{
 		if (*lst == NULL)
+		{
 			*lst = new;
+			(*lst)->last = new;
+		}
 		else
 		{
-			p = last(*lst);
-			p->next = new;
+			(*lst)->last->next = new;
+			(*lst)->last = new;
 		}
 	}
 }
 
-void	add_front(t_intersect **lst, t_intersect *new)
+void	free_all(t_free *f)
 {
-	if (!lst || !new)
-		return ;
-	new->next = *lst;
-	*lst = new;
+	t_free	*tmp;
+
+	while (f)
+	{
+		tmp = f;
+		f = f->next;
+		free (tmp->add);
+		free (tmp);
+	}
 }

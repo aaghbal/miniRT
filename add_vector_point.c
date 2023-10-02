@@ -6,15 +6,15 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 10:45:54 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/09/20 10:58:10 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/01 11:36:32 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_vector add_to_vector(t_vector v1, t_vector v2)
+t_vector	add_to_vector(t_vector v1, t_vector v2)
 {
-	t_vector res;
+	t_vector	res;
 
 	res.x = v1.x + v2.x;
 	res.y = v1.y + v2.y;
@@ -23,9 +23,9 @@ t_vector add_to_vector(t_vector v1, t_vector v2)
 	return (res);
 }
 
-t_point add_point_vector(t_point p, t_vector v)
+t_point	add_point_vector(t_point p, t_vector v)
 {
-	t_point res;
+	t_point	res;
 
 	res.x = p.x + v.x;
 	res.y = p.y + v.y;

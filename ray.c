@@ -6,23 +6,24 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 13:05:10 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/09/27 16:12:38 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/01 14:42:03 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_ray ray(t_point origine, t_vector direc)
+t_ray	ray(t_point origine, t_vector direc)
 {
-	t_ray ray;
+	t_ray	ray;
+
 	ray.origine = origine;
 	ray.direction = direc;
-	return(ray);
+	return (ray);
 }
 
-t_point position(t_ray ray, double t)
+t_point	position(t_ray ray, double t)
 {
-	t_point point;
+	t_point	point;
 
 	point.x = ray.origine.x + ray.direction.x * t;
 	point.y = ray.origine.y + ray.direction.y * t;
@@ -31,23 +32,21 @@ t_point position(t_ray ray, double t)
 	return (point);
 }
 
-
-t_intersect hit(t_intersect *res)
+t_intersect	hit(t_intersect *res)
 {
-	t_intersect r;
+	t_intersect	r;
 
 	r.min = __DBL_MAX__;
 	while (res)
 	{
-		// printf("%f\n", res->min);
-		if(res->min < r.min && res->min > 0)
+		if (res->min < r.min && res->min > 0)
 		{
 			r.min = res->min;
 			r.s = res->s;
 		}
 		res = res->next;
 	}
-	if(r.min == __DBL_MAX__)
+	if (r.min == __DBL_MAX__)
 		r.min = 0;
-	return(r);
+	return (r);
 }
