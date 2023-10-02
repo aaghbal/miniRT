@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/01 16:09:24 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/02 13:19:23 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/02 14:24:28 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,14 @@ t_cube check_axis(double ori, double dire)
 	return (t);
 }
 
-t_vector	cube_normal_at(t_shape s, t_point word_point, t_free **f)
+t_vector	cube_normal_at(t_shape s, t_point word_point)
 {
 	double		maxc;
 	double		**inv;
 	t_point		obj_p;
 
 	(void)s;
-	inv = inverse_gauss(s.tranform, f);
+	inv = inverse_gauss(s.tranform);
 	obj_p = mul_mat_point(inv, word_point);
 	maxc = ft_max(fabs(obj_p.x),fabs(obj_p.y),fabs(obj_p.z));
 	if (equal(maxc, fabs(obj_p.x)))
@@ -74,7 +74,7 @@ t_vector	cube_normal_at(t_shape s, t_point word_point, t_free **f)
 	return (create_vector(0, 0, obj_p.z));
 }
 
-t_intersect *cube_intersect(t_shape s, t_ray ray, t_free **f)
+t_intersect *cube_intersect(t_shape s, t_ray ray)
 {
 	t_ray 	r;
 	t_cube 	*res;
@@ -82,15 +82,15 @@ t_intersect *cube_intersect(t_shape s, t_ray ray, t_free **f)
 	t_intersect *xs;
 	
 	res = malloc(sizeof(t_cube) * 3);
-	add_addr(f, new_addr(res));
-	r = transform(ray, inverse_gauss(s.tranform, f));
+	ft_free(ADD, res);
+	r = transform(ray, inverse_gauss(s.tranform));
 	res[0] = check_axis(r.origine.x, r.direction.x);
 	res[1] = check_axis(r.origine.y, r.direction.y);
 	res[2] = check_axis(r.origine.z, r.direction.z);
 	t.min = ft_max(res[0].min, res[1].min, res[2].min);
 	t.max = ft_min(res[0].max, res[1].max, res[2].max);
 	if (t.min > t.max)
-		return (new_intersec(0, s, f));
-	xs = new_intersec(t.min, s, f);
+		return (new_intersec(0, s));
+	xs = new_intersec(t.min, s);
 	return (xs);
 }

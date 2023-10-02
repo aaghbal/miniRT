@@ -6,11 +6,33 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 10:43:42 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/02 13:10:19 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/02 14:22:23 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+void	free_all(t_free *f)
+{
+	t_free	*tmp;
+
+	while (f)
+	{
+		tmp = f;
+		f = f->next;
+		free (tmp->add);
+		free (tmp);
+	}
+}
+
+void	ft_free(int flag, void *addr)
+{
+	static t_free	*f = NULL;
+	if (flag == ADD)
+		add_addr(&f, new_addr(addr));
+	else if (flag == FREE)
+		free_all(f);
+}
 
 t_free	*new_addr(void *address)
 {
@@ -40,15 +62,3 @@ void	add_addr(t_free **lst, t_free *new)
 	}
 }
 
-void	free_all(t_free *f)
-{
-	t_free	*tmp;
-
-	while (f)
-	{
-		tmp = f;
-		f = f->next;
-		free (tmp->add);
-		free (tmp);
-	}
-}

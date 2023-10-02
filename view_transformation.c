@@ -6,17 +6,17 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 11:04:38 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/02 11:54:42 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/02 13:33:23 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-double	**orientation(t_vector left, t_vector true_up, t_vector forward, t_free **f)
+double	**orientation(t_vector left, t_vector true_up, t_vector forward)
 {
 	double	**m;
 
-	m = identity(f);
+	m = identity();
 	m[0][0] = left.x;
 	m[0][1] = left.y;
 	m[0][2] = left.z;
@@ -29,7 +29,7 @@ double	**orientation(t_vector left, t_vector true_up, t_vector forward, t_free *
 	return (m);
 }
 
-double	**view_transformation(t_point from, t_point to, t_vector up, t_free **f)
+double	**view_transformation(t_point from, t_point to, t_vector up)
 {
 	t_vector	forward;
 	t_vector	upn;
@@ -41,7 +41,7 @@ double	**view_transformation(t_point from, t_point to, t_vector up, t_free **f)
 	upn = normalize(up);
 	left = cross_product(forward, upn);
 	true_up = cross_product(left, forward);
-	res = multiple_matrice(orientation(left, true_up, forward, f),
-			translation(from.x * -1, from.y * -1, from.z * -1, f), f);
+	res = multiple_matrice(orientation(left, true_up, forward),
+			translation(from.x * -1, from.y * -1, from.z * -1));
 	return (res);
 }

@@ -6,12 +6,12 @@
 #    By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/06 15:13:12 by aaghbal           #+#    #+#              #
-#    Updated: 2023/10/02 11:43:23 by aaghbal          ###   ########.fr        #
+#    Updated: 2023/10/02 19:09:31 by aaghbal          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror -Ofast -march=native -flto -funroll-loops
 CMLX = -L $(shell brew --prefix glfw)/lib -lglfw -LMLX42/ -lmlx42  -framework OpenGL -framework AppKit
 NAME = minirt
 
@@ -21,20 +21,23 @@ SRC = main.c create_vec_point.c add_vector_point.c sub_vector_point.c \
 		rotation.c utils.c ray.c sphere.c intersect.c transform.c normal_at.c \
 		light.c word.c prepare_computations.c color_at.c view_transformation.c \
 		camera.c shadow.c inverse_matrix.c shape.c inverse_matrix_1.c \
-		intersect_cyl.c intersect_cube.c intersect_cones.c free.c
-
+		intersect_cyl.c intersect_cube.c intersect_cones.c free.c parsing.c \
+		get_next_line.c get_next_line_utils.c
 OB_SRC = $(SRC:.c=.o)
 RM = rm -rf
 
-all : $(NAME)
+all : libftl $(NAME)
 
-$(NAME) : $(OB_SRC) MLX42/libmlx42.a minirt.h 
-	$(CC) $(CFLAGS) $(CMLX) $(OB_SRC) -o $(NAME)
+$(NAME) : $(OB_SRC)
+	$(CC) $(CFLAGS) $(CMLX) $(OB_SRC) Libft/libft.a -o $(NAME)
 	
 MLX42/libmlx.a:
 	make -C MLX42/
 
-%.o : %.c
+libftl:
+	@make -C Libft/
+
+%.o : %.c minirt.h Libft/libft.h
 	$(CC) $(CFLAGS) -c $<
 
 clean :
@@ -43,6 +46,11 @@ clean :
 fclean : clean
 	$(RM) $(NAME) 
 
+libftclean:
+			make clean -C Libft
+
+libftfclean:
+			make fclean -C Libft
 
 re : fclean all
 

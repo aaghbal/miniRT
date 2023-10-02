@@ -6,13 +6,13 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 14:33:38 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/02 13:17:02 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/02 19:18:29 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_camera	camera(double hsize, double vsize, double field_view, t_free **f)
+t_camera	camera(double hsize, double vsize, double field_view)
 {
 	t_camera	c;
 	double		half_view;
@@ -21,7 +21,7 @@ t_camera	camera(double hsize, double vsize, double field_view, t_free **f)
 	c.hsize = hsize;
 	c.vsize = vsize;
 	c.field_of_view = field_view;
-	c.trans = identity(f);
+	c.trans = identity();
 	half_view = tan(c.field_of_view / 2);
 	aspect = c.hsize / c.vsize;
 	if (aspect >= 1)
@@ -38,7 +38,7 @@ t_camera	camera(double hsize, double vsize, double field_view, t_free **f)
 	return (c);
 }
 
-t_ray	ray_for_pixel(t_camera camera, double px, double py, t_free **f)
+t_ray	ray_for_pixel(t_camera camera, double px, double py)
 {
 	t_pixel		data;
 	t_ray		r;
@@ -50,7 +50,7 @@ t_ray	ray_for_pixel(t_camera camera, double px, double py, t_free **f)
 	data.yoffset = (py + 0.5) * camera.pixel_size;
 	data.word_x = camera.half_width - data.xoffset;
 	data.word_y = camera.half_height - data.yoffset;
-	data.inv = inverse_gauss(camera.trans, f);
+	data.inv = inverse_gauss(camera.trans);
 	pixel = mul_mat_point(data.inv, create_point(data.word_x, data.word_y, -1));
 	origine = mul_mat_point(data.inv, create_point(0, 0, 0));
 	direc = normalize(sub_to_point(pixel, origine));
@@ -58,30 +58,69 @@ t_ray	ray_for_pixel(t_camera camera, double px, double py, t_free **f)
 	return (r);
 }
 
-void	render(t_camera c, t_word w, t_free **f)
+typedef struct s_d {
+	t_word	w;
+	t_mlx	*mlx;
+	t_mlx_image *img;
+} t_d;
+
+void rez(int width, int height, void *v)
+{
+	t_d *d =v;
+	t_color		col;
+	t_camera	c;
+	
+	mlx_delete_image(d->mlx, d->img);
+	c = camera(height, width, M_PI / 3);
+	c.trans = view_transformation(create_point(0, 5.5, -7), create_point(0, 1,
+				1), create_vector(0, 1, 0));
+	d->img = mlx_new_image(d->mlx, c.vsize, c.hsize);
+	mlx_image_to_window(d->mlx, d->img, 0, 0);
+	int i = 1, j;
+	while (i < c.vsize)
+	{
+		j = 1;
+		while (j < c.hsize)
+		{
+			col = color_at(d->w, ray_for_pixel(c, i, j), 5);
+			mlx_putpixel(d->img, i, j, conv_color(col.red, col.green, col.blue));
+			j++;
+		}
+		i++;
+	}
+}
+
+void	render(t_word w)
 {
 	int			i;
 	int			j;
 	t_mlx		*mlx;
 	t_mlx_image	*img;
 	t_color		col;
+	t_camera	c;
+	t_d		d;
 
-	i = 0;
-	mlx = mlx_init(c.vsize, c.hsize, "test", true);
+	i = 1;
+	mlx = mlx_init(WIDTH, HEIGHT, "test", true);
+	c = camera(mlx->width, mlx->height, M_PI / 3);
+	c.trans = view_transformation(create_point(0, 5.5, -7), create_point(0, 1,
+				1), create_vector(0, 1, 0));
 	img = mlx_new_image(mlx, c.vsize, c.hsize);
 	mlx_image_to_window(mlx, img, 0, 0);
 	while (i < c.vsize)
 	{
-		j = 0;
+		j = 1;
 		while (j < c.hsize)
 		{
-			col = color_at(w, ray_for_pixel(c, i, j, f), 5, f);
+			col = color_at(w, ray_for_pixel(c, i, j), 5);
 			mlx_putpixel(img, i, j, conv_color(col.red, col.green, col.blue));
 			j++;
 		}
 		i++;
 	}
-	free_all(*f);
-	system("leaks minirt");
+	d.img = img;
+	d.mlx = mlx;
+	d.w = w;
+	mlx_resize_hook(mlx, rez, &d);
 	mlx_loop(mlx);
 }

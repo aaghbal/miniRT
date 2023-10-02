@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:00:48 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/02 11:58:30 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/02 13:25:40 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	set_colon_diag_withzero(double **mat, int i)
 	}
 }
 
-double	**copy_result(double **mat, t_free **f)
+double	**copy_result(double **mat)
 {
 	int		r;
 	int		i;
@@ -57,7 +57,7 @@ double	**copy_result(double **mat, t_free **f)
 
 	i = 0;
 	r = 0;
-	n = identity(f);
+	n = identity();
 	while (r < 4)
 	{
 		a = 4;
@@ -73,7 +73,7 @@ double	**copy_result(double **mat, t_free **f)
 	return (n);
 }
 
-double	**inverse_gauss(double **m, t_free **f)
+double	**inverse_gauss(double **m)
 {
 	int		i;
 	int		j;
@@ -83,7 +83,7 @@ double	**inverse_gauss(double **m, t_free **f)
 
 	i = 0;
 	j = 0;
-	mat = join_matr_ind(m, f);
+	mat = join_matr_ind(m);
 	while (i < 4)
 	{
 		diagelem = mat[i][i];
@@ -99,5 +99,5 @@ double	**inverse_gauss(double **m, t_free **f)
 		set_colon_diag_withzero(mat, i);
 		i++;
 	}
-	return (copy_result(mat, f));
+	return (copy_result(mat));
 }

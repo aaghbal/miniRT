@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:13:01 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/02 12:51:29 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/02 18:57:18 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,15 @@
 # include <stdbool.h>
 # include <pthread.h>
 
+#include "get_next_line.h"
+#include "Libft/libft.h"
+
+
+
 # define EPSILON 0.00001
+
+# define ADD 0 
+# define FREE 1 
 
 # define WIDTH 1000
 # define HEIGHT 1000
@@ -243,22 +251,22 @@ t_canvas		create_canvas(int w, int e);
 
 // matrix
 bool			comparaison_matrix(double **m1, double **m2);
-double			**multiple_matrice(double **m1, double **m2, t_free **f);
+double			**multiple_matrice(double **m1, double **m2);
 t_vector		mul_mat_vector(double **m, t_vector v);
 t_point			mul_mat_point(double **m, t_point p);
-double			**identity(t_free **f);
-double			**transposing(double **m, t_free **f);
+double			**identity(void);
+double			**transposing(double **m);
 double			**inverse_matrix(double **m);
 double			determinant_4(double **M, int row, int col);
 
 // tranformation
 
-double			**translation(double x, double y, double z, t_free **f);
-double			**scaling(double x, double y, double z, t_free **f);
-double			**rotation_x(double rad, t_free **f);
-double			**rotation_y(double rad, t_free **f);
-double			**rotation_z(double rad, t_free **f);
-double			**shearing(t_shearing data, t_free **f);
+double			**translation(double x, double y, double z);
+double			**scaling(double x, double y, double z);
+double			**rotation_x(double rad);
+double			**rotation_y(double rad);
+double			**rotation_z(double rad);
+double			**shearing(t_shearing data);
 
 /// utils 
 bool			equal(double a, double b);
@@ -274,12 +282,12 @@ t_point			position(t_ray ray, double t);
 
 // sphere
 
-t_shape			test_shape(t_free **f);
-t_intersect     *new_intersec(double min, t_shape sp, t_free **f);
-t_intersect		*intersect_world(t_word w, t_ray r, int n_object, t_free **f);
+t_shape			test_shape(void);
+t_intersect		*new_intersec(double min, t_shape sp);
+t_intersect		*intersect_world(t_word w, t_ray r, int n_object);
 void			add_back(t_intersect **lst, t_intersect *new);
 void			add_front(t_intersect **lst, t_intersect *new);
-t_intersect		*sphere_intersect(t_shape s, t_ray ray, t_free **f);
+t_intersect		*sphere_intersect(t_shape s, t_ray ray);
 t_intersection	intersection(double t, t_shape s);
 
 // transform 
@@ -288,7 +296,7 @@ t_ray			transform(t_ray r, double **m);
 void			set_transform(t_shape *s, double **t);
 
 // normal
-t_vector	sphere_normal_at(t_shape *sp, t_point word_point, t_free **f);
+t_vector		sphere_normal_at(t_shape *sp, t_point word_point);
 t_vector		reflect(t_vector in, t_vector normal);
 
 //light
@@ -298,53 +306,59 @@ t_material		material(void);
 t_color			lighting(t_material m, t_light light, t_var_light v,
 					bool shadowed);
 // word 
-t_word	default_word(t_free **f);
+t_word			default_word(void);
 t_word			word(t_shape *s, t_light *l);
-t_comps			prepare_computations(t_intersection i, t_ray ray, t_free **f);
-t_color			shade_hit(t_word w, t_comps com, int n_obj, t_free **f);
+t_comps			prepare_computations(t_intersection i, t_ray ray);
+t_color			shade_hit(t_word w, t_comps com, int n_obj);
 t_intersect		hit(t_intersect *res);
-t_color			color_at(t_word w, t_ray r, int n_object, t_free **f);
-double			**view_transformation(t_point from, t_point to, t_vector up, t_free **f);
-t_ray			ray_for_pixel(t_camera camera, double px, double py, t_free **f);
-t_camera		camera(double hsize, double vsize, double field_view,  t_free **f);
-void			render(t_camera c, t_word w, t_free **f);
+t_color			color_at(t_word w, t_ray r, int n_object);
+double			**view_transformation(t_point from, t_point to, t_vector up);
+t_ray			ray_for_pixel(t_camera camera, double px, double py);
+t_camera		camera(double hsize, double vsize, double field_view);
+void			render(t_word w);
 
 /////////////
-bool			is_shadowed(t_word w, t_point point, int n_obj, t_light l, t_free **f);
-double			**inverse_gauss(double **m, t_free **f);
+bool			is_shadowed(t_word w, t_point point, int n_obj, t_light l);
+double			**inverse_gauss(double **n);
 void			print_matrice(double **m);
 
 //inverse matrix
 
-double			**join_matr_ind(double **m, t_free **f);
+double			**join_matr_ind(double **m);
 int				swap_diagonal_element(double **mat, int i);
 void			swap_row(double **mat, int swaprow, int i);
-double			**copy_result(double **mat, t_free **f);
+double			**copy_result(double **mat);
 
 // plan
 
-double			plan_intersect(t_shape s, t_ray ray, t_free **f);
-t_vector	plan_normal_at(t_shape *sp, t_point word_point, t_free **f);
+double			plan_intersect(t_shape s, t_ray ray);
+t_vector		plan_normal_at(t_shape *sp, t_point word_point);
 
 // cyl
 
-t_intersect		*cyl_intersect(t_shape s, t_ray ray, t_free **f);
-t_vector	cyl_normal_at(t_shape s, t_point word_point, t_free **f);
-t_intersect		*intersect_caps(t_shape s, t_ray r, t_intersect **xs, t_free **f);
+t_intersect		*cyl_intersect(t_shape s, t_ray ray);
+t_vector		cyl_normal_at(t_shape s, t_point point);
+t_intersect		*intersect_caps(t_shape s, t_ray r, t_intersect **xs);
 void			ft_swap(double *t0, double *t1);
 
 // cone  
-t_intersect		*cone_intersect(t_shape s, t_ray ray, t_free **f);
-t_vector		cone_normal_at(t_shape s, t_point word_point, t_free **f);
+t_intersect		*cone_intersect(t_shape s, t_ray ray);
+t_vector		cone_normal_at(t_shape s, t_point word_point);
 
 // cube
 
-t_intersect *cube_intersect(t_shape s, t_ray ray, t_free **f);
-t_vector	cube_normal_at(t_shape s, t_point word_point, t_free **f);
+t_intersect *cube_intersect(t_shape s, t_ray ray);
+t_vector	cube_normal_at(t_shape s, t_point word_point);
 
 // free
-void	add_addr(t_free **lst, t_free *new);
 t_free	*new_addr(void *address);
-void	free_all(t_free *f);
+void	ft_free(int flag, void *addr);
+void	add_addr(t_free **lst, t_free *new);
+
+// parsing 
+
+void read_file(char *file);
+int	check_exten(char *argv);
+char	**ft_split(char const *s, char c);
 
 #endif

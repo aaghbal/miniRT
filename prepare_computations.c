@@ -6,13 +6,13 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 11:51:09 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/02 12:47:27 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/02 13:32:49 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_comps	prepare_computations(t_intersection i, t_ray ray, t_free **f)
+t_comps	prepare_computations(t_intersection i, t_ray ray)
 {
 	t_comps	com;
 
@@ -22,17 +22,17 @@ t_comps	prepare_computations(t_intersection i, t_ray ray, t_free **f)
 	com.point = position(ray, com.t);
 	com.eyev = negating_vect(ray.direction);
 	if (i.sp.obj == sph)
-		com.normalv = sphere_normal_at(&com.obj, com.point, f);
+		com.normalv = sphere_normal_at(&com.obj, com.point);
 	else if (i.sp.obj == pla)
-		com.normalv = plan_normal_at(&com.obj, com.point, f);
+		com.normalv = plan_normal_at(&com.obj, com.point);
 	else if (i.sp.obj == cyl)
-		com.normalv = cyl_normal_at(com.obj, com.point, f);
+		com.normalv = cyl_normal_at(com.obj, com.point);
 	else if (i.sp.obj == con)
-		com.normalv = cone_normal_at(com.obj, com.point, f);
+		com.normalv = cone_normal_at(com.obj, com.point);
 	else if (i.sp.obj == cub)
-		com.normalv = cube_normal_at(com.obj, com.point, f);
+		com.normalv = cube_normal_at(com.obj, com.point);
 	else if (i.sp.obj == cub)
-		com.normalv = cone_normal_at(com.obj, com.point, f);
+		com.normalv = cone_normal_at(com.obj, com.point);
 	com.over_point = add_point_vector(com.point, scaler_vect(com.normalv,
 				EPSILON));
 	if (dot_product(com.normalv, com.eyev) < 0)
@@ -43,7 +43,7 @@ t_comps	prepare_computations(t_intersection i, t_ray ray, t_free **f)
 	return (com);
 }
 
-t_color	shade_hit(t_word w, t_comps com, int n_obj, t_free **f)
+t_color	shade_hit(t_word w, t_comps com, int n_obj)
 {
 	int			i;
 	t_color		col;
@@ -58,7 +58,7 @@ t_color	shade_hit(t_word w, t_comps com, int n_obj, t_free **f)
 	while (i < 2)
 	{
 		v.l = w.l[i];
-		shadowed = is_shadowed(w, com.over_point, n_obj, w.l[i], f);
+		shadowed = is_shadowed(w, com.over_point, n_obj, w.l[i]);
 		col = adding_color(col, lighting(com.obj.m, v.l, v, shadowed));
 		i++;
 	}

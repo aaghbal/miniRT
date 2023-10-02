@@ -6,13 +6,13 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 18:35:58 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/02 12:46:26 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/02 13:26:34 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_vector	cyl_normal_at(t_shape s, t_point word_point, t_free **f)
+t_vector	cyl_normal_at(t_shape s, t_point word_point)
 {
 	double		dist;
 	double		**inv;
@@ -20,7 +20,7 @@ t_vector	cyl_normal_at(t_shape s, t_point word_point, t_free **f)
 	t_vector	w_normal;
 
 	(void)s;
-	inv = inverse_gauss(s.tranform, f);
+	inv = inverse_gauss(s.tranform);
 	obj_point = mul_mat_point(inv, word_point);
 	dist = pow(obj_point.x, 2) + pow(obj_point.z, 2);
 	if (dist < 1 && obj_point.y >= s.max - EPSILON)
@@ -33,21 +33,21 @@ t_vector	cyl_normal_at(t_shape s, t_point word_point, t_free **f)
 	return (normalize(w_normal));
 }
 
-t_vector	plan_normal_at(t_shape *sp, t_point word_point, t_free **f)
+t_vector	plan_normal_at(t_shape *sp, t_point word_point)
 {
 	double		**inv;
 	t_vector	world_normal;
 	t_vector	vect;
 
 	(void)word_point;
-	inv = inverse_gauss(sp->tranform, f);
-	world_normal = mul_mat_vector(transposing(inv, f), create_vector(0, 1, 0));
+	inv = inverse_gauss(sp->tranform);
+	world_normal = mul_mat_vector(transposing(inv), create_vector(0, 1, 0));
 	world_normal.w = 0;
 	vect = normalize(world_normal);
 	return (vect);
 }
 
-t_vector	sphere_normal_at(t_shape *sp, t_point word_point, t_free **f)
+t_vector	sphere_normal_at(t_shape *sp, t_point word_point)
 {
 	double		**inv;
 	t_point		object_point;
@@ -55,10 +55,10 @@ t_vector	sphere_normal_at(t_shape *sp, t_point word_point, t_free **f)
 	t_vector	world_normal;
 	t_vector	vect;
 
-	inv = inverse_gauss(sp->tranform, f);
+	inv = inverse_gauss(sp->tranform);
 	object_point = mul_mat_point(inv, word_point);
 	object_normal = sub_to_point(object_point, create_point(0, 0, 0));
-	world_normal = mul_mat_vector(transposing(inv, f), object_normal);
+	world_normal = mul_mat_vector(transposing(inv), object_normal);
 	world_normal.w = 0;
 	vect = normalize(world_normal);
 	return (vect);

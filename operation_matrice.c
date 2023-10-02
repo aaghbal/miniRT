@@ -6,13 +6,13 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 14:40:18 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/02 11:15:05 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/02 14:17:03 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-double	**multiple_matrice(double **m1, double **m2, t_free **f)
+double	**multiple_matrice(double **m1, double **m2)
 {
 	double	**res;
 	int		col;
@@ -21,12 +21,12 @@ double	**multiple_matrice(double **m1, double **m2, t_free **f)
 
 	row = 0;
 	res = malloc(sizeof(double *) * 4);
-	add_addr(f, new_addr(res));
+	ft_free(ADD, res);
 	while (row < 4)
 	{
 		col = 0;
 		res[row] = malloc(sizeof(double) * 4);
-		add_addr(f, new_addr(res[row]));
+		ft_free(ADD, res[row]);
 		while (col < 4)
 		{
 			i = 0;
@@ -63,7 +63,7 @@ bool	comparaison_matrix(double **m1, double **m2)
 	return (true);
 }
 
-double	**transposing(double **m, t_free **f)
+double	**transposing(double **m)
 {
 	int		row;
 	int		col;
@@ -72,11 +72,11 @@ double	**transposing(double **m, t_free **f)
 	row = 0;
 	col = 0;
 	res = malloc(sizeof(double *) * 4);
-	add_addr(f, new_addr(res));
+	ft_free(ADD, res);
 	while (row < 4)
 	{
 		res[row] = malloc(sizeof(double) * 4);
-		add_addr(f, new_addr(res[row]));
+		ft_free(ADD, res[row]);
 		col = 0;
 		while (col < 4)
 		{
@@ -88,7 +88,7 @@ double	**transposing(double **m, t_free **f)
 	return (res);
 }
 
-double	**identity(t_free **f)
+double	**identity(void)
 {
 	int		row;
 	int		col;
@@ -97,11 +97,11 @@ double	**identity(t_free **f)
 	row = 0;
 	col = 0;
 	res = malloc(sizeof(double *) * 4);
-	add_addr(f, new_addr(res));
+	ft_free(ADD, res);
 	while (row < 4)
 	{
 		res[row] = malloc(sizeof(double) * 4);
-		add_addr(f, new_addr(res[row]));
+		ft_free(ADD, res[row]);
 		col = 0;
 		while (col < 4)
 		{

@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:08:58 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/02 13:18:14 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/02 19:25:10 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,19 +32,19 @@ void	print_matrice(double **m)
 	}
 }
 
-t_shape	*create_shape(t_free **f)
+t_shape	*create_shape(void)
 {
 	t_shape	*sp;
 
 	sp = malloc(sizeof(t_shape) * 5);
-	add_addr(f, new_addr(sp));
-	sp[0] = test_shape(f);
-	sp[0].tranform = scaling(10, 0.01, 10, f);
+	ft_free(ADD, sp);
+	sp[0] = test_shape();
+	sp[0].tranform = scaling(10, 0.01, 10);
 	sp[0].m.color = create_color(1, 0.9, 0.9);
 	sp[0].m.specular = 0.0;
 	sp[0].obj = pla;
 	// /////////////////////////////////////////
-	sp[1] = test_shape(f);
+	sp[1] = test_shape();
 	sp[1].closed = true;
 	sp[1].raduis = 1;
 	sp[1].min = 0;
@@ -52,9 +52,9 @@ t_shape	*create_shape(t_free **f)
 	sp[1].m.color = create_color(1, 1, 0);
 	sp[1].obj = cyl;
 	// /////////////////////////////////////////
-	sp[2] = test_shape(f);
-	sp[2].tranform = multiple_matrice(translation(1.5, 0.5, -0.5, f), scaling(0.5,
-				0.5, 0.5, f), f);
+	sp[2] = test_shape();
+	sp[2].tranform = multiple_matrice(translation(1.5, 0.5, -0.5), scaling(0.5,
+				0.5, 0.5));
 	sp[2].closed = true;
 	sp[2].raduis = 2;
 	sp[2].min = -2;
@@ -62,41 +62,45 @@ t_shape	*create_shape(t_free **f)
 	sp[2].m.color = create_color(0.5, 1, 0.1);
 	sp[2].obj = cyl;
 	// /////////////////////////
-	sp[3] = test_shape(f);
+	sp[3] = test_shape();
 	sp[3].raduis = 2;
 	sp[3].closed = true;
-	sp[3].tranform = multiple_matrice(translation(-1.5, 0.33, -0.75, f),
-			scaling(0.33, 0.33, 0.33, f), f);
+	sp[3].tranform = multiple_matrice(translation(-1.5, 0.33, -0.75),
+			scaling(0.33, 0.33, 0.33));
 	sp[3].m.color = create_color(1, 0.8, 0.1);
 	sp[3].min = -2;
 	sp[3].max = 1;
 	sp[3].obj = cyl;
 	// /////////////////////////
-	sp[4] = test_shape(f);
-	sp[4].tranform = multiple_matrice(translation(0, 3, 0, f), scaling(1, 1, 1, f), f);
+	sp[4] = test_shape();
+	sp[4].tranform = multiple_matrice(translation(0, 3, 0), scaling(1, 1, 1));
 	sp[4].m.color = create_color(1, 0, 0);
-	sp[4].obj = cub;
+	sp[4].obj = sph;
 	return (sp);
 }
-int	main(void)
+int	main(int ac, char **av)
 {
-	t_shape		*s;
-	t_light		*l;
-	t_word		w;
-	t_camera	c;
-	t_free		*f;
-
-	f = NULL;
-	s = create_shape(&f);
-	l = malloc(sizeof(t_light) * 2);
-	add_addr(&f, new_addr(l));
-	l[0] = point_light(create_point(-10, 10, -10), create_color(1, 1, 1));
-	l[1] = point_light(create_point(10, 10, -10), create_color(0, 0, 1));
-	w = word(s, l);
-	c = camera(500, 500, M_PI / 3, &f);
-	c.trans = view_transformation(create_point(0, 5.5, -7), create_point(0, 1,
-				1), create_vector(0, 1, 0), &f);
-	render(c, w, &f);
+	// t_camera c;
+	// c = camera(201, 101, M_PI/2);
+	// t_ray	r;
+	// r = ray_for_pixel(c, 0, 0);
+	// printf("%.5f, %.5f, %.5f\n", r.origine.x,r.origine.y,r.origine.z);
+	// printf("%.5f, %.5f, %.5f\n", r.direction.x,r.direction.y,r.direction.z);
+	
+	if (ac == 2)
+	{
+		read_file(av[1]);
+	}
+	// t_shape		*s;
+	// t_light		*l;
+	// t_word		w;
+	// s = create_shape();
+	// l = malloc(sizeof(t_light) * 2);
+	// ft_free(ADD, l);
+	// l[0] = point_light(create_point(-10, 10, -10), create_color(1, 1, 1));
+	// l[1] = point_light(create_point(10, 10, -10), create_color(0, 0, 1));
+	// w = word(s, l);
+	// render(w);
 	// t_shape s = test_shape();
 	// t_intersect *xs = cube_intersect(s, ray(create_point(-2, 0, 0), create_vector(0.2673, 0.5345, 0.8018)));
 	// printf ("%f  \n", xs->min);

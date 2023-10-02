@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 12:37:22 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/02 11:21:43 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/02 14:15:23 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	add_row(double **mat, double **m, int i, double **id)
 	}
 }
 
-double	**join_matr_ind(double **m, t_free **f)
+double	**join_matr_ind(double **m)
 {
 	int		i;
 	int		j;
@@ -40,16 +40,16 @@ double	**join_matr_ind(double **m, t_free **f)
 	double	**mat;
 	double	**id;
 
-	id = identity(f);
+	id = identity();
 	i = 0;
 	mat = malloc(sizeof(double *) * 4);
-	add_addr(f, new_addr(mat));
+	ft_free(ADD, mat);
 	while (i < 4)
 	{
 		j = 0;
 		l = 0;
 		mat[i] = malloc(sizeof(double) * 8);
-		add_addr(f, new_addr(mat[i]));
+		ft_free(ADD, mat[i]);
 		add_row(mat, m, i, id);
 		i++;
 	}
