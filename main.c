@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:08:58 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/02 19:25:10 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/03 16:26:14 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,53 +34,57 @@ void	print_matrice(double **m)
 
 t_shape	*create_shape(void)
 {
-	t_shape	*sp;
+	t_shape	*s;
 
-	sp = malloc(sizeof(t_shape) * 5);
-	ft_free(ADD, sp);
-	sp[0] = test_shape();
-	sp[0].tranform = scaling(10, 0.01, 10);
-	sp[0].m.color = create_color(1, 0.9, 0.9);
-	sp[0].m.specular = 0.0;
-	sp[0].obj = pla;
-	// /////////////////////////////////////////
-	sp[1] = test_shape();
-	sp[1].closed = true;
-	sp[1].raduis = 1;
-	sp[1].min = 0;
-	sp[1].max = 3;
-	sp[1].m.color = create_color(1, 1, 0);
-	sp[1].obj = cyl;
-	// /////////////////////////////////////////
-	sp[2] = test_shape();
-	sp[2].tranform = multiple_matrice(translation(1.5, 0.5, -0.5), scaling(0.5,
-				0.5, 0.5));
-	sp[2].closed = true;
-	sp[2].raduis = 2;
-	sp[2].min = -2;
-	sp[2].max = 2;
-	sp[2].m.color = create_color(0.5, 1, 0.1);
-	sp[2].obj = cyl;
-	// /////////////////////////
-	sp[3] = test_shape();
-	sp[3].raduis = 2;
-	sp[3].closed = true;
-	sp[3].tranform = multiple_matrice(translation(-1.5, 0.33, -0.75),
-			scaling(0.33, 0.33, 0.33));
-	sp[3].m.color = create_color(1, 0.8, 0.1);
-	sp[3].min = -2;
-	sp[3].max = 1;
-	sp[3].obj = cyl;
-	// /////////////////////////
-	sp[4] = test_shape();
-	sp[4].tranform = multiple_matrice(translation(0, 3, 0), scaling(1, 1, 1));
-	sp[4].m.color = create_color(1, 0, 0);
-	sp[4].obj = sph;
-	return (sp);
+	s = malloc(sizeof(t_shape) * 5);
+	ft_free(ADD, s);
+	s[0] = test_shape();
+	s[0].m.amb_color = create_color(0, 0,0);
+	s[0].tranform = scaling(10, 0.01, 10);
+	s[0].m.color = create_color(1, 0.9, 0.9);
+	s[0].m.specular = 0.0;
+	s[0].obj = pl;
+////////////////////////////////////////
+	s[1] = test_shape();
+	s[1].closed = true;
+	s[1].m.amb_color = create_color(0, 0,0);
+	s[1].raduis = 1;
+	s[1].min = 0;
+	s[1].max = 3;
+	s[1].m.color = create_color(1, 1, 0);
+	s[1].obj = cy;
+////////////////////////////////////////
+	s[2] = test_shape();
+	s[2].tranform = multiple_matrice(translation(1.5, 0.5, -0.5), scaling(0.5,
+			0.5, 0.5));
+	s[2].m.amb_color = create_color(0, 0,0);
+	s[2].closed = true;
+	s[2].raduis = 2;
+	s[2].min = -2;
+	s[2].max = 2;
+	s[2].m.color = create_color(0.5, 1, 0.1);
+	s[2].obj = cy;
+////////////////////////
+	s[3] = test_shape();
+	s[3].raduis = 2;
+	s[3].closed = true;
+	s[3].tranform = multiple_matrice(translation(-1.5, 0.33, -0.75),
+		scaling(0.33, 0.33, 0.33));
+	s[3].m.amb_color = create_color(0, 0,0);
+	s[3].m.color = create_color(1, 0.8, 0.1);
+	s[3].min = -2;
+	s[3].max = 1;
+	s[3].obj = cy;
+////////////////////////
+	s[4] = test_shape();
+	s[4].tranform = multiple_matrice(translation(0, 3, 0), scaling(1, 1, 1));
+	s[4].m.amb_color = create_color(0, 0,0);
+	s[4].m.color = create_color(1, 0, 0);
+	s[4].obj = sp;
+	return (s);
 }
 int	main(int ac, char **av)
 {
-	// t_camera c;
 	// c = camera(201, 101, M_PI/2);
 	// t_ray	r;
 	// r = ray_for_pixel(c, 0, 0);
@@ -91,6 +95,8 @@ int	main(int ac, char **av)
 	{
 		read_file(av[1]);
 	}
+	// (void)ac;
+	// (void)av;
 	// t_shape		*s;
 	// t_light		*l;
 	// t_word		w;

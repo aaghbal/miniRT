@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:13:01 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/02 18:57:18 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/03 17:36:23 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,16 @@
 # define ADD 0 
 # define FREE 1 
 
-# define WIDTH 1000
-# define HEIGHT 1000
+# define WIDTH 500
+# define HEIGHT 500
 
 typedef enum s_obj
 {
-	sph,
-	pla,
-	cyl,
-	con,
-	cub
+	sp,
+	pl,
+	cy,
+	co,
+	cu
 }t_obj;
 
 typedef struct s_vector
@@ -95,6 +95,7 @@ typedef struct s_ray
 typedef struct s_material
 {
 	t_color	color;
+	t_color	amb_color;
 	double	ambient;
 	double	diffuse;
 	double	specular;
@@ -118,6 +119,7 @@ typedef struct s_shape
 	double		**tranform;
 	double		raduis;
 	t_material	m;
+	t_vector	normal_pl;
 	double		**ivers_tran;
 	t_obj		obj;
 	bool		closed;
@@ -215,6 +217,18 @@ typedef struct s_free
 	struct s_free	*last;
 	struct s_free	*next;
 }	t_free;
+
+typedef struct s_data_parsing
+{
+	int		num_shap;
+	int		num_ligh;
+}	t_d_pars;
+
+typedef struct s_data_am
+{
+	double	ratio;
+	double *res;
+}	t_d_am;
 
 t_vector		create_vector(double x, double y, double z);
 t_point			create_point(double x, double y, double z);
@@ -354,11 +368,18 @@ t_vector	cube_normal_at(t_shape s, t_point word_point);
 t_free	*new_addr(void *address);
 void	ft_free(int flag, void *addr);
 void	add_addr(t_free **lst, t_free *new);
+void free_doublep(char **tab);
 
 // parsing 
 
 void read_file(char *file);
 int	check_exten(char *argv);
 char	**ft_split(char const *s, char c);
-
+t_shape	check_ident_shap(char **elem, t_d_am am);
+double	conver_range(char *rat);
+double	*rang_rgb(char *str);
+double	ft_itod(char *str);
+t_d_am	parsing_am_light(char **elem);
+t_shape	*parsing_sphere(char **elem, t_d_am am);
+t_shape	*parsing_plan(char **elem, t_d_am am);
 #endif

@@ -6,7 +6,7 @@
 #    By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/06 15:13:12 by aaghbal           #+#    #+#              #
-#    Updated: 2023/10/02 19:09:31 by aaghbal          ###   ########.fr        #
+#    Updated: 2023/10/03 16:27:42 by aaghbal          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,9 @@ SRC = main.c create_vec_point.c add_vector_point.c sub_vector_point.c \
 		light.c word.c prepare_computations.c color_at.c view_transformation.c \
 		camera.c shadow.c inverse_matrix.c shape.c inverse_matrix_1.c \
 		intersect_cyl.c intersect_cube.c intersect_cones.c free.c parsing.c \
-		get_next_line.c get_next_line_utils.c
+		get_next_line.c get_next_line_utils.c parsing_am_light.c parsing_plan.c\
+		parsing_sphere.c 
+		
 OB_SRC = $(SRC:.c=.o)
 RM = rm -rf
 

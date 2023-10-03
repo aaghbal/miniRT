@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 15:31:08 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/02 13:25:35 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/03 16:26:46 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,15 +62,15 @@ t_intersect	*intersect_world(t_word w, t_ray r, int n_object)
 	xs = NULL;
 	while (i < n_object)
 	{
-		if (w.s[i].obj == sph)
+		if (w.s[i].obj == sp)
 			new = sphere_intersect(w.s[i], r);
-		else if (w.s[i].obj == pla)
+		else if (w.s[i].obj == pl)
 			new = new_intersec(plan_intersect(w.s[i], r), w.s[i]);
-		else if (w.s[i].obj == cyl)
+		else if (w.s[i].obj == cy)
 			new = cyl_intersect(w.s[i], r);
-		else if (w.s[i].obj == cub)
+		else if (w.s[i].obj == cu)
 			new = cube_intersect(w.s[i], r);
-		else if (w.s[i].obj == con)
+		else if (w.s[i].obj == co)
 			new = cone_intersect(w.s[i], r);
 		if (!xs)
 			xs = new;

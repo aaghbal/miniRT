@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 10:43:42 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/02 14:22:23 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/03 09:45:13 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,3 +62,16 @@ void	add_addr(t_free **lst, t_free *new)
 	}
 }
 
+void free_doublep(char **tab)
+{
+	int i;
+
+	i = 0;
+	while (tab[i])
+	{
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
+	tab = NULL;
+}

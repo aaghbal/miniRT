@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 11:51:09 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/02 13:32:49 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/03 16:27:16 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,16 @@ t_comps	prepare_computations(t_intersection i, t_ray ray)
 	com.obj = i.sp;
 	com.point = position(ray, com.t);
 	com.eyev = negating_vect(ray.direction);
-	if (i.sp.obj == sph)
+	if (i.sp.obj == sp)
 		com.normalv = sphere_normal_at(&com.obj, com.point);
-	else if (i.sp.obj == pla)
+	else if (i.sp.obj == pl)
 		com.normalv = plan_normal_at(&com.obj, com.point);
-	else if (i.sp.obj == cyl)
+	else if (i.sp.obj == cy)
 		com.normalv = cyl_normal_at(com.obj, com.point);
-	else if (i.sp.obj == con)
+	else if (i.sp.obj == co)
 		com.normalv = cone_normal_at(com.obj, com.point);
-	else if (i.sp.obj == cub)
+	else if (i.sp.obj == cu)
 		com.normalv = cube_normal_at(com.obj, com.point);
-	else if (i.sp.obj == cub)
-		com.normalv = cone_normal_at(com.obj, com.point);
 	com.over_point = add_point_vector(com.point, scaler_vect(com.normalv,
 				EPSILON));
 	if (dot_product(com.normalv, com.eyev) < 0)
