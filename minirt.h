@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:13:01 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/03 17:36:23 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/04 17:21:58 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,7 @@ typedef struct s_word
 {
 	t_shape	*s;
 	t_light	*l;
+	t_color ambiant;
 }	t_word;
 
 typedef struct s_intersec
@@ -296,7 +297,7 @@ t_point			position(t_ray ray, double t);
 
 // sphere
 
-t_shape			test_shape(void);
+t_shape			default_shape(void);
 t_intersect		*new_intersec(double min, t_shape sp);
 t_intersect		*intersect_world(t_word w, t_ray r, int n_object);
 void			add_back(t_intersect **lst, t_intersect *new);
@@ -317,8 +318,7 @@ t_vector		reflect(t_vector in, t_vector normal);
 
 t_light			point_light(t_point pos, t_color intensit);
 t_material		material(void);
-t_color			lighting(t_material m, t_light light, t_var_light v,
-					bool shadowed);
+t_color			lighting(t_material m, t_light light, t_var_light v, bool shadowed);
 // word 
 t_word			default_word(void);
 t_word			word(t_shape *s, t_light *l);
@@ -329,7 +329,7 @@ t_color			color_at(t_word w, t_ray r, int n_object);
 double			**view_transformation(t_point from, t_point to, t_vector up);
 t_ray			ray_for_pixel(t_camera camera, double px, double py);
 t_camera		camera(double hsize, double vsize, double field_view);
-void			render(t_word w);
+void			render(t_word w, t_camera c);
 
 /////////////
 bool			is_shadowed(t_word w, t_point point, int n_obj, t_light l);
@@ -375,11 +375,19 @@ void free_doublep(char **tab);
 void read_file(char *file);
 int	check_exten(char *argv);
 char	**ft_split(char const *s, char c);
-t_shape	check_ident_shap(char **elem, t_d_am am);
+t_shape	check_ident_shap(char **elem);
 double	conver_range(char *rat);
 double	*rang_rgb(char *str);
 double	ft_itod(char *str);
-t_d_am	parsing_am_light(char **elem);
-t_shape	*parsing_sphere(char **elem, t_d_am am);
-t_shape	*parsing_plan(char **elem, t_d_am am);
+t_color	parsing_am_light(char **elem);
+t_shape	parsing_sphere(char **elem);
+t_shape	parsing_plan(char **elem);
+t_point	parse_origine(char *elem);
+t_color	parse_color(char *elem);
+t_vector	parse_vector(char *elem);
+t_light	parsing_light(char	**elem);
+t_camera parsing_camera(char **elem);
+t_shape	parsing_cyl(char **elem);
+double **orient(t_vector orie);
+double radiane(double deg);
 #endif

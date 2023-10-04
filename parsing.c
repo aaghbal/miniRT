@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 17:45:38 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/03 17:38:59 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/04 16:53:23 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,17 +53,17 @@ int	check_exten(char *argv)
 	return (1);
 }
 
-t_shape	check_ident_shap(char **elem, t_d_am am)
+t_shape	check_ident_shap(char **elem)
 {
 	t_shape s;
 	
-	s = test_shape();
+	s = default_shape();
 	if (!ft_strncmp("sp", elem[0], ft_strlen(elem[0])))
-		s = *parsing_sphere(elem, am);
+		s = parsing_sphere(elem);
 	else if (!ft_strncmp("pl", elem[0], ft_strlen(elem[0])))
-		s = *parsing_plan(elem, am);
-	// else if (!ft_strncmp("cy", elem[0], ft_strlen(elem[0])))
-	// 	return ;
+		s = parsing_plan(elem);
+	else if (!ft_strncmp("cy", elem[0], ft_strlen(elem[0])))
+		s = parsing_cyl(elem);
 	return(s);
 	// printf("ror identify shape\n");
 }
@@ -93,14 +93,19 @@ t_d_pars data_shape(int fd)
 	return (p);
 }
 
-void	ft_create_world(int fd, t_word *w)
+void	ft_create_world(int fd, t_d_pars p)
 {
 	char	*line;
 	char	**spl;
-	t_d_am	am;
 	int		i;
+	int		j;
+	t_camera c;
+	t_word	w;
 	
 	i = 0;
+	j = 0;
+	w.s = malloc(sizeof(t_shape) * p.num_shap);
+	w.l = malloc(sizeof(t_light) * p.num_ligh);
 	while (1)
 	{
 		line = get_next_line(fd);
@@ -108,20 +113,16 @@ void	ft_create_world(int fd, t_word *w)
 			break;
 		spl = ft_split(line, ' ');
 		if (!ft_strncmp("A", spl[0], ft_strlen(spl[0])))
-			am = parsing_am_light(spl);
-		// else if (!ft_strncmp("L", spl[0], ft_strlen(spl[0])))
-		// 	break;
-		// else if (!ft_strncmp("C", spl[0], ft_strlen(spl[0])))
-		// 	break;
-		else if (!ft_strncmp("pl", spl[0], ft_strlen(spl[0])))
-		{
-			w->s[i] = check_ident_shap(spl, am);
-			printf("%f %f %f\n", w->s[i].normal_pl.x, w->s[i].normal_pl.y,w->s[i].normal_pl.z);
-			i++;
-		}
-		i++;
+			w.ambiant = parsing_am_light(spl);
+		else if (!ft_strncmp("L", spl[0], ft_strlen(spl[0])))
+			w.l[j++] = parsing_light(spl);
+		else if (!ft_strncmp("C", spl[0], ft_strlen(spl[0])))
+			c = parsing_camera(spl);
+		else
+			w.s[i++] = check_ident_shap(spl);
 		free_doublep(spl);
 	}
+	render(w, c);
 }
 
 
@@ -129,7 +130,6 @@ void read_file(char *file)
 {
 	int			fd;
 	t_d_pars	p;
-	t_word		w;
 
 	if (!check_exten(file))
 	{
@@ -139,8 +139,6 @@ void read_file(char *file)
 	fd = open(file, O_RDONLY);
 	p = data_shape(fd);
 	close(fd);
-	w.s = malloc(sizeof(t_shape) *p.num_shap);
-	w.l = malloc(sizeof(t_shape) *p.num_ligh);
 	fd = open(file, O_RDONLY);
-	ft_create_world(fd, &w);
+	ft_create_world(fd, p);
 }

@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:08:58 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/03 16:26:14 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/04 18:02:53 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,51 +36,51 @@ t_shape	*create_shape(void)
 {
 	t_shape	*s;
 
-	s = malloc(sizeof(t_shape) * 5);
+	s = malloc(sizeof(t_shape) * 1);
 	ft_free(ADD, s);
-	s[0] = test_shape();
-	s[0].m.amb_color = create_color(0, 0,0);
-	s[0].tranform = scaling(10, 0.01, 10);
+	s[0] = default_shape();
+	s[0].tranform = multiple_matrice(s[0].tranform, scaling(1, 1, 1));
+	// s[0].tranform = multiple_matrice(s[0].tranform, translation(o.x, o.y, o.z));
 	s[0].m.color = create_color(1, 0.9, 0.9);
 	s[0].m.specular = 0.0;
 	s[0].obj = pl;
 ////////////////////////////////////////
-	s[1] = test_shape();
-	s[1].closed = true;
-	s[1].m.amb_color = create_color(0, 0,0);
-	s[1].raduis = 1;
-	s[1].min = 0;
-	s[1].max = 3;
-	s[1].m.color = create_color(1, 1, 0);
-	s[1].obj = cy;
-////////////////////////////////////////
-	s[2] = test_shape();
-	s[2].tranform = multiple_matrice(translation(1.5, 0.5, -0.5), scaling(0.5,
-			0.5, 0.5));
-	s[2].m.amb_color = create_color(0, 0,0);
-	s[2].closed = true;
-	s[2].raduis = 2;
-	s[2].min = -2;
-	s[2].max = 2;
-	s[2].m.color = create_color(0.5, 1, 0.1);
-	s[2].obj = cy;
-////////////////////////
-	s[3] = test_shape();
-	s[3].raduis = 2;
-	s[3].closed = true;
-	s[3].tranform = multiple_matrice(translation(-1.5, 0.33, -0.75),
-		scaling(0.33, 0.33, 0.33));
-	s[3].m.amb_color = create_color(0, 0,0);
-	s[3].m.color = create_color(1, 0.8, 0.1);
-	s[3].min = -2;
-	s[3].max = 1;
-	s[3].obj = cy;
-////////////////////////
-	s[4] = test_shape();
-	s[4].tranform = multiple_matrice(translation(0, 3, 0), scaling(1, 1, 1));
-	s[4].m.amb_color = create_color(0, 0,0);
-	s[4].m.color = create_color(1, 0, 0);
-	s[4].obj = sp;
+// 	s[1] = default_shape();
+// 	s[1].closed = true;
+// 	s[1].m.amb_color = create_color(0, 0,0);
+// 	s[1].raduis = 1;
+// 	s[1].min = 0;
+// 	s[1].max = 3;
+// 	s[1].m.color = create_color(1, 1, 0);
+// 	s[1].obj = cy;
+// ////////////////////////////////////////
+// 	s[2] = default_shape();
+// 	s[2].tranform = multiple_matrice(translation(1.5, 0.5, -0.5), scaling(0.5,
+// 			0.5, 0.5));
+// 	s[2].m.amb_color = create_color(0, 0,0);
+// 	s[2].closed = true;
+// 	s[2].raduis = 2;
+// 	s[2].min = -2;
+// 	s[2].max = 2;
+// 	s[2].m.color = create_color(0.5, 1, 0.1);
+// 	s[2].obj = cy;
+// ////////////////////////
+// 	s[3] = default_shape();
+// 	s[3].raduis = 2;
+// 	s[3].closed = true;
+// 	s[3].tranform = multiple_matrice(translation(-1.5, 0.33, -0.75),
+// 		scaling(0.33, 0.33, 0.33));
+// 	s[3].m.amb_color = create_color(0, 0,0);
+// 	s[3].m.color = create_color(1, 0.8, 0.1);
+// 	s[3].min = -2;
+// 	s[3].max = 1;
+// 	s[3].obj = cy;
+// ////////////////////////
+// 	s[4] = default_shape();
+// 	s[4].tranform = multiple_matrice(translation(0, 3, 0), scaling(1, 1, 1));
+// 	s[4].m.amb_color = create_color(0, 0,0);
+// 	s[4].m.color = create_color(1, 0, 0);
+// 	s[4].obj = sp;
 	return (s);
 }
 int	main(int ac, char **av)
@@ -106,16 +106,16 @@ int	main(int ac, char **av)
 	// l[0] = point_light(create_point(-10, 10, -10), create_color(1, 1, 1));
 	// l[1] = point_light(create_point(10, 10, -10), create_color(0, 0, 1));
 	// w = word(s, l);
-	// render(w);
-	// t_shape s = test_shape();
+	// t_camera c = camera(500, 500, M_PI/ 3);
+	// c.trans = view_transformation(create_point(0, 5.5, -5), create_point(0,
+	// 			1, 0), create_vector(0, 1, 0));
+	// render(w, c);
+	// t_shape s = default_shape();
 	// t_intersect *xs = cube_intersect(s, ray(create_point(-2, 0, 0), create_vector(0.2673, 0.5345, 0.8018)));
 	// printf ("%f  \n", xs->min);
 	// t_word w = default_word();
 	// t_point point = create_point(-2, 2, -2);
 	// printf("is %d\n", is_shadowed(w, point, 2));
-	// t_camera c = camera(800, 800, M_PI/ 3);
-	// c.trans = view_transformation(create_point(0, 1.5, -5), create_point(0,
-				// 1, 0), create_vector(0, 1, 0));
 	// render(c, w);
 	// t_ray r = ray_for_pixel(c, 100, 50);
 	// t_intersect *xs = intersect_world(w, r);

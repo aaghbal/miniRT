@@ -6,25 +6,46 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 09:47:21 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/03 14:44:10 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/04 14:15:23 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_d_am	parsing_am_light(char **elem)
+int	ft_strlen_elem(char **elem)
 {
-	t_d_am am;
+	int	i;
 
-	am.ratio = conver_range(elem[1]);
-	if (am.ratio < 0 || am.ratio > 1)
+	i = 0;
+	while (elem[i])
+		i++;
+	return(i);	
+}
+
+t_color	parsing_am_light(char **elem)
+{
+	t_color c;
+	double	ratio;
+	double	*res;
+
+	ratio = conver_range(elem[1]);
+	
+	if (ft_strlen_elem(elem) != 3)
+	{
+		printf("Error number element in ambiat lighting\n");
+		exit(1);
+	}
+	if (ratio < 0 || ratio > 1)
 	{
 		printf("Error ratio in ambinat lighting\n");
 		exit(1);
 	}
-	am.res = rang_rgb(elem[2]);
-	// printf("here %f  %f  %f reatio %f\n", res[0], res[1], res[2],conver_range(elem[1]));
-	return (am);
+	
+	res = rang_rgb(elem[2]);
+	c.red = (res[0] / 255) * ratio;
+	c.green = (res[1] / 255) * ratio;
+	c.blue = (res[2] / 255) * ratio;
+	return (c);
 }
 
 double	*rang_rgb(char *str)
@@ -74,8 +95,3 @@ double	conver_range(char *rat)
 	free_doublep(spl);
 	return (res);
 }
-
-// void	ambiant_lighting(char **elem)
-// {
-	
-// }

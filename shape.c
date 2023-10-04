@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 17:28:41 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/02 13:33:01 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/04 16:10:51 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_swap(double *t0, double *t1)
 	*t1 = tmp;
 }
 
-t_shape	test_shape(void)
+t_shape	default_shape(void)
 {
 	t_shape	s;
 

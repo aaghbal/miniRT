@@ -24,6 +24,7 @@
 		"string": "c",
 		"string_view": "c",
 		"vector": "c",
-		"__locale": "c"
+		"__locale": "c",
+		"__bit_reference": "c"
 	}
 }

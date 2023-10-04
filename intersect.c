@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 15:31:08 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/03 16:26:46 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/04 17:14:06 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ t_intersect	*intersect_world(t_word w, t_ray r, int n_object)
 	xs = NULL;
 	while (i < n_object)
 	{
+		// print_matrice(w.s[i].tranform);
 		if (w.s[i].obj == sp)
 			new = sphere_intersect(w.s[i], r);
 		else if (w.s[i].obj == pl)

@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 14:33:38 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/02 19:18:29 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/04 17:24:32 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,55 +64,51 @@ typedef struct s_d {
 	t_mlx_image *img;
 } t_d;
 
-void rez(int width, int height, void *v)
-{
-	t_d *d =v;
-	t_color		col;
-	t_camera	c;
+// void rez(int width, int height, void *v)
+// {
+// 	t_d *d =v;
+// 	t_color		col;
+// 	t_camera	c;
 	
-	mlx_delete_image(d->mlx, d->img);
-	c = camera(height, width, M_PI / 3);
-	c.trans = view_transformation(create_point(0, 5.5, -7), create_point(0, 1,
-				1), create_vector(0, 1, 0));
-	d->img = mlx_new_image(d->mlx, c.vsize, c.hsize);
-	mlx_image_to_window(d->mlx, d->img, 0, 0);
-	int i = 1, j;
-	while (i < c.vsize)
-	{
-		j = 1;
-		while (j < c.hsize)
-		{
-			col = color_at(d->w, ray_for_pixel(c, i, j), 5);
-			mlx_putpixel(d->img, i, j, conv_color(col.red, col.green, col.blue));
-			j++;
-		}
-		i++;
-	}
-}
+// 	mlx_delete_image(d.mlx, d->img);
+// 	c = camera(height, width, M_PI / 3);
+// 	c.trans = view_transformation(create_point(0, 5.5, -7), create_point(0, 1,
+// 				1), create_vector(0, 1, 0));
+// 	d->img = mlx_new_image(d->mlx, c.vsize, c.hsize);
+// 	mlx_image_to_window(d->mlx, d->img, 0, 0);
+// 	int i = 1, j;
+// 	while (i < c.vsize)
+// 	{
+// 		j = 1;
+// 		while (j < c.hsize)
+// 		{
+// 			col = color_at(d->w, ray_for_pixel(c, i, j), 5);
+// 			mlx_putpixel(d->img, i, j, conv_color(col.red, col.green, col.blue));
+// 			j++;
+// 		}
+// 		i++;
+// 	}
+// }
 
-void	render(t_word w)
+void	render(t_word w, t_camera c)
 {
 	int			i;
 	int			j;
 	t_mlx		*mlx;
 	t_mlx_image	*img;
 	t_color		col;
-	t_camera	c;
 	t_d		d;
 
-	i = 1;
+	i = 0;
 	mlx = mlx_init(WIDTH, HEIGHT, "test", true);
-	c = camera(mlx->width, mlx->height, M_PI / 3);
-	c.trans = view_transformation(create_point(0, 5.5, -7), create_point(0, 1,
-				1), create_vector(0, 1, 0));
 	img = mlx_new_image(mlx, c.vsize, c.hsize);
 	mlx_image_to_window(mlx, img, 0, 0);
 	while (i < c.vsize)
 	{
-		j = 1;
+		j = 0;
 		while (j < c.hsize)
 		{
-			col = color_at(w, ray_for_pixel(c, i, j), 5);
+			col = color_at(w, ray_for_pixel(c, i, j), 1);
 			mlx_putpixel(img, i, j, conv_color(col.red, col.green, col.blue));
 			j++;
 		}
@@ -121,6 +117,6 @@ void	render(t_word w)
 	d.img = img;
 	d.mlx = mlx;
 	d.w = w;
-	mlx_resize_hook(mlx, rez, &d);
+	// mlx_resize_hook(mlx, rez, &d);
 	mlx_loop(mlx);
 }

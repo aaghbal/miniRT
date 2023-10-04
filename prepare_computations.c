@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 11:51:09 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/03 16:27:16 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/04 17:05:09 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ t_color	shade_hit(t_word w, t_comps com, int n_obj)
 	v.eyev = com.eyev;
 	v.normalv = com.normalv;
 	v.point = com.point;
-	while (i < 2)
+	while (i < 1)
 	{
 		v.l = w.l[i];
 		shadowed = is_shadowed(w, com.over_point, n_obj, w.l[i]);

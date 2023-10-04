@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 13:35:55 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/03 15:27:40 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/04 17:01:56 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ t_color	lighting(t_material m, t_light light, t_var_light v, bool shadowed)
 	v.effective_color = mul_color(m.color, light.intensity);
 	v.lightv = normalize(sub_to_point(light.position, v.point));
 	v.ambient = mul_by_scaler(v.effective_color, m.ambient);
-	v.ambient = mul_color(v.ambient, m.amb_color);
 	if (shadowed)
 		return (v.ambient);
 	lihgt_dot_normal = dot_product(v.lightv, v.normalv);
