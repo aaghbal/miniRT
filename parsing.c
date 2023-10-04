@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 17:45:38 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/04 16:53:23 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/04 18:10:36 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,4 +141,5 @@ void read_file(char *file)
 	close(fd);
 	fd = open(file, O_RDONLY);
 	ft_create_world(fd, p);
+	close(fd);
 }
