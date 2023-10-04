@@ -6,7 +6,7 @@
 #    By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/06 15:13:12 by aaghbal           #+#    #+#              #
-#    Updated: 2023/10/04 15:47:06 by aaghbal          ###   ########.fr        #
+#    Updated: 2023/10/04 18:08:54 by aaghbal          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,16 +43,14 @@ libftl:
 	$(CC) $(CFLAGS) -c $<
 
 clean :
+	make clean -C Libft
 	$(RM) $(OB_SRC)
 
 fclean : clean
+	make fclean -C Libft
 	$(RM) $(NAME) 
 
-libftclean:
-			make clean -C Libft
 
-libftfclean:
-			make fclean -C Libft
 
 re : fclean all
 
