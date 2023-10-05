@@ -6,13 +6,13 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:43:20 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/04 17:13:53 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/05 17:31:09 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_color	color_at(t_word w, t_ray r, int n_object)
+t_color	color_at(t_word w, t_ray r, t_d_pars p)
 {
 	t_comps			c;
 	t_intersection	i;
@@ -21,13 +21,13 @@ t_color	color_at(t_word w, t_ray r, int n_object)
 	t_intersect		h;
 
 	col = create_color(0, 0, 0);
-	xs = intersect_world(w, r, n_object);
+	xs = intersect_world(w, r, p.num_shap);
 	h = hit(xs);
 	if (equal(h.min, 0))
 		return (create_color(0, 0, 0));
 	i = intersection(h.min, h.s);
 	c = prepare_computations(i, r);
-	col = shade_hit(w, c, n_object);
+	col = shade_hit(w, c, p);
 	return (col);
 }
 

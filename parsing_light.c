@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 11:54:07 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/04 14:50:12 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/05 17:35:41 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,6 @@ t_light	parsing_light(char	**elem)
 	l.position = parse_origine(elem[1]);
 	ratio = conver_range(elem[2]);
 	c = parse_color(elem[3]);
-	l.intensity = mul_by_scaler(c, ratio);
+	l.intensity = c;
 	return (l);
 }

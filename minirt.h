@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:13:01 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/04 17:21:58 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/05 17:31:27 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,7 @@ typedef struct s_word
 {
 	t_shape	*s;
 	t_light	*l;
-	t_color ambiant;
+	double ambiant;
 }	t_word;
 
 typedef struct s_intersec
@@ -204,6 +204,7 @@ typedef struct s_variable_lighting
 	t_color		specular;
 	t_vector	reflectv;
 	t_color		res;
+	double		am_rati;
 }	t_var_light;
 
 typedef struct s_cube
@@ -323,13 +324,13 @@ t_color			lighting(t_material m, t_light light, t_var_light v, bool shadowed);
 t_word			default_word(void);
 t_word			word(t_shape *s, t_light *l);
 t_comps			prepare_computations(t_intersection i, t_ray ray);
-t_color			shade_hit(t_word w, t_comps com, int n_obj);
+t_color			shade_hit(t_word w, t_comps com, t_d_pars p);
 t_intersect		hit(t_intersect *res);
-t_color			color_at(t_word w, t_ray r, int n_object);
+t_color			color_at(t_word w, t_ray r, t_d_pars p);
 double			**view_transformation(t_point from, t_point to, t_vector up);
 t_ray			ray_for_pixel(t_camera camera, double px, double py);
 t_camera		camera(double hsize, double vsize, double field_view);
-void			render(t_word w, t_camera c);
+void			render(t_word w, t_camera c, t_d_pars p);
 
 /////////////
 bool			is_shadowed(t_word w, t_point point, int n_obj, t_light l);
@@ -379,7 +380,7 @@ t_shape	check_ident_shap(char **elem);
 double	conver_range(char *rat);
 double	*rang_rgb(char *str);
 double	ft_itod(char *str);
-t_color	parsing_am_light(char **elem);
+double	parsing_am_light(char **elem);
 t_shape	parsing_sphere(char **elem);
 t_shape	parsing_plan(char **elem);
 t_point	parse_origine(char *elem);

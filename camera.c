@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 14:33:38 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/04 18:39:31 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/05 17:29:34 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ typedef struct s_d {
 // 	}
 // }
 
-void	render(t_word w, t_camera c)
+void	render(t_word w, t_camera c, t_d_pars p)
 {
 	int			i;
 	int			j;
@@ -109,7 +109,7 @@ void	render(t_word w, t_camera c)
 		j = 0;
 		while (j < c.hsize)
 		{
-			col = color_at(w, ray_for_pixel(c, i, j), 1);
+			col = color_at(w, ray_for_pixel(c, i, j), p);
 			mlx_putpixel(img, i, j, conv_color(col.red, col.green, col.blue));
 			j++;
 		}

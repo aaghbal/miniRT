@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 17:45:38 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/04 18:10:36 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/05 17:31:47 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,15 +75,16 @@ t_d_pars data_shape(int fd)
 	t_d_pars p;
 
 	p.num_shap = 0;
+	p.num_ligh = 0;
 	while (1)
 	{
 		line = get_next_line(fd);
 		if (!line)
 			break;
 		spl = ft_split(line, ' ');
-		if (!ft_strncmp("A", spl[0], ft_strlen(spl[0])) ||
-			!ft_strncmp("L", spl[0], ft_strlen(spl[0])) ||
-			!ft_strncmp("C", spl[0], ft_strlen(spl[0])))
+		if (!ft_strncmp("cy", spl[0], ft_strlen(spl[0])) ||
+			!ft_strncmp("sp", spl[0], ft_strlen(spl[0])) ||
+			!ft_strncmp("pl", spl[0], ft_strlen(spl[0])))
 			p.num_shap++;
 		if (!ft_strncmp("L", spl[0], ft_strlen(spl[0])))
 			p.num_ligh++;
@@ -122,7 +123,7 @@ void	ft_create_world(int fd, t_d_pars p)
 			w.s[i++] = check_ident_shap(spl);
 		free_doublep(spl);
 	}
-	render(w, c);
+	render(w, c, p);
 }
 
 

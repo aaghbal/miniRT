@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 11:51:09 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/04 17:05:09 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/05 17:29:08 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_comps	prepare_computations(t_intersection i, t_ray ray)
 	return (com);
 }
 
-t_color	shade_hit(t_word w, t_comps com, int n_obj)
+t_color	shade_hit(t_word w, t_comps com, t_d_pars p)
 {
 	int			i;
 	t_color		col;
@@ -53,10 +53,11 @@ t_color	shade_hit(t_word w, t_comps com, int n_obj)
 	v.eyev = com.eyev;
 	v.normalv = com.normalv;
 	v.point = com.point;
-	while (i < 1)
+	v.am_rati = w.ambiant;
+	while (i < p.num_ligh)
 	{
 		v.l = w.l[i];
-		shadowed = is_shadowed(w, com.over_point, n_obj, w.l[i]);
+		shadowed = is_shadowed(w, com.over_point, p.num_shap, w.l[i]);
 		col = adding_color(col, lighting(com.obj.m, v.l, v, shadowed));
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 15:35:23 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/04 19:38:40 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/05 17:20:23 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ t_shape	parsing_cyl(char **elem)
 	diam = conver_range(elem[3]) / 2;
 	hei = conver_range(elem[4]);
 	s.tranform = multiple_matrice(s.tranform, orient(orie));
-		// s.tranform = multiple_matrice(s.tranform, rotation_x(M_PI));
+	s.tranform = multiple_matrice(s.tranform, translation(o.x, o.y, o.z));
 	s.tranform = multiple_matrice(s.tranform, scaling(diam, 1, diam));
 	s.tranform = multiple_matrice(s.tranform, scaling(1, hei, 1));
 	s.m.color = parse_color(elem[5]);

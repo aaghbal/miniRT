@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 14:58:38 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/04 19:31:25 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/05 16:26:24 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,5 @@ double **orient(t_vector orie)
 		}
 		forw = create_vector(0, 0, 1);
 	}
-	return(orientaion_matrix(up, forw, right));
+	return(orientaion_matrix(right, up, forw));
 }
