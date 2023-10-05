@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_sphere.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
+/*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 15:35:23 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/05 18:35:52 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/05 21:50:53 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ t_shape	parsing_cyl(char **elem)
 	orie = parse_vector(elem[2]);
 	diam = conver_range(elem[3]) / 2;
 	hei = conver_range(elem[4]);
-	s.tranform = multiple_matrice(s.tranform, orient(orie));
+	// s.tranform = multiple_matrice(s.tranform, orient(orie));
+	s.tranform = multiple_matrice(s.tranform, rotation_z(radiane(90)));
 	s.tranform = multiple_matrice(s.tranform, translation(o.x, o.y, o.z));
 	s.tranform = multiple_matrice(s.tranform, scaling(diam, 1, diam));
 	s.tranform = multiple_matrice(s.tranform, scaling(1, hei, 1));
