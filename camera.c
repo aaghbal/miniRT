@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 14:33:38 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/05 17:29:34 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/05 19:10:16 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,6 @@ void	render(t_word w, t_camera c, t_d_pars p)
 	t_d		d;
 
 	i = 0;
-	print_matrice(w.s[0].tranform);
 	mlx = mlx_init(WIDTH, HEIGHT, "test", true);
 	img = mlx_new_image(mlx, c.vsize, c.hsize);
 	mlx_image_to_window(mlx, img, 0, 0);

@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:08:58 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/05 18:16:18 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/05 18:34:35 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,30 +82,32 @@ int	main(int ac, char **av)
 	// printf("%.5f, %.5f, %.5f\n", r.origine.x,r.origine.y,r.origine.z);
 	// printf("%.5f, %.5f, %.5f\n", r.direction.x,r.direction.y,r.direction.z);
 	
-	// if (ac == 2)
-	// {
-	// 	read_file(av[1]);
-	// }
-	t_shape *s;
-	s = malloc(sizeof(t_shape));
+	if (ac == 2)
+	{
+		read_file(av[1]);
+	}
+	// t_shape *s;
+	// s = malloc(sizeof(t_shape));
 
-	s[0] = default_shape();
-	s[0].obj = pl;
-	t_d_pars p = {1, 1};
+	// s[0] = default_shape();
+	// s[0].obj = pl;
+	// (void)ac;
+	// (void)av;
+	// t_d_pars p = {5, 1};
 	// t_shape		*s;
-	t_light		*l;
-	t_word		w;
+	// t_light		*l;
+	// t_word		w;
 	// s = create_shape();
-	l = malloc(sizeof(t_light) * 1);
-	ft_free(ADD, l);
-	l[0] = point_light(create_point(-10, 10, -10), create_color(0, 0, 1));
-	// l[1] = point_light(create_point(10, 10, -10), create_color(0, 0, 1));
-	w = word(s, l);
-	w.ambiant = 0.1;
-	t_camera c = camera(500, 500, M_PI/ 3);
-	c.trans = view_transformation(create_point(0, 1, -5), create_point(0,
-				1, 1), create_vector(0, 1, 0));
-	render(w, c, p);
+	// l = malloc(sizeof(t_light) * 1);
+	// ft_free(ADD, l);
+	// l[0] = point_light(create_point(-10, 10, -10), create_color(0, 0, 1));
+	// // l[1] = point_light(create_point(10, 10, -10), create_color(0, 1, 0));
+	// w = word(s, l);
+	// w.ambiant = 0.1;
+	// t_camera c = camera(500, 500, M_PI/ 3);
+	// c.trans = view_transformation(create_point(0, 1, -5), create_point(0,
+	// 			1, 1), create_vector(0, 1, 0));
+	// render(w, c, p);
 	// t_shape s = default_shape();
 	// t_intersect *xs = cube_intersect(s, ray(create_point(-2, 0, 0), create_vector(0.2673, 0.5345, 0.8018)));
 	// printf ("%f  \n", xs->min);

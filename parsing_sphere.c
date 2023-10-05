@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 15:35:23 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/05 17:20:23 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/05 18:35:52 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ t_shape	parsing_plan(char **elem)
 
 	s = default_shape();
 	s.obj = pl;
+	s.m.specular = 0;
 	o = parse_origine(elem[1]);
 	orie = parse_vector(elem[2]);
 	s.tranform = multiple_matrice(s.tranform, orient(orie));
