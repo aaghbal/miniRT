@@ -3,18 +3,15 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+         #
+#    By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/08/06 15:13:12 by aaghbal           #+#    #+#              #
-#    Updated: 2023/10/04 18:08:54 by aaghbal          ###   ########.fr        #
+#    Created: 2023/08/27 09:51:25 by houmanso          #+#    #+#              #
+#    Updated: 2023/10/05 21:12:49 by houmanso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC = cc
-CFLAGS = -Wall -Wextra -Werror -Ofast -march=native -flto -funroll-loops
-CMLX = -L $(shell brew --prefix glfw)/lib -lglfw -LMLX42/ -lmlx42  -framework OpenGL -framework AppKit
-NAME = minirt
-
+CFLAGS	=	-Wall -Werror -Wextra
+LIBMLX	=	./MLX42/libmlx42.a -L ~/.brew/opt/glfw/lib -lglfw -ldl -lm -L ./Libft -lft
 SRC = main.c create_vec_point.c add_vector_point.c sub_vector_point.c \
 		operation_vect_point.c operation_vect_point2.c color.c canvas.c \
 		operation_matrice.c operation_mat2.c transformation.c \
@@ -24,39 +21,39 @@ SRC = main.c create_vec_point.c add_vector_point.c sub_vector_point.c \
 		intersect_cyl.c intersect_cube.c intersect_cones.c free.c parsing.c \
 		get_next_line.c get_next_line_utils.c parsing_am_light.c parsing_plan.c\
 		parsing_sphere.c parsing_light.c parsing_camera.c orient.c
-		
-OB_SRC = $(SRC:.c=.o)
-RM = rm -rf
+OBJ		=	$(SRC:.c=.o)
+NAME	=	miniRT
+OBJ		=	$(SRC:.c=.o)
 
-all : libftl $(NAME)
+CFLAGS += -g
+CFLAGS =	-I ./include -I ./MLX42/include -I ~/.brew/opt/glfw/include
 
-$(NAME) : $(OB_SRC)
-	$(CC) $(CFLAGS) $(CMLX) $(OB_SRC) Libft/libft.a -o $(NAME)
-	
-MLX42/libmlx.a:
-	make -C MLX42/
+all : mlx libft $(NAME)
 
-libftl:
-	@make -C Libft/
+libft :
+	@make -C ./Libft
 
-%.o : %.c minirt.h Libft/libft.h
-	$(CC) $(CFLAGS) -c $<
+mlx :
+	@make -C ./MLX42
 
+$(NAME) : $(OBJ)
+	cc $(CFLAGS) $(OBJ) $(LIBMLX)  -o $(NAME)
+
+%.o : %.c ./include/*
+	cc $(CFLAGS) -c $(INC) $< -o $@
 clean :
-	make clean -C Libft
-	$(RM) $(OB_SRC)
+	@make -C ./MLX42 clean
+	@make -C ./Libft clean
+	rm -rf $(OBJ)
 
 fclean : clean
-	make fclean -C Libft
-	$(RM) $(NAME) 
+	@make -C ./MLX42 fclean
+	@make -C ./Libft fclean
+	rm -rf $(NAME)
 
-
-
-re : fclean all
+re: fclean all
 
 norm :
-	norminette $(SRC)
+	@norminette $(SRC) include
 
-.PHONY: all clean re
-
-
+.PHONY : all  clean  fclean mlx norm re libft
