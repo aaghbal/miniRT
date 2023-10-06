@@ -6,27 +6,22 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:13:01 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/06 14:24:36 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/06 18:22:43 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
 # define MINIRT_H
 
-# include "/Users/aaghbal/Desktop/miniRT/MLX42/include/MLX42/MLX42.h"
-# include "/Users/aaghbal/Desktop/miniRT/MLX42/include/MLX42/MLX42_Int.h"
-# include "/Users/aaghbal/Desktop/miniRT/MLX42/include/MLX42/MLX42_Keys.h"
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
 # include <math.h>
 # include <stdbool.h>
 # include <pthread.h>
-
-#include "get_next_line.h"
-#include "Libft/libft.h"
-
-
+# include "MLX42/MLX42.h"
+# include "get_next_line.h"
+# include "Libft/libft.h"
 
 # define EPSILON 0.00001
 

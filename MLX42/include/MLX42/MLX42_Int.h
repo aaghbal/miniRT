@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 23:55:34 by W2Wizard          #+#    #+#             */
-/*   Updated: 2023/09/13 19:41:15 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/06 18:20:18 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # else
 #  define IS_APPLE 0
 # endif
-# include </goinfre/aaghbal/homebrew/opt/glfw/include/GLFW/glfw3.h>
+# include <GLFW/glfw3.h>
 # include <stdlib.h>
 # include <memory.h>
 # include <stdio.h>
