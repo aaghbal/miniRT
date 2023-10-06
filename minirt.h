@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:13:01 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/05 17:31:27 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/06 14:24:36 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,7 @@ typedef struct s_word
 {
 	t_shape	*s;
 	t_light	*l;
-	double ambiant;
+	t_color ambiant;
 }	t_word;
 
 typedef struct s_intersec
@@ -204,7 +204,7 @@ typedef struct s_variable_lighting
 	t_color		specular;
 	t_vector	reflectv;
 	t_color		res;
-	double		am_rati;
+	t_color		am_rati;
 }	t_var_light;
 
 typedef struct s_cube
@@ -380,7 +380,7 @@ t_shape	check_ident_shap(char **elem);
 double	conver_range(char *rat);
 double	*rang_rgb(char *str);
 double	ft_itod(char *str);
-double	parsing_am_light(char **elem);
+t_color parsing_am_light(char **elem);
 t_shape	parsing_sphere(char **elem);
 t_shape	parsing_plan(char **elem);
 t_point	parse_origine(char *elem);

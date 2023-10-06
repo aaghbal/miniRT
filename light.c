@@ -6,11 +6,17 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 13:35:55 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/05 18:28:50 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/06 14:25:28 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+void	printf_color(t_color c)
+{
+	printf("%f  %f  %f\n", c.red, c.green, c.blue);
+	puts("-------------------");
+}
 
 t_light	point_light(t_point pos, t_color intensit)
 {
@@ -41,7 +47,7 @@ t_color	lighting(t_material m, t_light light, t_var_light v, bool shadowed)
 
 	v.effective_color = mul_color(m.color, light.intensity);
 	v.lightv = normalize(sub_to_point(light.position, v.point));
-	v.ambient = mul_by_scaler(v.effective_color,v.am_rati);
+	v.ambient = mul_color(v.effective_color,v.am_rati);
 	if (shadowed)
 		return (v.ambient);
 	lihgt_dot_normal = dot_product(v.lightv, v.normalv);
@@ -59,5 +65,8 @@ t_color	lighting(t_material m, t_light light, t_var_light v, bool shadowed)
 	}
 	else
 		v.specular = create_color(0, 0, 0);
+	// printf_color(v.ambient);
+	// printf_color(v.defuse);
+	// printf_color(v.specular);
 	return (adding_color(adding_color(v.ambient, v.defuse), v.specular));
 }

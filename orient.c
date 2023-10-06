@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 14:58:38 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/05 16:26:24 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/06 11:05:15 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,15 @@ double **orient(t_vector orie)
 		{
 			up = create_vector(0, 1, 0);
 			right = create_vector(1, 0, 0);
+		forw = create_vector(0, 0, 1);
 		}
 		else if (orie.y < 0)
 		{
 			
 			up = create_vector(0, -1, 0);
 			right = create_vector(-1, 0, 0);
+		forw = create_vector(0, 0, -1);
 		}
-		forw = create_vector(0, 0, 1);
 	}
 	return(orientaion_matrix(right, up, forw));
 }

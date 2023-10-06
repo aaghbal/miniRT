@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 18:35:58 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/02 13:26:34 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/06 17:34:16 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,20 @@ t_vector	cyl_normal_at(t_shape s, t_point word_point)
 	double		**inv;
 	t_point		obj_point;
 	t_vector	w_normal;
+	t_vector	o_normal;
 
 	(void)s;
 	inv = inverse_gauss(s.tranform);
 	obj_point = mul_mat_point(inv, word_point);
-	dist = pow(obj_point.x, 2) + pow(obj_point.z, 2);
+	dist = obj_point.x * obj_point.x + obj_point.z * obj_point.z;
 	if (dist < 1 && obj_point.y >= s.max - EPSILON)
-		w_normal = create_vector(0, 1, 0);
+		o_normal = create_vector(0, 1, 0);
 	else if (dist < 1 && obj_point.y <= s.min + EPSILON)
-		w_normal = create_vector(0, -1, 0);
+		o_normal = create_vector(0, -1, 0);
 	else
-		w_normal = create_vector(obj_point.x, 0, obj_point.z);
+		o_normal = create_vector(obj_point.x, 0, obj_point.z);
+	inv = transposing(inv);
+	w_normal = mul_mat_vector(inv, o_normal);
 	w_normal.w = 0;
 	return (normalize(w_normal));
 }

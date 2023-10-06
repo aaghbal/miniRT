@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 09:47:21 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/05 16:54:57 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/06 14:22:06 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_strlen_elem(char **elem)
 	return(i);	
 }
 
-double	parsing_am_light(char **elem)
+t_color	parsing_am_light(char **elem)
 {
 	t_color c;
 	double	ratio;
@@ -45,7 +45,7 @@ double	parsing_am_light(char **elem)
 	c.red = (res[0] / 255) * ratio;
 	c.green = (res[1] / 255) * ratio;
 	c.blue = (res[2] / 255) * ratio;
-	return (ratio);
+	return (mul_by_scaler(c, ratio));
 }
 
 double	*rang_rgb(char *str)
