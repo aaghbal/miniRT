@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:08:58 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/05 18:34:35 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/06 17:16:55 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,10 @@ t_shape	*create_shape(void)
 
 	s = malloc(sizeof(t_shape) * 5);
 	s[0] = default_shape();
-	s[0].tranform = scaling(10, 0.01, 10);
 	s[0].m.color = create_color(1, 0.9, 0.9);
 	s[0].m.specular = 0.0;
 	s[0].obj = pl;
-	/////////////////////////////////////////
+	 /////////////////////////////////////////
 	s[1] = default_shape();
 	s[1].closed = true;
 	s[1].min = 0;
@@ -52,7 +51,9 @@ t_shape	*create_shape(void)
 
 	/////////////////////////////////////////
 	s[2] = default_shape();
-	s[2].tranform = multiple_matrice(translation(1.5, 0.5, -0.5) ,scaling(0.5, 0.5, 0.5));
+	s[2].tranform = multiple_matrice(translation(1.5, 0.5, -2) ,scaling(0.5, 0.5, 0.5));
+	s[2].tranform = multiple_matrice(s[2].tranform, rotation_x(M_PI/2));
+	s[2].tranform = multiple_matrice(s[2].tranform, rotation_y(0.87266));
 	s[2].closed = true;
 	s[2].min = -2;
 	s[2].max = 2;
@@ -67,7 +68,7 @@ t_shape	*create_shape(void)
 	s[3].max = 1;
 	s[3].obj = cy;
 
-	// /////////////////////////
+	/////////////////////////
 	s[4] = default_shape();
 	s[4].tranform = multiple_matrice(translation(0, 4, 0) ,scaling(1, 1, 1));
 	s[4].m.color = create_color(1, 0, 0);
@@ -89,23 +90,23 @@ int	main(int ac, char **av)
 	// t_shape *s;
 	// s = malloc(sizeof(t_shape));
 
-	// s[0] = default_shape();
+	// t_shape		*s;
+	// s = create_shape();
 	// s[0].obj = pl;
 	// (void)ac;
 	// (void)av;
 	// t_d_pars p = {5, 1};
-	// t_shape		*s;
 	// t_light		*l;
 	// t_word		w;
 	// s = create_shape();
 	// l = malloc(sizeof(t_light) * 1);
 	// ft_free(ADD, l);
-	// l[0] = point_light(create_point(-10, 10, -10), create_color(0, 0, 1));
+	// l[0] = point_light(create_point(0, 5, -10), create_color(1, 1, 1));
 	// // l[1] = point_light(create_point(10, 10, -10), create_color(0, 1, 0));
 	// w = word(s, l);
-	// w.ambiant = 0.1;
+	// w.ambiant = mul_by_scaler(create_color(1, 1, 1), 0.1);
 	// t_camera c = camera(500, 500, M_PI/ 3);
-	// c.trans = view_transformation(create_point(0, 1, -5), create_point(0,
+	// c.trans = view_transformation(create_point(0, 5, -10), create_point(0,
 	// 			1, 1), create_vector(0, 1, 0));
 	// render(w, c, p);
 	// t_shape s = default_shape();

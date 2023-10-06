@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 16:42:18 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/02 13:25:29 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/06 17:03:05 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_intersect	*intersect_caps(t_shape s, t_ray r, t_intersect **xs)
 {
 	double	t;
 
-	if (!s.closed || equal(r.direction.y, 0))
+	if (equal(r.direction.y, 0))
 		return (*xs);
 	t = (s.min - r.origine.y) / r.direction.y;
 	if (check_cap(r, t))
@@ -72,10 +72,10 @@ t_intersect	*cyl_intersect(t_shape s, t_ray ray)
 	if (data.t0 > data.t1)
 		ft_swap(&data.t0, &data.t1);
 	data.y0 = r.origine.y + data.t0 * r.direction.y;
-	if (data.y0 > s.min && data.y0 < s.max)
+	if (data.y0 >= s.min && data.y0 <= s.max)
 		xs = new_intersec(data.t0, s);
 	data.y1 = r.origine.y + data.t1 * r.direction.y;
-	if (data.y1 > s.min && data.y1 < s.max)
+	if (data.y1 >= s.min && data.y1 <= s.max)
 		add_back(&xs, new_intersec(data.t1, s));
 	return (intersect_caps(s, r, &xs), xs);
 }

@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+         #
+#    By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/27 09:51:25 by houmanso          #+#    #+#              #
-#    Updated: 2023/10/05 21:16:51 by houmanso         ###   ########.fr        #
+#    Updated: 2023/10/06 18:28:37 by aaghbal          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CFLAGS	=	-Wall -Werror -Wextra
-LIBMLX	=	./MLX42/libmlx42.a -L ~/.brew/opt/glfw/lib -lglfw -ldl -lm -L ./Libft -lft
-OPTIMZE	=	-O3 -Ofast -march=native -flto -funroll-loops -ffast-math
+GLFW = $(shell brew --prefix glfw)
+LIBMLX	=	./MLX42/libmlx42.a -L $(GLFW)/lib -lglfw -ldl -lm -L ./Libft -lft
 SRC = main.c create_vec_point.c add_vector_point.c sub_vector_point.c \
 		operation_vect_point.c operation_vect_point2.c color.c canvas.c \
 		operation_matrice.c operation_mat2.c transformation.c \
@@ -27,16 +27,15 @@ NAME	=	miniRT
 OBJ		=	$(SRC:.c=.o)
 
 CFLAGS += -g
-CFLAGS += -I ./include -I ./MLX42/include -I ~/.brew/opt/glfw/include
-CFLAGS += $(OPTIMZE)
+CFLAGS += -I ./include -I ./MLX42/include -I $(GLFW)/include
 
-all : mlx libft $(NAME)
+all : libft mlx $(NAME)
 
 libft :
 	@make -C ./Libft
 
 mlx :
-	@make -C ./MLX42
+	@make CFLAGS="$(CFLAGS)" -C ./MLX42 
 
 $(NAME) : $(OBJ)
 	cc $(CFLAGS) $(OBJ) $(LIBMLX)  -o $(NAME)
