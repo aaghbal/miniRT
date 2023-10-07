@@ -6,7 +6,7 @@
 /*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 13:35:55 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/07 13:57:46 by houmanso         ###   ########.fr       */
+/*   Updated: 2023/10/07 14:08:08 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ t_color	lighting(t_material m, t_light light, t_var_light v, bool shadowed)
 		return (v.ambient);
 	lihgt_dot_normal = dot_product(v.lightv, v.normalv);
 	v.defuse = create_color(0, 0, 0);
-	if (lihgt_dot_normal >= 0)
-		v.defuse = mul_by_scaler(mul_by_scaler(v.effective_color, m.diffuse),
-				lihgt_dot_normal);
+	if (lihgt_dot_normal > 0)
+		v.defuse = mul_by_scaler(v.effective_color,
+				m.diffuse * lihgt_dot_normal);
 	v.reflectv = reflect(negating_vect(v.lightv), v.normalv);
 	reflect_dot_eye = dot_product(v.reflectv, v.eyev);
 	if (reflect_dot_eye > 0)
@@ -69,8 +69,5 @@ t_color	lighting(t_material m, t_light light, t_var_light v, bool shadowed)
 	}
 	else
 		v.specular = create_color(0, 0, 0);
-	// printf_color(v.ambient);
-	// printf_color(v.defuse);
-	// printf_color(v.specular);
 	return (adding_color(adding_color(v.ambient, v.defuse), v.specular));
 }
