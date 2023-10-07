@@ -6,7 +6,7 @@
 /*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:13:01 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/07 14:04:53 by houmanso         ###   ########.fr       */
+/*   Updated: 2023/10/07 19:04:13 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -324,7 +324,7 @@ t_vector		reflect(t_vector in, t_vector normal);
 
 t_light			point_light(t_point pos, t_color intensit);
 t_material		material(void);
-t_color			lighting(t_material m, t_light light, t_var_light v, bool shadowed);
+t_color			lighting(t_shape s, t_light light, t_var_light v, bool shadowed);
 // word 
 t_word			default_word(void);
 t_word			word(t_shape *s, t_light *l);

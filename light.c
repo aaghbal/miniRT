@@ -6,7 +6,7 @@
 /*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 13:35:55 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/07 14:08:08 by houmanso         ###   ########.fr       */
+/*   Updated: 2023/10/07 14:14:43 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,16 @@ t_material	material(void)
 	return (m);
 }
 
-t_color	lighting(t_material m, t_light light, t_var_light v, bool shadowed)
+t_color	lighting(t_shape s, t_light light, t_var_light v, bool shadowed)
 {
 	double	lihgt_dot_normal;
 	double	reflect_dot_eye;
 	double	factor;
 	t_color	color;
 
-	color = m.color;
-	if (m.has_pattern)
-		color = stripe_at(m.pattern, v.point);
+	color = s.m.color;
+	if (s.m.has_pattern)
+		color = stripe_at_shape(s.m.pattern, s, v.point);
 	v.effective_color = mul_color(color, light.intensity);
 	v.lightv = normalize(sub_to_point(light.position, v.point));
 	v.ambient = mul_color(v.effective_color,v.am_rati);
@@ -58,13 +58,13 @@ t_color	lighting(t_material m, t_light light, t_var_light v, bool shadowed)
 	v.defuse = create_color(0, 0, 0);
 	if (lihgt_dot_normal > 0)
 		v.defuse = mul_by_scaler(v.effective_color,
-				m.diffuse * lihgt_dot_normal);
+				s.m.diffuse * lihgt_dot_normal);
 	v.reflectv = reflect(negating_vect(v.lightv), v.normalv);
 	reflect_dot_eye = dot_product(v.reflectv, v.eyev);
 	if (reflect_dot_eye > 0)
 	{
-		factor = pow(reflect_dot_eye, m.shininess);
-		v.specular = mul_by_scaler(mul_by_scaler(light.intensity, m.specular),
+		factor = pow(reflect_dot_eye, s.m.shininess);
+		v.specular = mul_by_scaler(mul_by_scaler(light.intensity, s.m.specular),
 				factor);
 	}
 	else

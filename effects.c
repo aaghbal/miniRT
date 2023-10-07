@@ -6,7 +6,7 @@
 /*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 11:22:02 by houmanso          #+#    #+#             */
-/*   Updated: 2023/10/07 14:04:30 by houmanso         ###   ########.fr       */
+/*   Updated: 2023/10/07 16:28:10 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ t_pattern	stripe_pattern(t_color a, t_color b)
 
 	p.a = a;
 	p.b = b;
+	p.transform = identity();
+	p.inverse = p.transform;
 	return (p);
 }
 
@@ -27,8 +29,8 @@ t_color	stripe_at(t_pattern p, t_point point)
 
 	x_floor = floor(point.x);
 	if (x_floor % 2)
-		return (p.a);
-	return (p.b);
+		return (p.b);
+	return (p.a);
 }
 
 void	pattern_set_transform(t_pattern *p, double **m)

@@ -6,7 +6,7 @@
 /*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 17:28:41 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/07 13:15:47 by houmanso         ###   ########.fr       */
+/*   Updated: 2023/10/07 16:30:37 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ t_shape	default_shape(void)
 	t_shape	s;
 
 	s.tranform = identity();
+	s.ivers_tran = s.tranform;
 	s.m = material();
 	s.m.has_pattern = true;
 	s.m.pattern = stripe_pattern(s.m.color, mul_by_scaler(s.m.color, 0.5));

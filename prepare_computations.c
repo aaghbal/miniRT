@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prepare_computations.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
+/*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 11:51:09 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/06 13:53:06 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/07 14:15:41 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ t_color	shade_hit(t_word w, t_comps com, t_d_pars p)
 	{
 		v.l = w.l[i];
 		shadowed = is_shadowed(w, com.over_point, p.num_shap, w.l[i]);
-		col = adding_color(col, lighting(com.obj.m, v.l, v, shadowed));
+		col = adding_color(col, lighting(com.obj, v.l, v, shadowed));
 		i++;
 	}
 	return (col);
