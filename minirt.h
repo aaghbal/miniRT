@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:13:01 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/07 17:52:48 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/07 20:24:00 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,9 @@
 # define PL 4
 # define CY 5
 # define ERR_ID 6
+# define ERR_CAL 7
+# define EXTE 8
+# define OP 9
 
 
 # define WIDTH 500

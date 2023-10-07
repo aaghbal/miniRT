@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 17:45:38 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/07 18:00:30 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/07 20:28:00 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,14 +92,24 @@ int	count_shape(char *line)
 	return (0);
 }
 
-// void	check_cal(char *line, int *c)
-// {
-// 	if (!ft_strcmp("A", line, ft_strlen(line)) ||
-// 		!ft_strcmp("C", line, ft_strlen(line)) ||
-// 		!ft_strcmp("L", line, ft_strlen(line)))
-// 			*c += 1;
-// 	return (0);
-// }
+void	init_data(t_d_pars *p, t_cal *c)
+{
+	c->ambiant = 0;
+	c->light = 0;
+	c->camera = 0;
+	p->num_shap = 0;
+	p->num_ligh = 0;
+}
+
+void	check_cal(char *line, t_cal *c)
+{
+	if (!ft_strcmp("A", line))
+		c->ambiant++;
+	if (!ft_strcmp("C", line))
+		c->camera++;
+	if (!ft_strcmp("L", line))
+		c->light++;
+}
 
 t_d_pars data_shape(int fd)
 {
@@ -108,11 +118,7 @@ t_d_pars data_shape(int fd)
 	t_d_pars p;
 	t_cal	c;
 
-	c.ambiant = 0;
-	c.light = 0;
-	c.camera = 0;
-	p.num_shap = 0;
-	p.num_ligh = 0;
+	init_data(&p, &c);
 	while (1)
 	{
 		line = get_next_line(fd);
@@ -122,6 +128,7 @@ t_d_pars data_shape(int fd)
 		if (!*line)
 			continue ;
 		spl = ft_split(line, ' ');
+		check_cal(spl[0], &c);
 		if (!spl || !spl[0])
 			print_error(ERR_ID);
 		check_element(spl[0]);
@@ -130,6 +137,9 @@ t_d_pars data_shape(int fd)
 			p.num_ligh++;
 		free_doublep(spl);
 	}
+	printf("%d  %d  %d\n", c.ambiant, c.camera, c.light);
+	if (c.ambiant != 1 || c.camera != 1 || c.light < 1)
+		print_error(ERR_CAL);
 	return (p);
 }
 
@@ -174,11 +184,10 @@ void read_file(char *file)
 	t_d_pars	p;
 
 	if (!check_exten(file))
-	{
-		printf("Error extention!\n");
-		exit(1);
-	}
+		print_error(EXTE);
 	fd = open(file, O_RDONLY);
+	if (fd == -1)
+		print_error(OP);
 	p = data_shape(fd);
 	close(fd);
 	fd = open(file, O_RDONLY);

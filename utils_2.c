@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 10:18:26 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/07 17:50:03 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/07 20:27:21 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,12 @@ void	print_error(int flag)
 		ft_putstr_fd("Error\nCheck the {Cylinder} syntax!\n", 2);
 	if (flag == ERR_ID)
 		ft_putstr_fd("Error\nShape not found\n", 2);
+	if (flag == ERR_CAL)
+		ft_putstr_fd("Error\nOne of the elements {A,C,L} is missing\n", 2);
+	if (flag == EXTE)
+		ft_putstr_fd("Error\nCheck file extention!\n", 2);
+	if (flag == OP)
+		ft_putstr_fd("Error\nFile unavailable\n", 2);
 	ft_free(FREE, NULL);
 	exit(1);
 }
@@ -58,18 +64,24 @@ void	syntax_ratio(char *elem, int flag)
 	int	i;
 	int	sem_col;
 	int	len;
+	int	check_sing;
 
 	i = 0;
+	check_sing =0;
 	sem_col = 0;
 	len = ft_strlen(elem);
 	while (elem[i])
 	{
-		if (elem[i] == '-')
+		if ((elem[i] == '-' || elem[i] == '+'))
+		{
 			i++;
+			check_sing++;
+		}
 		if (elem[i] == '.')
 			sem_col++;
 		if((elem[i] != '.' && elem[i] != '\n' && !ft_isdigit(elem[i]))
-			|| (sem_col > 1) || (elem[i] == '.' && (i == 0 || i == len - 1)))
+			|| (sem_col > 1) || (elem[i] == '.' && (i == 0 || i == len - 1))
+			|| check_sing > 1)
 			print_error(flag);
 		i++;
 	}
