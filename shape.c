@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shape.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
+/*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 17:28:41 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/06 16:58:48 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/07 13:15:47 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ t_shape	default_shape(void)
 
 	s.tranform = identity();
 	s.m = material();
+	s.m.has_pattern = true;
+	s.m.pattern = stripe_pattern(s.m.color, mul_by_scaler(s.m.color, 0.5));
 	s.min = -0.5;
 	s.max = 0.5;
 	s.closed = true;

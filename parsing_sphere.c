@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_sphere.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
+/*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 15:35:23 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/06 17:16:44 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/07 14:00:32 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ t_shape	parsing_sphere(char **elem)
 	o = parse_origine(elem[1]);
 	diam = conver_range(elem[2]) / 2;
 	s.tranform = multiple_matrice(translation(o.x, o.y, o.z), scaling(diam, diam, diam));
+	set_transform(&s, s.tranform);
 	s.m.color = parse_color(elem[3]); 
 	return (s);
 }
@@ -39,6 +40,7 @@ t_shape	parsing_plan(char **elem)
 	o = parse_origine(elem[1]);
 	orie = parse_vector(elem[2]);
 	s.tranform = multiple_matrice(orient(orie), translation(o.x, o.y, o.z));
+	set_transform(&s, s.tranform);
 	s.m.color = parse_color(elem[3]);
 	return (s);
 }
@@ -61,6 +63,7 @@ t_shape	parsing_cyl(char **elem)
 	s.tranform = multiple_matrice(scaling(diam, 1, diam), scaling(1, hei, 1));
 	s.tranform = multiple_matrice(s.tranform, translation(o.x, o.y, o.z));
 	s.tranform = multiple_matrice(s.tranform, orient(orie));
+	set_transform(&s, s.tranform);
 	s.m.color = parse_color(elem[5]);
 	print_matrice(s.tranform);
 	return (s);

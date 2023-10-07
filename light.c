@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   light.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
+/*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 13:35:55 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/06 14:25:28 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/07 13:57:46 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,12 @@ t_color	lighting(t_material m, t_light light, t_var_light v, bool shadowed)
 	double	lihgt_dot_normal;
 	double	reflect_dot_eye;
 	double	factor;
+	t_color	color;
 
-	v.effective_color = mul_color(m.color, light.intensity);
+	color = m.color;
+	if (m.has_pattern)
+		color = stripe_at(m.pattern, v.point);
+	v.effective_color = mul_color(color, light.intensity);
 	v.lightv = normalize(sub_to_point(light.position, v.point));
 	v.ambient = mul_color(v.effective_color,v.am_rati);
 	if (shadowed)

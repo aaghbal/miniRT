@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
+/*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:13:01 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/06 18:22:43 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/07 14:04:53 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,14 +87,24 @@ typedef struct s_ray
 	t_vector	direction;
 }	t_ray;
 
+typedef struct s_pattern
+{
+	t_color		a;
+	t_color		b;
+	double		**transform;
+	double		**inverse;
+}	t_pattern;
+
 typedef struct s_material
 {
-	t_color	color;
-	t_color	amb_color;
-	double	ambient;
-	double	diffuse;
-	double	specular;
-	double	shininess;
+	t_color		color;
+	t_color		amb_color;
+	double		ambient;
+	double		diffuse;
+	double		specular;
+	double		shininess;
+	bool		has_pattern;
+	t_pattern	pattern;
 }	t_material;
 
 typedef struct s_data
@@ -386,4 +396,12 @@ t_camera parsing_camera(char **elem);
 t_shape	parsing_cyl(char **elem);
 double **orient(t_vector orie);
 double radiane(double deg);
+
+// pattern
+
+t_pattern	stripe_pattern(t_color a, t_color b);
+t_color		stripe_at(t_pattern p, t_point point);
+t_color		stripe_at_shape(t_pattern p, t_shape s, t_point point);
+void		pattern_set_transform(t_pattern *p, double **m);
+
 #endif

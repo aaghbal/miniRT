@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   transform.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
+/*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 16:46:06 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/01 14:50:49 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/07 13:59:13 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,7 @@ t_ray	transform(t_ray r, double **m)
 void	set_transform(t_shape *s, double **t)
 {
 	s->tranform = t;
+	s->ivers_tran = inverse_gauss(t);
+	if (s->m.has_pattern)
+		pattern_set_transform(&s->m.pattern, t);
 }
