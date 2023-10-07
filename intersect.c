@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 15:31:08 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/04 18:38:56 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/07 17:29:23 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_intersect	*sphere_intersect(t_shape s, t_ray ray)
 	sph_to_ray = sub_to_point(r.origine, create_point(0, 0, 0));
 	data.a = dot_product(r.direction, r.direction);
 	data.b = 2 * dot_product(r.direction, sph_to_ray);
-	data.c = dot_product(sph_to_ray, sph_to_ray) - 1;
+	data.c = dot_product(sph_to_ray, sph_to_ray) - (s.raduis * s.raduis);
 	data.discr = pow(data.b, 2) - 4 * data.a * data.c;
 	if (data.discr < 0)
 	{

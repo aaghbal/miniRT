@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:13:01 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/06 18:22:43 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/07 17:52:48 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,24 @@
 # define ADD 0 
 # define FREE 1 
 
+# define A 0
+# define C 1
+# define L 2
+# define SP 3
+# define PL 4
+# define CY 5
+# define ERR_ID 6
+
+
 # define WIDTH 500
 # define HEIGHT 500
+
+typedef struct s_cal
+{
+	int camera;
+	int ambiant;
+	int light;
+}t_cal;
 
 typedef enum s_obj
 {
@@ -112,12 +128,12 @@ typedef struct s_data
 typedef struct s_shape
 {
 	double		**tranform;
-	double		raduis;
 	t_material	m;
 	t_vector	normal_pl;
 	double		**ivers_tran;
 	t_obj		obj;
 	bool		closed;
+	double		raduis;
 	double		min;
 	double		max;
 }	t_shape;
@@ -279,13 +295,6 @@ double			**rotation_y(double rad);
 double			**rotation_z(double rad);
 double			**shearing(t_shearing data);
 
-/// utils 
-bool			equal(double a, double b);
-double			mx(int x);
-double			my(int x);
-int				px(double x);
-int				py(double x);
-
 /// ray
 
 t_ray			ray(t_point origine, t_vector direc);
@@ -372,18 +381,24 @@ void read_file(char *file);
 int	check_exten(char *argv);
 char	**ft_split(char const *s, char c);
 t_shape	check_ident_shap(char **elem);
-double	conver_range(char *rat);
-double	*rang_rgb(char *str);
+t_color	rgb_color(char *str, double ratio, int flag);
 double	ft_itod(char *str);
 t_color parsing_am_light(char **elem);
 t_shape	parsing_sphere(char **elem);
 t_shape	parsing_plan(char **elem);
-t_point	parse_origine(char *elem);
-t_color	parse_color(char *elem);
-t_vector	parse_vector(char *elem);
+t_point	parse_origine(char *elem, int flag);
+t_vector	parse_vector(char *elem, int flag);
 t_light	parsing_light(char	**elem);
 t_camera parsing_camera(char **elem);
+double	conver_ratio_number(char *rat, int flag);
+double	conver_color_number(char *rat, int flag);
+double	conver_normal_number(char *rat, int flag);
 t_shape	parsing_cyl(char **elem);
 double **orient(t_vector orie);
 double radiane(double deg);
+void	syntax_color(char *elem, int flag);
+void	syntax_ratio(char *elem, int flag);
+void	print_error(int flag);
+double	conver_origine_number(char *rat, int flag);
+int	ft_strcmp(const char *s1, const char *s2);
 #endif

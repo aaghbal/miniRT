@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 13:35:55 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/06 14:25:28 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/07 10:06:54 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,5 @@ t_color	lighting(t_material m, t_light light, t_var_light v, bool shadowed)
 	}
 	else
 		v.specular = create_color(0, 0, 0);
-	// printf_color(v.ambient);
-	// printf_color(v.defuse);
-	// printf_color(v.specular);
 	return (adding_color(adding_color(v.ambient, v.defuse), v.specular));
 }

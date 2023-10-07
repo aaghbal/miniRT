@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 15:35:23 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/06 17:16:44 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/07 17:28:49 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,54 +14,18 @@
 
 t_shape	parsing_sphere(char **elem)
 {
-	double	diam;
 	t_point	o;
 	t_shape	s;
 
+	if (!elem[0] && !elem[1] && !elem[2] && !elem[3] && elem[4])
+		print_error(C);
 	s = default_shape();
 	s.obj = sp;
-	o = parse_origine(elem[1]);
-	diam = conver_range(elem[2]) / 2;
-	s.tranform = multiple_matrice(translation(o.x, o.y, o.z), scaling(diam, diam, diam));
-	s.m.color = parse_color(elem[3]); 
+	o = parse_origine(elem[1], SP);
+	s.raduis = conver_ratio_number(elem[2], SP) / 2;
+	s.tranform = translation(o.x, o.y, o.z);
+	s.m.color = rgb_color(elem[3],1, SP); 
 	return (s);
 }
 
-t_shape	parsing_plan(char **elem)
-{
-	t_shape		s;
-	t_point		o;
-	t_vector	orie;
 
-	s = default_shape();
-	s.obj = pl;
-	s.m.specular = 0;
-	o = parse_origine(elem[1]);
-	orie = parse_vector(elem[2]);
-	s.tranform = multiple_matrice(orient(orie), translation(o.x, o.y, o.z));
-	s.m.color = parse_color(elem[3]);
-	return (s);
-}
-
-t_shape	parsing_cyl(char **elem)
-{
-	double		diam;
-	double		hei;
-	t_vector	orie;
-	t_point		o;
-	t_shape		s;
-
-	s = default_shape();
-	s.obj = cy;
-	s.m.specular = 0.1;
-	o = parse_origine(elem[1]);
-	orie = parse_vector(elem[2]);
-	diam = conver_range(elem[3]) / 2;
-	hei = conver_range(elem[4]);
-	s.tranform = multiple_matrice(scaling(diam, 1, diam), scaling(1, hei, 1));
-	s.tranform = multiple_matrice(s.tranform, translation(o.x, o.y, o.z));
-	s.tranform = multiple_matrice(s.tranform, orient(orie));
-	s.m.color = parse_color(elem[5]);
-	print_matrice(s.tranform);
-	return (s);
-}
