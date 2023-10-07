@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 17:45:38 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/05 17:31:47 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/07 18:00:30 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,22 +58,59 @@ t_shape	check_ident_shap(char **elem)
 	t_shape s;
 	
 	s = default_shape();
-	if (!ft_strncmp("sp", elem[0], ft_strlen(elem[0])))
+	if (!ft_strcmp("sp", elem[0]))
 		s = parsing_sphere(elem);
-	else if (!ft_strncmp("pl", elem[0], ft_strlen(elem[0])))
+	else if (!ft_strcmp("pl", elem[0]))
 		s = parsing_plan(elem);
-	else if (!ft_strncmp("cy", elem[0], ft_strlen(elem[0])))
+	else if (!ft_strcmp("cy", elem[0]))
 		s = parsing_cyl(elem);
+	else
+		print_error(ERR_ID);
 	return(s);
 	// printf("ror identify shape\n");
 }
+
+void	check_element(char *line)
+{
+	if (!ft_strcmp("A", line) ||
+		!ft_strcmp("L", line) ||
+		!ft_strcmp("C", line) ||
+		!ft_strcmp("sp", line) ||
+		!ft_strcmp("pl", line) ||
+		!ft_strcmp("cy", line))
+			return ;
+	else
+		print_error(ERR_ID);
+}
+
+int	count_shape(char *line)
+{
+	if (!ft_strcmp("sp", line) ||
+		!ft_strcmp("pl", line) ||
+		!ft_strcmp("cy", line))
+			return 1;
+	return (0);
+}
+
+// void	check_cal(char *line, int *c)
+// {
+// 	if (!ft_strcmp("A", line, ft_strlen(line)) ||
+// 		!ft_strcmp("C", line, ft_strlen(line)) ||
+// 		!ft_strcmp("L", line, ft_strlen(line)))
+// 			*c += 1;
+// 	return (0);
+// }
 
 t_d_pars data_shape(int fd)
 {
 	char	*line;
 	char	**spl;
 	t_d_pars p;
+	t_cal	c;
 
+	c.ambiant = 0;
+	c.light = 0;
+	c.camera = 0;
 	p.num_shap = 0;
 	p.num_ligh = 0;
 	while (1)
@@ -81,14 +118,16 @@ t_d_pars data_shape(int fd)
 		line = get_next_line(fd);
 		if (!line)
 			break;
+		line = ft_strtrim(line, "\n");
+		if (!*line)
+			continue ;
 		spl = ft_split(line, ' ');
-		if (!ft_strncmp("cy", spl[0], ft_strlen(spl[0])) ||
-			!ft_strncmp("sp", spl[0], ft_strlen(spl[0])) ||
-			!ft_strncmp("pl", spl[0], ft_strlen(spl[0])))
-			p.num_shap++;
-		if (!ft_strncmp("L", spl[0], ft_strlen(spl[0])))
+		if (!spl || !spl[0])
+			print_error(ERR_ID);
+		check_element(spl[0]);
+		p.num_shap += count_shape(spl[0]);
+		if (!ft_strcmp("L", spl[0]))
 			p.num_ligh++;
-		
 		free_doublep(spl);
 	}
 	return (p);
@@ -112,12 +151,15 @@ void	ft_create_world(int fd, t_d_pars p)
 		line = get_next_line(fd);
 		if (!line)
 			break;
+		line = ft_strtrim(line, "\n");
+		if (!*line)
+			continue ;
 		spl = ft_split(line, ' ');
-		if (!ft_strncmp("A", spl[0], ft_strlen(spl[0])))
+		if (!ft_strcmp("A", spl[0]))
 			w.ambiant = parsing_am_light(spl);
-		else if (!ft_strncmp("L", spl[0], ft_strlen(spl[0])))
+		else if (!ft_strcmp("L", spl[0]))
 			w.l[j++] = parsing_light(spl);
-		else if (!ft_strncmp("C", spl[0], ft_strlen(spl[0])))
+		else if (!ft_strcmp("C", spl[0]))
 			c = parsing_camera(spl);
 		else
 			w.s[i++] = check_ident_shap(spl);
@@ -125,7 +167,6 @@ void	ft_create_world(int fd, t_d_pars p)
 	}
 	render(w, c, p);
 }
-
 
 void read_file(char *file)
 {
