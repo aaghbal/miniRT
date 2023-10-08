@@ -6,7 +6,7 @@
 /*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:13:01 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/07 19:11:44 by houmanso         ###   ########.fr       */
+/*   Updated: 2023/10/08 11:33:58 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,13 @@ typedef struct s_cal
 	int ambiant;
 	int light;
 }t_cal;
+
+typedef struct s_uv
+{
+	double	u;
+	double	v;
+}	t_uv;
+
 
 typedef enum s_obj
 {
@@ -119,8 +126,6 @@ typedef struct s_material
 	double		diffuse;
 	double		specular;
 	double		shininess;
-	bool		has_pattern;
-	t_pattern	pattern;
 }	t_material;
 
 typedef struct s_data
@@ -135,17 +140,36 @@ typedef struct s_data
 	double	y1;
 }	t_data;
 
+typedef struct s_check
+{
+	t_color		a;
+	t_color		b;
+	double		width;
+	double		height;
+}	t_check;
+
+
+typedef struct s_texture_map
+{
+	t_check		uv_pattern;
+	t_uv		(*uv_map)(t_point);
+}t_texture_map;
+
 typedef struct s_shape
 {
-	double		**tranform;
-	t_material	m;
-	t_vector	normal_pl;
-	double		**ivers_tran;
-	t_obj		obj;
-	bool		closed;
-	double		raduis;
-	double		min;
-	double		max;
+	double			**tranform;
+	t_material		m;
+	t_vector		normal_pl;
+	double			**ivers_tran;
+	t_obj			obj;
+	bool			closed;
+	double			raduis;
+	double			min;
+	double			max;
+	t_shearing		shearing;
+	bool			has_effects;
+	t_check			pattern;
+	t_texture_map	mapping;
 }	t_shape;
 
 typedef struct t_intersection
@@ -252,6 +276,8 @@ typedef struct s_data_am
 	double	ratio;
 	double *res;
 }	t_d_am;
+
+
 
 t_vector		create_vector(double x, double y, double z);
 t_point			create_point(double x, double y, double z);
@@ -409,10 +435,16 @@ double radiane(double deg);
 
 // pattern
 
-t_pattern	stripe_pattern(t_color a, t_color b);
-t_color		stripe_at(t_pattern p, t_point point);
-t_color		stripe_at_shape(t_pattern p, t_shape s, t_point point);
-void		pattern_set_transform(t_pattern *p, double **m);
+void			pattern_set_transform(t_pattern *p, double **m);
+t_check			uv_checkers(int w, int h, t_color a, t_color b);
+t_pattern		stripe_pattern(t_color a, t_color b);
+
+t_color			stripe_at(t_pattern p, t_point point);
+t_color			stripe_at_shape(t_pattern p, t_shape s, t_point point);
+t_color			uv_checkers_at(t_check ch, double u, double v);
+t_color			checkers_at(t_texture_map tm, t_point p);
+t_uv			sphere_uv_map(t_point p);
+t_texture_map	texture_map(t_check pattern, t_uv (*map)(t_point));
 // syntax
 void	syntax_color(char *elem, int flag);
 void	syntax_ratio(char *elem, int flag);

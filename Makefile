@@ -6,7 +6,7 @@
 #    By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/27 09:51:25 by houmanso          #+#    #+#              #
-#    Updated: 2023/10/07 19:13:34 by houmanso         ###   ########.fr        #
+#    Updated: 2023/10/08 11:46:41 by houmanso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ SRC = main.c create_vec_point.c add_vector_point.c sub_vector_point.c \
 		intersect_cyl.c intersect_cube.c intersect_cones.c free.c parsing.c \
 		get_next_line.c get_next_line_utils.c parsing_am_light.c parsing_plan.c\
 		parsing_sphere.c parsing_light.c parsing_camera.c orient.c effects.c utils_2.c \
-		parsing_cyl.c 
+		parsing_cyl.c effects_utils.c effects_on_sphere.c
 OBJ		=	$(SRC:.c=.o)
 NAME	=	miniRT
 OBJ		=	$(SRC:.c=.o)

@@ -6,7 +6,7 @@
 /*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 13:35:55 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/07 19:11:58 by houmanso         ###   ########.fr       */
+/*   Updated: 2023/10/08 11:33:25 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ t_color	lighting(t_shape s, t_light light, t_var_light v, bool shadowed)
 	t_color	color;
 
 	color = s.m.color;
-	if (s.m.has_pattern)
-		color = stripe_at_shape(s.m.pattern, s, v.point);
+	if (s.has_effects)
+		color = checkers_at(s.mapping, v.point);
 	v.effective_color = mul_color(color, light.intensity);
 	v.lightv = normalize(sub_to_point(light.position, v.point));
 	v.ambient = mul_color(v.effective_color,v.am_rati);

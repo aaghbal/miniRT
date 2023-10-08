@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
+/*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 17:45:38 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/07 18:00:30 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/08 11:47:59 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	check_exten(char *argv)
 t_shape	check_ident_shap(char **elem)
 {
 	t_shape s;
-	
+
 	s = default_shape();
 	if (!ft_strcmp("sp", elem[0]))
 		s = parsing_sphere(elem);
@@ -67,7 +67,6 @@ t_shape	check_ident_shap(char **elem)
 	else
 		print_error(ERR_ID);
 	return(s);
-	// printf("ror identify shape\n");
 }
 
 void	check_element(char *line)
