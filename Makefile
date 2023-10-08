@@ -6,11 +6,11 @@
 #    By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/27 09:51:25 by houmanso          #+#    #+#              #
-#    Updated: 2023/10/07 14:12:01 by aaghbal          ###   ########.fr        #
+#    Updated: 2023/10/08 10:59:23 by aaghbal          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CFLAGS	=	-Wall -Werror -Wextra
+CFLAGS	=	-Wall -Werror -Wextra -ofast
 GLFW = $(shell brew --prefix glfw)
 LIBMLX	=	./MLX42/libmlx42.a -L $(GLFW)/lib -lglfw -ldl -lm -L ./Libft -lft
 SRC = main.c create_vec_point.c add_vector_point.c sub_vector_point.c \

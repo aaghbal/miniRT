@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 17:45:38 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/07 20:28:00 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/08 12:21:57 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,7 @@ t_shape	check_ident_shap(char **elem)
 		s = parsing_plan(elem);
 	else if (!ft_strcmp("cy", elem[0]))
 		s = parsing_cyl(elem);
-	else
-		print_error(ERR_ID);
 	return(s);
-	// printf("ror identify shape\n");
 }
 
 void	check_element(char *line)
@@ -137,7 +134,6 @@ t_d_pars data_shape(int fd)
 			p.num_ligh++;
 		free_doublep(spl);
 	}
-	printf("%d  %d  %d\n", c.ambiant, c.camera, c.light);
 	if (c.ambiant != 1 || c.camera != 1 || c.light < 1)
 		print_error(ERR_CAL);
 	return (p);
