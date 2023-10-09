@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 15:32:52 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/09 18:51:49 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/09 19:48:52 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,10 @@ t_d_bonus	init_plan(int n, char **elem)
 	if(n == 6 && elem[5] && d.nb == 0)
 		d.c = rgb_color(elem[5], 1, PL);
 	else if (n == 6 && elem[5] && d.nb == 1)
+	{
 		d.path = ft_strdup(elem[5]);
-	ft_free(ADD, d.path);
+		ft_free(ADD, d.path);
+	}
 	return (d);
 }
 
