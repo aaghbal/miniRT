@@ -1,30 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   transform.c                                        :+:      :+:    :+:   */
+/*   effects_on_plan.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/21 16:46:06 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/08 12:59:51 by houmanso         ###   ########.fr       */
+/*   Created: 2023/10/08 13:11:52 by houmanso          #+#    #+#             */
+/*   Updated: 2023/10/08 13:16:56 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_ray	transform(t_ray r, double **m)
+t_pattern	stripe_pattern(t_color a, t_color b)
 {
-	t_ray	ray;
+	t_pattern	p;
 
-	ray.origine = mul_mat_point(m, r.origine);
-	ray.direction = mul_mat_vector(m, r.direction);
-	return (ray);
+	p.a = a;
+	p.b = b;
+	p.transform = identity();
+	p.inverse = p.transform;
+	return (p);
 }
 
-void	set_transform(t_shape *s, double **t)
+t_uv	plan_uv_map(t_point p)
 {
-	s->tranform = t;
-	s->ivers_tran = inverse_gauss(t);
-	if (!s->ivers_tran)
-		s->ivers_tran = identity();
+	t_uv	uv;
+
+	uv.u = p.x;
+	uv.v = p.z;
+	return (uv);
 }

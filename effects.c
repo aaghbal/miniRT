@@ -6,22 +6,11 @@
 /*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 11:22:02 by houmanso          #+#    #+#             */
-/*   Updated: 2023/10/08 11:00:08 by houmanso         ###   ########.fr       */
+/*   Updated: 2023/10/08 13:16:51 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-t_pattern	stripe_pattern(t_color a, t_color b)
-{
-	t_pattern	p;
-
-	p.a = a;
-	p.b = b;
-	p.transform = identity();
-	p.inverse = p.transform;
-	return (p);
-}
 
 t_color	stripe_at(t_pattern p, t_point point)
 {

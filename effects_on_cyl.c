@@ -1,30 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   transform.c                                        :+:      :+:    :+:   */
+/*   effects_on_cyl.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/21 16:46:06 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/08 12:59:51 by houmanso         ###   ########.fr       */
+/*   Created: 2023/10/08 13:24:52 by houmanso          #+#    #+#             */
+/*   Updated: 2023/10/08 14:05:38 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_ray	transform(t_ray r, double **m)
-{
-	t_ray	ray;
 
-	ray.origine = mul_mat_point(m, r.origine);
-	ray.direction = mul_mat_vector(m, r.direction);
-	return (ray);
-}
-
-void	set_transform(t_shape *s, double **t)
+t_uv	cyl_uv_map(t_point p)
 {
-	s->tranform = t;
-	s->ivers_tran = inverse_gauss(t);
-	if (!s->ivers_tran)
-		s->ivers_tran = identity();
+	t_uv	uv;
+	double	raw;
+	double	theta;
+
+	theta = atan2(p.x, p.z);
+	raw = theta / M_2_PI;
+	uv.u = 1 - (raw + 0.5);
+	uv.v = p.y;
+	return (uv);
 }

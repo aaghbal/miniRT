@@ -6,7 +6,7 @@
 /*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:13:01 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/08 11:33:58 by houmanso         ###   ########.fr       */
+/*   Updated: 2023/10/08 13:27:41 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,6 +204,7 @@ typedef struct s_camera
 	double	half_height;
 	double	pixel_size;
 	double	**trans;
+	double	**inverse;
 }	t_camera;
 
 typedef struct s_word
@@ -444,6 +445,8 @@ t_color			stripe_at_shape(t_pattern p, t_shape s, t_point point);
 t_color			uv_checkers_at(t_check ch, double u, double v);
 t_color			checkers_at(t_texture_map tm, t_point p);
 t_uv			sphere_uv_map(t_point p);
+t_uv			plan_uv_map(t_point p);
+t_uv			cyl_uv_map(t_point p);
 t_texture_map	texture_map(t_check pattern, t_uv (*map)(t_point));
 // syntax
 void	syntax_color(char *elem, int flag);

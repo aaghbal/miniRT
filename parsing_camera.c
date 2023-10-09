@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_camera.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
+/*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 12:28:39 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/07 15:45:41 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/08 13:05:57 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,13 @@ double radiane(double deg)
 	double res;
 	res = (deg / 180) * M_PI;
 	return (res);
+}
+static void	camera_set_transform(t_camera *c, double **m)
+{
+	c->trans = m;
+	c->inverse = inverse_gauss(m);
+	if (!c->inverse)
+		c->inverse = identity();
 }
 
 t_camera parsing_camera(char **elem)
@@ -48,5 +55,6 @@ t_camera parsing_camera(char **elem)
 		to = create_vector(0, 0, 1);
 	c = camera(HEIGHT, WIDTH, radiane(deg));
 	c.trans = view_transformation(from,add_point_vector(from, to), up);
+	camera_set_transform(&c, c.trans);
 	return(c);
 }

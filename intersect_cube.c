@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intersect_cube.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
+/*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/01 16:09:24 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/02 14:24:28 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/08 13:03:14 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ t_vector	cube_normal_at(t_shape s, t_point word_point)
 	t_point		obj_p;
 
 	(void)s;
-	inv = inverse_gauss(s.tranform);
+	inv = s.ivers_tran;
 	obj_p = mul_mat_point(inv, word_point);
 	maxc = ft_max(fabs(obj_p.x),fabs(obj_p.y),fabs(obj_p.z));
 	if (equal(maxc, fabs(obj_p.x)))

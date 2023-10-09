@@ -6,7 +6,7 @@
 /*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 15:31:08 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/08 11:41:19 by houmanso         ###   ########.fr       */
+/*   Updated: 2023/10/08 13:02:25 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ double	plan_intersect(t_shape s, t_ray ray)
 	t_ray	r;
 	double	t;
 
-	r = transform(ray, inverse_gauss(s.tranform));
+	r = transform(ray, s.ivers_tran);
 	if (equal(r.direction.y, EPSILON))
 		return (0);
 	t = -r.origine.y / r.direction.y;
@@ -32,7 +32,7 @@ t_intersect	*sphere_intersect(t_shape s, t_ray ray)
 	t_vector	sph_to_ray;
 
 	res = NULL;
-	r = transform(ray, inverse_gauss(s.tranform));
+	r = transform(ray, s.ivers_tran);
 	sph_to_ray = sub_to_point(r.origine, create_point(0, 0, 0));
 	data.a = dot_product(r.direction, r.direction);
 	data.b = 2 * dot_product(r.direction, sph_to_ray);
