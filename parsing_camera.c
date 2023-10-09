@@ -6,7 +6,7 @@
 /*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 12:28:39 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/08 13:05:57 by houmanso         ###   ########.fr       */
+/*   Updated: 2023/10/09 11:42:19 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,5 @@ t_camera parsing_camera(char **elem)
 	c = camera(HEIGHT, WIDTH, radiane(deg));
 	c.trans = view_transformation(from,add_point_vector(from, to), up);
 	camera_set_transform(&c, c.trans);
-	return(c);
+	return (c);
 }

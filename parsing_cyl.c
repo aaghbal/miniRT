@@ -6,7 +6,7 @@
 /*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 14:03:42 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/08 14:17:17 by houmanso         ###   ########.fr       */
+/*   Updated: 2023/10/09 11:41:33 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_shape	parsing_cyl(char **elem)
 	set_transform(&s, s.tranform);
 	s.m.color = rgb_color(elem[5], 1, CY);
 	s.has_effects = true;
-	s.pattern = uv_checkers(1, 1, s.m.color, create_color(0, 0, 0));
+	s.pattern = uv_checkers(2, 2, s.m.color, create_color(0, 0, 0));
 	s.mapping = texture_map(s.pattern, cyl_uv_map);
 	return (s);
 }
