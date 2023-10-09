@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 17:28:41 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/09 11:52:03 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/09 15:50:08 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ t_shape	default_shape(void)
 	s.tranform = identity();
 	s.ivers_tran = s.tranform;
 	s.m = material();
-	s.min = -0.5;
-	s.max = 0.5;
+	s.min = -1;
+	s.max = 1;
 	s.closed = true;
 	return (s);
 }

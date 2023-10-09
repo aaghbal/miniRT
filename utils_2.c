@@ -6,12 +6,11 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 10:18:26 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/07 20:27:21 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/09 17:14:50 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
 
 void	print_error(int flag)
 {
@@ -27,6 +26,8 @@ void	print_error(int flag)
 		ft_putstr_fd("Error\nCheck the {Plane} syntax!\n", 2);
 	if (flag == CY)
 		ft_putstr_fd("Error\nCheck the {Cylinder} syntax!\n", 2);
+	if (flag == CO)
+		ft_putstr_fd("Error\nCheck the {Cone} syntax!\n", 2);
 	if (flag == ERR_ID)
 		ft_putstr_fd("Error\nShape not found\n", 2);
 	if (flag == ERR_CAL)
@@ -104,4 +105,14 @@ bool	equal(double a, double b)
 	if (fabs(a - b) < EPSILON)
 		return (true);
 	return (false);
+}
+
+int	count_elem(char **elem)
+{
+	int	i;
+
+	i = 0;
+	while (elem[i])
+		i++;
+	return(i);
 }

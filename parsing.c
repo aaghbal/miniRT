@@ -6,88 +6,11 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 17:45:38 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/09 11:51:39 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/09 19:00:58 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-
-char *ft_strcpy(char *str)
-{
-	int i;
-	char *res;
-	int n;
-
-	n = ft_strlen(str) + 1;
-	i = 0;
-	res = malloc(sizeof(char) * n);
-	ft_free(ADD, res);
-	while (str[i])
-	{
-		res[i] = str[i];
-		i++;
-	}
-	res[i] = '\0';
-	return(res);
-}
-
-int	check_exten(char *argv)
-{
-	int		i;
-	int		j;
-	int		len;
-	char	*tab;
-
-	tab = ".rt";
-	j = 0;
-	len = ft_strlen(argv);
-	i = len - 3;
-	while (argv[i] != '\0')
-	{
-		if (argv[i] != tab[j])
-			return (0);
-		i++;
-		j++;
-	}
-	return (1);
-}
-
-t_shape	check_ident_shap(char **elem)
-{
-	t_shape s;
-
-	s = default_shape();
-	if (!ft_strcmp("sp", elem[0]))
-		s = parsing_sphere(elem);
-	else if (!ft_strcmp("pl", elem[0]))
-		s = parsing_plan(elem);
-	else if (!ft_strcmp("cy", elem[0]))
-		s = parsing_cyl(elem);
-	return(s);
-}
-
-void	check_element(char *line)
-{
-	if (!ft_strcmp("A", line) ||
-		!ft_strcmp("L", line) ||
-		!ft_strcmp("C", line) ||
-		!ft_strcmp("sp", line) ||
-		!ft_strcmp("pl", line) ||
-		!ft_strcmp("cy", line))
-			return ;
-	else
-		print_error(ERR_ID);
-}
-
-int	count_shape(char *line)
-{
-	if (!ft_strcmp("sp", line) ||
-		!ft_strcmp("pl", line) ||
-		!ft_strcmp("cy", line))
-			return 1;
-	return (0);
-}
 
 void	init_data(t_d_pars *p, t_cal *c)
 {
@@ -133,6 +56,7 @@ t_d_pars data_shape(int fd)
 		if (!ft_strcmp("L", spl[0]))
 			p.num_ligh++;
 		free_doublep(spl);
+		free(line);
 	}
 	if (c.ambiant != 1 || c.camera != 1 || c.light < 1)
 		print_error(ERR_CAL);
@@ -152,6 +76,8 @@ void	ft_create_world(int fd, t_d_pars p)
 	j = 0;
 	w.s = malloc(sizeof(t_shape) * p.num_shap);
 	w.l = malloc(sizeof(t_light) * p.num_ligh);
+	ft_free(ADD, w.s);
+	ft_free(ADD, w.l);
 	while (1)
 	{
 		line = get_next_line(fd);
@@ -170,6 +96,7 @@ void	ft_create_world(int fd, t_d_pars p)
 		else
 			w.s[i++] = check_ident_shap(spl);
 		free_doublep(spl);
+		free(line);
 	}
 	render(w, c, p);
 }
@@ -185,7 +112,7 @@ void read_file(char *file)
 	if (fd == -1)
 		print_error(OP);
 	p = data_shape(fd);
-	close(fd);
+	close(fd);	
 	fd = open(file, O_RDONLY);
 	ft_create_world(fd, p);
 	close(fd);

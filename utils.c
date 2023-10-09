@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 18:36:33 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/07 17:52:23 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/09 18:14:45 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ t_color rgb_color(char *str, double ratio, int flag)
 	c.red = (res[0] / 255) * ratio;
 	c.green = (res[1] / 255) * ratio;
 	c.blue = (res[2] / 255) * ratio;
+	free_doublep(spl);
 	return (c);
 }
 

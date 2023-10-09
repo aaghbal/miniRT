@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 14:33:38 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/09 11:57:06 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/09 18:53:32 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,5 +118,7 @@ void	render(t_word w, t_camera c, t_d_pars p)
 	d.mlx = mlx;
 	d.w = w;
 	// mlx_resize_hook(mlx, rez, &d);
+	ft_free(FREE, NULL);
+	system("leaks miniRT");
 	mlx_loop(mlx);
 }

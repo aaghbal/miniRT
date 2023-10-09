@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:13:01 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/09 11:51:03 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/09 18:56:59 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,11 @@
 # define SP 3
 # define PL 4
 # define CY 5
-# define ERR_ID 6
-# define ERR_CAL 7
-# define EXTE 8
-# define OP 9
+# define CO 6
+# define ERR_ID 7
+# define ERR_CAL 8
+# define EXTE 9
+# define OP 10
 
 
 # define WIDTH 500
@@ -281,7 +282,12 @@ typedef struct s_data_am
 	double *res;
 }	t_d_am;
 
-
+typedef struct	s_data_bonus
+{
+	t_color	c;
+	double	nb;
+	char	*path;
+}t_d_bonus;
 
 t_vector		create_vector(double x, double y, double z);
 t_point			create_point(double x, double y, double z);
@@ -424,8 +430,8 @@ t_shape	check_ident_shap(char **elem);
 t_color	rgb_color(char *str, double ratio, int flag);
 double	ft_itod(char *str);
 t_color parsing_am_light(char **elem);
-t_shape	parsing_sphere(char **elem);
-t_shape	parsing_plan(char **elem);
+t_shape	parsing_sphere(char **elem, int n);
+t_shape	parsing_plan(char **elem, int n);
 t_point	parse_origine(char *elem, int flag);
 t_vector	parse_vector(char *elem, int flag);
 t_light	parsing_light(char	**elem);
@@ -433,9 +439,14 @@ t_camera parsing_camera(char **elem);
 double	conver_ratio_number(char *rat, int flag);
 double	conver_color_number(char *rat, int flag);
 double	conver_normal_number(char *rat, int flag);
-t_shape	parsing_cyl(char **elem);
+t_shape	parsing_cyl(char **elem, int n);
 double **orient(t_vector orie);
 double radiane(double deg);
+t_shape	parsing_cone(char **elem, int n);
+int	count_elem(char **elem);
+int	check_exten(char *argv);
+void	check_element(char *line);
+int		count_shape(char *line);
 
 // pattern
 

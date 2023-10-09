@@ -6,11 +6,11 @@
 #    By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/27 09:51:25 by houmanso          #+#    #+#              #
-#    Updated: 2023/10/09 11:50:18 by aaghbal          ###   ########.fr        #
+#    Updated: 2023/10/09 18:56:24 by aaghbal          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CFLAGS	=	-Wall -Werror -Wextra -ofast
+CFLAGS	=	-Wall -Werror -Wextra -ofast 
 GLFW = $(shell brew --prefix glfw)
 LIBMLX	=	./MLX42/libmlx42.a -L $(GLFW)/lib -lglfw -ldl -lm -L ./Libft -lft
 SRC = main.c create_vec_point.c add_vector_point.c sub_vector_point.c \
@@ -23,7 +23,7 @@ SRC = main.c create_vec_point.c add_vector_point.c sub_vector_point.c \
 		get_next_line.c get_next_line_utils.c parsing_am_light.c parsing_plan.c\
 		parsing_sphere.c parsing_light.c parsing_camera.c orient.c effects.c utils_2.c \
 		parsing_cyl.c effects_utils.c effects_on_sphere.c effects_on_plan.c \
-		effects_on_cyl.c texture.c
+		effects_on_cyl.c texture.c parsing_cone.c parsing_2.c
 
 OBJ		=	$(SRC:.c=.o)
 NAME	=	miniRT
