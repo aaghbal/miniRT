@@ -16,11 +16,11 @@ t_d_bonus	init_sphere(int n, char **elem)
 {
 	t_d_bonus	d;
 
-	if(n == 6 && elem[4])
+	if (n == 6 && elem[4])
 		d.nb = conver_ratio_number(elem[4], SP);
 	if (n == 6 && !equal(d.nb, 0) && !equal(d.nb, 1))
 		print_error(SP);
-	if(n == 6 && elem[5] && d.nb == 0)
+	if (n == 6 && elem[5] && d.nb == 0)
 		d.c = rgb_color(elem[5], 1, SP);
 	else if (n == 6 && elem[5] && d.nb == 1)
 	{
@@ -30,11 +30,11 @@ t_d_bonus	init_sphere(int n, char **elem)
 	return (d);
 }
 
-t_shape	parsing_sphere(char **elem, int	n)
+t_shape	parsing_sphere(char **elem, int n)
 {
-	t_point	o;
-	t_shape	s;
-	t_d_bonus d;
+	t_point		o;
+	t_shape		s;
+	t_d_bonus	d;
 
 	if (n != 4 && n != 6)
 		print_error(SP);
@@ -46,10 +46,8 @@ t_shape	parsing_sphere(char **elem, int	n)
 	s.m.color = rgb_color(elem[3], 1, SP);
 	d = init_sphere(n, elem);
 	s.has_effects = true;
-	s.pattern = uv_checkers(s.raduis * M_2_PI, s.raduis * M_PI,
-			s.m.color, create_color(0, 0, 0));
+	s.pattern = uv_checkers(s.raduis * M_2_PI, s.raduis * M_PI, s.m.color,
+			create_color(0, 0, 0));
 	s.mapping = texture_map(s.pattern, sphere_uv_map);
 	return (s);
 }
-
-

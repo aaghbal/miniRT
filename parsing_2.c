@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 18:54:38 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/09 19:00:53 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/09 20:35:19 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	check_exten(char *argv)
 
 t_shape	check_ident_shap(char **elem)
 {
-	t_shape s;
+	t_shape	s;
 	int		n;
 
 	n = count_elem(elem);
@@ -48,14 +48,14 @@ t_shape	check_ident_shap(char **elem)
 		s = parsing_cyl(elem, n);
 	else if (!ft_strcmp("co", elem[0]))
 		s = parsing_cone(elem, n);
-	return(s);
+	return (s);
 }
 
-char *ft_strcpy(char *str)
+char	*ft_strcpy(char *str)
 {
-	int i;
-	char *res;
-	int n;
+	int		i;
+	char	*res;
+	int		n;
 
 	n = ft_strlen(str) + 1;
 	i = 0;
@@ -67,29 +67,30 @@ char *ft_strcpy(char *str)
 		i++;
 	}
 	res[i] = '\0';
-	return(res);
+	return (res);
 }
 
 void	check_element(char *line)
 {
-	if (!ft_strcmp("A", line) ||
-		!ft_strcmp("L", line) ||
-		!ft_strcmp("C", line) ||
-		!ft_strcmp("sp", line) ||
-		!ft_strcmp("pl", line) ||
-		!ft_strcmp("cy", line) ||
-		!ft_strcmp("co", line))
-			return ;
+	if (!ft_strcmp("A", line)
+		|| !ft_strcmp("L", line)
+		|| !ft_strcmp("C", line)
+		|| !ft_strcmp("sp", line)
+		|| !ft_strcmp("pl", line)
+		|| !ft_strcmp("cy", line)
+		|| !ft_strcmp("co", line))
+		return ;
 	else
 		print_error(ERR_ID);
 }
 
 int	count_shape(char *line)
 {
-	if (!ft_strcmp("sp", line) ||
-		!ft_strcmp("pl", line) ||
-		!ft_strcmp("cy", line) ||
-		!ft_strcmp("co", line))
-			return 1;
+	check_element(line);
+	if (!ft_strcmp("sp", line)
+		|| !ft_strcmp("pl", line)
+		|| !ft_strcmp("cy", line)
+		|| !ft_strcmp("co", line))
+		return (1);
 	return (0);
 }

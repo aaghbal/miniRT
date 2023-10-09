@@ -16,11 +16,11 @@ t_d_bonus	init_cyl(int n, char **elem)
 {
 	t_d_bonus	d;
 
-	if(n == 8 && elem[6])
+	if (n == 8 && elem[6])
 		d.nb = conver_ratio_number(elem[6], CY);
 	if (n == 8 && !equal(d.nb, 0) && !equal(d.nb, 1))
 		print_error(CY);
-	if(n == 8 && elem[7] && d.nb == 0)
+	if (n == 8 && elem[7] && d.nb == 0)
 		d.c = rgb_color(elem[7], 1, CY);
 	else if (n == 8 && elem[7] && d.nb == 1)
 	{
@@ -54,7 +54,7 @@ t_shape	parsing_cyl(char **elem, int n)
 	set_transform(&s, s.tranform);
 	s.m.color = rgb_color(elem[5], 1, CY);
 	d = init_cyl(n, elem);
-	s.has_effects	= true;
+	s.has_effects = true;
 	s.pattern = uv_checkers(2, 2, s.m.color, create_color(0, 0, 0));
 	s.mapping = texture_map(s.pattern, cyl_uv_map);
 	return (s);

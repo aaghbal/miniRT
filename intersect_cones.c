@@ -181,20 +181,20 @@ t_intersect	*cone_intersect(t_shape s, t_ray ray)
 		+ pow(r.direction.z, 2);
 	data.b = (2 * r.origine.x * r.direction.x) - (2 * r.origine.y
 			* r.direction.y) + (2 * r.origine.z * r.direction.z);
-	data.c = pow(r.origine.x, 2) + (pow(r.origine.y, 2) * -1)
-			+ pow(r.origine.z, 2);
+	data.c = pow(r.origine.x, 2) + (pow(r.origine.y, 2) * -1) + pow(r.origine.z,
+			2);
 	if (equal(data.a, 0) && equal(data.b, 0))
 		return (intersect_caps(s, r, &xs));
 	if (equal(data.a, 0))
 	{
 		xs = new_intersec(-data.c / (2 * data.b), s);
-		return (intersect_caps_cone(s, r ,&xs));
+		return (intersect_caps_cone(s, r, &xs));
 	}
 	data.discr = pow(data.b, 2) - 4 * data.a * data.c;
-	if(data.discr < 0)
+	if (data.discr < 0)
 		return (xs);
 	y = sqrt(data.discr);
-	data.t0 = (-data.b - y )/ (2 * data.a);
+	data.t0 = (-data.b - y) / (2 * data.a);
 	data.t1 = (-data.b + y) / (2 * data.a);
 	if (data.t0 > data.t1)
 		ft_swap(&data.t0, &data.t1);
@@ -204,5 +204,5 @@ t_intersect	*cone_intersect(t_shape s, t_ray ray)
 	data.y1 = r.origine.y + data.t1 * r.direction.y;
 	if (data.y1 >= s.min && data.y1 <= s.max && data.t1 > 0)
 		add_back(&xs, new_intersec(data.t1, s));
-	return(intersect_caps_cone(s, r, &xs), xs);
+	return (intersect_caps_cone(s, r, &xs), xs);
 }

@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 10:18:26 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/09 17:14:50 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/09 20:30:26 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ void	syntax_color(char *elem, int flag)
 			i++;
 		if (elem[i] == ',')
 			sem_col++;
-		if((elem[i] != ',' && elem[i] != '\n' && elem[i] != '.' &&  !ft_isdigit(elem[i]))
-			|| (sem_col > 2))
+		if ((elem[i] != ',' && elem[i] != '\n' && elem[i] != '.'
+				&& !ft_isdigit(elem[i])) || (sem_col > 2))
 			print_error(flag);
 		i++;
 	}
@@ -68,7 +68,7 @@ void	syntax_ratio(char *elem, int flag)
 	int	check_sing;
 
 	i = 0;
-	check_sing =0;
+	check_sing = 0;
 	sem_col = 0;
 	len = ft_strlen(elem);
 	while (elem[i])
@@ -80,7 +80,7 @@ void	syntax_ratio(char *elem, int flag)
 		}
 		if (elem[i] == '.')
 			sem_col++;
-		if((elem[i] != '.' && elem[i] != '\n' && !ft_isdigit(elem[i]))
+		if ((elem[i] != '.' && elem[i] != '\n' && !ft_isdigit(elem[i]))
 			|| (sem_col > 1) || (elem[i] == '.' && (i == 0 || i == len - 1))
 			|| check_sing > 1)
 			print_error(flag);
@@ -105,14 +105,4 @@ bool	equal(double a, double b)
 	if (fabs(a - b) < EPSILON)
 		return (true);
 	return (false);
-}
-
-int	count_elem(char **elem)
-{
-	int	i;
-
-	i = 0;
-	while (elem[i])
-		i++;
-	return(i);
 }

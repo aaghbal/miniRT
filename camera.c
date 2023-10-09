@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 14:33:38 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/09 18:53:32 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/09 21:31:38 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,18 +58,19 @@ t_ray	ray_for_pixel(t_camera camera, double px, double py)
 	return (r);
 }
 
-typedef struct s_d {
-	t_word	w;
-	t_mlx	*mlx;
-	t_mlx_image *img;
-} t_d;
+typedef struct s_d
+{
+	t_word		w;
+	t_mlx		*mlx;
+	t_mlx_image	*img;
+}				t_d;
 
 // void rez(int width, int height, void *v)
 // {
 // 	t_d *d =v;
 // 	t_color		col;
 // 	t_camera	c;
-	
+
 // 	mlx_delete_image(d.mlx, d->img);
 // 	c = camera(height, width, M_PI / 3);
 // 	c.trans = view_transformation(create_point(0, 5.5, -7), create_point(0, 1,
@@ -83,7 +84,8 @@ typedef struct s_d {
 // 		while (j < c.hsize)
 // 		{
 // 			col = color_at(d->w, ray_for_pixel(c, i, j), 5);
-// 			mlx_putpixel(d->img, i, j, conv_color(col.red, col.green, col.blue));
+// 			mlx_putpixel(d->img, i, j, conv_color(col.red, col.green,
+						// col.blue));
 // 			j++;
 // 		}
 // 		i++;
@@ -97,7 +99,7 @@ void	render(t_word w, t_camera c, t_d_pars p)
 	t_mlx		*mlx;
 	t_mlx_image	*img;
 	t_color		col;
-	t_d		d;
+	t_d			d;
 
 	i = 0;
 	mlx = mlx_init(WIDTH, HEIGHT, "test", true);
@@ -118,6 +120,7 @@ void	render(t_word w, t_camera c, t_d_pars p)
 	d.mlx = mlx;
 	d.w = w;
 	// mlx_resize_hook(mlx, rez, &d);
+	puts("llklk");
 	ft_free(FREE, NULL);
 	system("leaks miniRT");
 	mlx_loop(mlx);

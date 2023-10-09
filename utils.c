@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 18:36:33 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/09 18:14:45 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/09 20:31:17 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 double	conver_ratio_number(char *rat, int flag)
 {
-	char **spl;
-	int n1;
-	double n2;
-	double res;
+	char	**spl;
+	int		n1;
+	double	n2;
+	double	res;
 	int		sing;
-	
+
 	n2 = 0;
 	sing = 1;
 	syntax_ratio(rat, flag);
@@ -36,12 +36,12 @@ double	conver_ratio_number(char *rat, int flag)
 
 double	conver_color_number(char *rat, int flag)
 {
-	char **spl;
-	int n1;
-	double n2;
-	double res;
+	char	**spl;
+	int		n1;
+	double	n2;
+	double	res;
 	int		sing;
-	
+
 	n2 = 0;
 	sing = 1;
 	spl = ft_split(rat, '.');
@@ -58,11 +58,11 @@ double	conver_color_number(char *rat, int flag)
 	return (res);
 }
 
-t_color rgb_color(char *str, double ratio, int flag)
+t_color	rgb_color(char *str, double ratio, int flag)
 {
-	double *res;
-	char **spl;
-	t_color c;
+	double	*res;
+	char	**spl;
+	t_color	c;
 
 	syntax_color(str, flag);
 	spl = ft_split(str, ',');
@@ -82,12 +82,12 @@ t_color rgb_color(char *str, double ratio, int flag)
 
 double	conver_normal_number(char *rat, int flag)
 {
-	char **spl;
-	int n1;
-	double n2;
-	double res;
+	char	**spl;
+	int		n1;
+	double	n2;
+	double	res;
 	int		sing;
-	
+
 	n2 = 0;
 	sing = 1;
 	syntax_ratio(rat, flag);
@@ -98,7 +98,7 @@ double	conver_normal_number(char *rat, int flag)
 	if (spl[1])
 		n2 = ft_itod(spl[1]);
 	res = ((double)n1 + n2) * sing;
-		if (res > 1 || res < -1)
+	if (res > 1 || res < -1)
 		print_error(flag);
 	free_doublep(spl);
 	return (res);
@@ -106,11 +106,10 @@ double	conver_normal_number(char *rat, int flag)
 
 int	ft_strcmp(const char *s1, const char *s2)
 {
-	size_t		i;
+	int	i;
 
 	i = 0;
 	while (s1[i] == s2[i] && (s1[i] != '\0' && s1[i] != '\0'))
 		i++;
-
 	return (s1[i] - s2[i]);
 }

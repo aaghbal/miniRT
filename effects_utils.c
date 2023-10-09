@@ -14,7 +14,7 @@
 
 t_check	uv_checkers(int w, int h, t_color a, t_color b)
 {
-	t_check c;
+	t_check	c;
 
 	c.a = a;
 	c.b = b;
@@ -25,9 +25,9 @@ t_check	uv_checkers(int w, int h, t_color a, t_color b)
 
 t_color	uv_checkers_at(t_check ch, double u, double v)
 {
-	int u_floor;
-	int v_floor;
-	int mod;
+	int	u_floor;
+	int	v_floor;
+	int	mod;
 
 	u_floor = floor(u * ch.width);
 	v_floor = floor(v * ch.height);
@@ -45,7 +45,6 @@ t_texture_map	texture_map(t_check pattern, t_uv (*map)(t_point))
 	tm.uv_map = map;
 	return (tm);
 }
-
 
 t_color	checkers_at(t_texture_map tm, t_point p)
 {
