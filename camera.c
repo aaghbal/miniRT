@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 14:33:38 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/05 19:10:16 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/09 11:57:06 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ t_ray	ray_for_pixel(t_camera camera, double px, double py)
 	data.yoffset = (py + 0.5) * camera.pixel_size;
 	data.word_x = camera.half_width - data.xoffset;
 	data.word_y = camera.half_height - data.yoffset;
-	data.inv = inverse_gauss(camera.trans);
+	data.inv = camera.inverse;
 	pixel = mul_mat_point(data.inv, create_point(data.word_x, data.word_y, -1));
 	origine = mul_mat_point(data.inv, create_point(0, 0, 0));
 	direc = normalize(sub_to_point(pixel, origine));
