@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intersect_cyl.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
+/*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 16:42:18 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/06 17:03:05 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/08 14:02:00 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ t_intersect	*cyl_intersect(t_shape s, t_ray ray)
 	t_intersect	*xs;
 
 	xs = new_intersec(0, s);
-	r = transform(ray, inverse_gauss(s.tranform));
+	r = transform(ray, s.ivers_tran);
 	data.a = pow(r.direction.x, 2) + pow(r.direction.z, 2);
 	if (equal(data.a, 0))
 		return (intersect_caps(s, r, &xs));

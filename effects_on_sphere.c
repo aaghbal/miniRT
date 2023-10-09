@@ -1,30 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   transform.c                                        :+:      :+:    :+:   */
+/*   effects_on_sphere.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/21 16:46:06 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/08 12:59:51 by houmanso         ###   ########.fr       */
+/*   Created: 2023/10/08 11:45:37 by houmanso          #+#    #+#             */
+/*   Updated: 2023/10/08 11:47:03 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_ray	transform(t_ray r, double **m)
+t_uv	sphere_uv_map(t_point p)
 {
-	t_ray	ray;
+	t_uv		uv;
+	t_vector	vec;
+	double		polar;
+	double		radius;
+	double		azimuthal;
 
-	ray.origine = mul_mat_point(m, r.origine);
-	ray.direction = mul_mat_vector(m, r.direction);
-	return (ray);
-}
-
-void	set_transform(t_shape *s, double **t)
-{
-	s->tranform = t;
-	s->ivers_tran = inverse_gauss(t);
-	if (!s->ivers_tran)
-		s->ivers_tran = identity();
+	azimuthal = atan2(p.x, p.z);
+	vec = create_vector(p.x, p.y, p.z);
+	radius = magnitude(vec);
+	polar = acos(p.y / radius);
+	uv.u = 1 - (azimuthal / M_2_PI + 0.5);
+	uv.v = 1 - polar / M_PI;
+	return (uv);
 }

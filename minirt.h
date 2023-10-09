@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:13:01 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/07 20:24:00 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/09 11:51:03 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,13 @@ typedef struct s_cal
 	int ambiant;
 	int light;
 }t_cal;
+
+typedef struct s_uv
+{
+	double	u;
+	double	v;
+}	t_uv;
+
 
 typedef enum s_obj
 {
@@ -106,14 +113,22 @@ typedef struct s_ray
 	t_vector	direction;
 }	t_ray;
 
+typedef struct s_pattern
+{
+	t_color		a;
+	t_color		b;
+	double		**transform;
+	double		**inverse;
+}	t_pattern;
+
 typedef struct s_material
 {
-	t_color	color;
-	t_color	amb_color;
-	double	ambient;
-	double	diffuse;
-	double	specular;
-	double	shininess;
+	t_color		color;
+	t_color		amb_color;
+	double		ambient;
+	double		diffuse;
+	double		specular;
+	double		shininess;
 }	t_material;
 
 typedef struct s_data
@@ -128,17 +143,36 @@ typedef struct s_data
 	double	y1;
 }	t_data;
 
+typedef struct s_check
+{
+	t_color		a;
+	t_color		b;
+	double		width;
+	double		height;
+}	t_check;
+
+
+typedef struct s_texture_map
+{
+	t_check		uv_pattern;
+	t_uv		(*uv_map)(t_point);
+}t_texture_map;
+
 typedef struct s_shape
 {
-	double		**tranform;
-	t_material	m;
-	t_vector	normal_pl;
-	double		**ivers_tran;
-	t_obj		obj;
-	bool		closed;
-	double		raduis;
-	double		min;
-	double		max;
+	double			**tranform;
+	t_material		m;
+	t_vector		normal_pl;
+	double			**ivers_tran;
+	t_obj			obj;
+	bool			closed;
+	double			raduis;
+	double			min;
+	double			max;
+	t_shearing		shearing;
+	bool			has_effects;
+	t_check			pattern;
+	t_texture_map	mapping;
 }	t_shape;
 
 typedef struct t_intersection
@@ -173,6 +207,7 @@ typedef struct s_camera
 	double	half_height;
 	double	pixel_size;
 	double	**trans;
+	double	**inverse;
 }	t_camera;
 
 typedef struct s_word
@@ -245,6 +280,8 @@ typedef struct s_data_am
 	double	ratio;
 	double *res;
 }	t_d_am;
+
+
 
 t_vector		create_vector(double x, double y, double z);
 t_point			create_point(double x, double y, double z);
@@ -326,7 +363,7 @@ t_vector		reflect(t_vector in, t_vector normal);
 
 t_light			point_light(t_point pos, t_color intensit);
 t_material		material(void);
-t_color			lighting(t_material m, t_light light, t_var_light v, bool shadowed);
+t_color			lighting(t_shape s, t_light light, t_var_light v, bool shadowed);
 // word 
 t_word			default_word(void);
 t_word			word(t_shape *s, t_light *l);
@@ -399,6 +436,22 @@ double	conver_normal_number(char *rat, int flag);
 t_shape	parsing_cyl(char **elem);
 double **orient(t_vector orie);
 double radiane(double deg);
+
+// pattern
+
+void			pattern_set_transform(t_pattern *p, double **m);
+t_check			uv_checkers(int w, int h, t_color a, t_color b);
+t_pattern		stripe_pattern(t_color a, t_color b);
+
+t_color			stripe_at(t_pattern p, t_point point);
+t_color			stripe_at_shape(t_pattern p, t_shape s, t_point point);
+t_color			uv_checkers_at(t_check ch, double u, double v);
+t_color			checkers_at(t_texture_map tm, t_point p);
+t_uv			sphere_uv_map(t_point p);
+t_uv			plan_uv_map(t_point p);
+t_uv			cyl_uv_map(t_point p);
+t_texture_map	texture_map(t_check pattern, t_uv (*map)(t_point));
+// syntax
 void	syntax_color(char *elem, int flag);
 void	syntax_ratio(char *elem, int flag);
 void	print_error(int flag);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_plan.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
+/*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 15:32:52 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/07 15:47:35 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/08 13:19:25 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,10 @@ t_shape	parsing_plan(char **elem)
 	o = parse_origine(elem[1], PL);
 	orie = parse_vector(elem[2], PL);
 	s.tranform = multiple_matrice(orient(orie), translation(o.x, o.y, o.z));
+	set_transform(&s, s.tranform);
 	s.m.color = rgb_color(elem[3], 1, PL);
+	s.has_effects	= true;
+	s.pattern = uv_checkers(2, 2, s.m.color, create_color(255, 0, 0));
+	s.mapping = texture_map(s.pattern, plan_uv_map);
 	return (s);
 }

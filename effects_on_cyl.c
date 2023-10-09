@@ -1,35 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shape.c                                            :+:      :+:    :+:   */
+/*   effects_on_cyl.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
+/*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/25 17:28:41 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/09 11:52:03 by aaghbal          ###   ########.fr       */
+/*   Created: 2023/10/08 13:24:52 by houmanso          #+#    #+#             */
+/*   Updated: 2023/10/08 14:05:38 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	ft_swap(double *t0, double *t1)
+
+t_uv	cyl_uv_map(t_point p)
 {
-	double	tmp;
+	t_uv	uv;
+	double	raw;
+	double	theta;
 
-	tmp = *t0;
-	*t0 = *t1;
-	*t1 = tmp;
-}
-
-t_shape	default_shape(void)
-{
-	t_shape	s;
-
-	s.tranform = identity();
-	s.ivers_tran = s.tranform;
-	s.m = material();
-	s.min = -0.5;
-	s.max = 0.5;
-	s.closed = true;
-	return (s);
+	theta = atan2(p.x, p.z);
+	raw = theta / M_2_PI;
+	uv.u = 1 - (raw + 0.5);
+	uv.v = p.y;
+	return (uv);
 }

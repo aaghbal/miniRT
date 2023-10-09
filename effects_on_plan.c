@@ -1,35 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shape.c                                            :+:      :+:    :+:   */
+/*   effects_on_plan.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
+/*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/25 17:28:41 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/09 11:52:03 by aaghbal          ###   ########.fr       */
+/*   Created: 2023/10/08 13:11:52 by houmanso          #+#    #+#             */
+/*   Updated: 2023/10/08 13:16:56 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	ft_swap(double *t0, double *t1)
+t_pattern	stripe_pattern(t_color a, t_color b)
 {
-	double	tmp;
+	t_pattern	p;
 
-	tmp = *t0;
-	*t0 = *t1;
-	*t1 = tmp;
+	p.a = a;
+	p.b = b;
+	p.transform = identity();
+	p.inverse = p.transform;
+	return (p);
 }
 
-t_shape	default_shape(void)
+t_uv	plan_uv_map(t_point p)
 {
-	t_shape	s;
+	t_uv	uv;
 
-	s.tranform = identity();
-	s.ivers_tran = s.tranform;
-	s.m = material();
-	s.min = -0.5;
-	s.max = 0.5;
-	s.closed = true;
-	return (s);
+	uv.u = p.x;
+	uv.v = p.z;
+	return (uv);
 }

@@ -6,7 +6,7 @@
 #    By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/27 09:51:25 by houmanso          #+#    #+#              #
-#    Updated: 2023/10/08 10:59:23 by aaghbal          ###   ########.fr        #
+#    Updated: 2023/10/09 11:50:18 by aaghbal          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,8 +21,10 @@ SRC = main.c create_vec_point.c add_vector_point.c sub_vector_point.c \
 		camera.c shadow.c inverse_matrix.c shape.c inverse_matrix_1.c \
 		intersect_cyl.c intersect_cube.c intersect_cones.c free.c parsing.c \
 		get_next_line.c get_next_line_utils.c parsing_am_light.c parsing_plan.c\
-		parsing_sphere.c parsing_light.c parsing_camera.c orient.c utils_2.c \
-		parsing_cyl.c 
+		parsing_sphere.c parsing_light.c parsing_camera.c orient.c effects.c utils_2.c \
+		parsing_cyl.c effects_utils.c effects_on_sphere.c effects_on_plan.c \
+		effects_on_cyl.c texture.c
+
 OBJ		=	$(SRC:.c=.o)
 NAME	=	miniRT
 OBJ		=	$(SRC:.c=.o)

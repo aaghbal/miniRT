@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 17:45:38 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/08 12:21:57 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/09 11:51:39 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	check_exten(char *argv)
 t_shape	check_ident_shap(char **elem)
 {
 	t_shape s;
-	
+
 	s = default_shape();
 	if (!ft_strcmp("sp", elem[0]))
 		s = parsing_sphere(elem);
