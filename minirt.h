@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
+/*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:13:01 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/09 11:51:03 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/09 16:25:50 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,6 +173,8 @@ typedef struct s_shape
 	bool			has_effects;
 	t_check			pattern;
 	t_texture_map	mapping;
+	t_mlx_image		*img;
+	char			*path;
 }	t_shape;
 
 typedef struct t_intersection

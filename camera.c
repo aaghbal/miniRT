@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   camera.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
+/*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 14:33:38 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/09 11:57:06 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/09 16:24:04 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ t_ray	ray_for_pixel(t_camera camera, double px, double py)
 }
 
 typedef struct s_d {
-	t_word	w;
-	t_mlx	*mlx;
-	t_mlx_image *img;
+	t_word			w;
+	t_mlx			*mlx;
+	t_mlx_image		*img;
 } t_d;
 
 // void rez(int width, int height, void *v)
