@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 14:03:42 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/09 19:48:36 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/10 10:38:07 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ t_d_bonus	init_cyl(int n, char **elem)
 
 t_shape	parsing_cyl(char **elem, int n)
 {
-	double		diam;
-	double		hei;
 	t_vector	orie;
 	t_point		o;
 	t_shape		s;
@@ -46,9 +44,9 @@ t_shape	parsing_cyl(char **elem, int n)
 	s.m.specular = 0.1;
 	o = parse_origine(elem[1], CY);
 	orie = parse_vector(elem[2], CY);
-	diam = conver_ratio_number(elem[3], CY) / 2;
-	hei = conver_ratio_number(elem[4], CY);
-	s.tranform = multiple_matrice(scaling(diam, 1, diam), scaling(1, hei, 1));
+	d.dm = conver_ratio_number(elem[3], CY) / 2;
+	d.h = conver_ratio_number(elem[4], CY);
+	s.tranform = multiple_matrice(scaling(d.dm, 1, d.dm), scaling(1, d.h, 1));
 	s.tranform = multiple_matrice(s.tranform, translation(o.x, o.y, o.z));
 	s.tranform = multiple_matrice(s.tranform, orient(orie));
 	set_transform(&s, s.tranform);

@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:13:01 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/09 20:40:05 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/10 11:13:49 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -243,11 +243,11 @@ typedef struct s_variable_lighting
 	t_vector	eyev;
 	t_vector	normalv;
 	t_light		l;
-	t_color		effective_color;
+	t_color		effect;
 	t_vector	lightv;
 	t_color		ambient;
 	t_color		defuse;
-	t_color		specular;
+	t_color		spc;
 	t_vector	reflectv;
 	t_color		res;
 	t_color		am_rati;
@@ -283,6 +283,8 @@ typedef struct s_data_bonus
 	t_color	c;
 	double	nb;
 	char	*path;
+	double	dm;
+	double	h;
 }t_d_bonus;
 
 typedef struct s_norm_word
@@ -295,6 +297,22 @@ typedef struct s_norm_word
 	t_word		w;
 
 }	t_norm;
+
+typedef struct s_data_matr
+{
+	int		col;
+	int		i;
+	int		row;
+}	t_matr;
+
+typedef struct s_d
+{
+	t_word		w;
+	t_mlx		*mlx;
+	t_mlx_image	*img;
+	int			i;
+	int			j;
+}				t_d;
 
 t_vector		create_vector(double x, double y, double z);
 t_point			create_point(double x, double y, double z);

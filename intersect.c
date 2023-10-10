@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intersect.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 15:31:08 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/08 13:02:25 by houmanso         ###   ########.fr       */
+/*   Updated: 2023/10/10 11:09:04 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,6 @@ t_intersect	*intersect_world(t_word w, t_ray r, int n_object)
 			new = new_intersec(plan_intersect(w.s[i], r), w.s[i]);
 		else if (w.s[i].obj == cy)
 			new = cyl_intersect(w.s[i], r);
-		else if (w.s[i].obj == cu)
-			new = cube_intersect(w.s[i], r);
 		else if (w.s[i].obj == co)
 			new = cone_intersect(w.s[i], r);
 		if (!xs)

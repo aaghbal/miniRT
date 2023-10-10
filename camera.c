@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 14:33:38 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/09 21:31:38 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/10 11:18:29 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,6 @@ t_ray	ray_for_pixel(t_camera camera, double px, double py)
 	return (r);
 }
 
-typedef struct s_d
-{
-	t_word		w;
-	t_mlx		*mlx;
-	t_mlx_image	*img;
-}				t_d;
-
 // void rez(int width, int height, void *v)
 // {
 // 	t_d *d =v;
@@ -92,35 +85,32 @@ typedef struct s_d
 // 	}
 // }
 
-void	render(t_word w, t_camera c, t_d_pars p)
+void	render(t_word w, t_camera ca, t_d_pars p)
 {
-	int			i;
-	int			j;
 	t_mlx		*mlx;
 	t_mlx_image	*img;
-	t_color		col;
+	t_color		c;
 	t_d			d;
 
-	i = 0;
+	d.i = 0;
 	mlx = mlx_init(WIDTH, HEIGHT, "test", true);
-	img = mlx_new_image(mlx, c.vsize, c.hsize);
+	img = mlx_new_image(mlx, ca.vsize, ca.hsize);
 	mlx_image_to_window(mlx, img, 0, 0);
-	while (i < c.vsize)
+	while (d.i < ca.vsize)
 	{
-		j = 0;
-		while (j < c.hsize)
+		d.j = 0;
+		while (d.j < ca.hsize)
 		{
-			col = color_at(w, ray_for_pixel(c, i, j), p);
-			mlx_putpixel(img, i, j, conv_color(col.red, col.green, col.blue));
-			j++;
+			c = color_at(w, ray_for_pixel(ca, d.i, d.j), p);
+			mlx_putpixel(img, d.i, d.j, conv_color(c.red, c.green, c.blue));
+			d.j++;
 		}
-		i++;
+		d.i++;
 	}
 	d.img = img;
 	d.mlx = mlx;
 	d.w = w;
 	// mlx_resize_hook(mlx, rez, &d);
-	puts("llklk");
 	ft_free(FREE, NULL);
 	system("leaks miniRT");
 	mlx_loop(mlx);
