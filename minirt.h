@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:13:01 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/10 11:13:49 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/10 13:14:46 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -312,6 +312,7 @@ typedef struct s_d
 	t_mlx_image	*img;
 	int			i;
 	int			j;
+	t_d_pars	p;
 }				t_d;
 
 t_vector		create_vector(double x, double y, double z);
