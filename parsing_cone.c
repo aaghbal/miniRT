@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_cone.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
+/*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:00:30 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/10 10:37:25 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/11 17:44:24 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ t_shape	parsing_cone(char **elem, int n)
 	s.m.color = rgb_color(elem[5], 1, CO);
 	d = init_cone(n, elem);
 	s.has_effects = true;
-	s.pattern = uv_checkers(2, 2, s.m.color, create_color(0, 0, 0));
+	s.pattern = uv_checkers(2*M_PI, d.h, s.m.color, create_color(0, 0, 0));
 	s.mapping = texture_map(s.pattern, cyl_uv_map);
 	return (s);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_sphere.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
+/*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 15:35:23 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/09 19:48:21 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/11 18:46:58 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,26 @@ t_shape	parsing_sphere(char **elem, int n)
 		print_error(SP);
 	s = default_shape();
 	s.obj = sp;
+	s.m.specular = 0;
 	o = parse_origine(elem[1], SP);
 	s.raduis = conver_ratio_number(elem[2], SP) / 2;
 	set_transform(&s, translation(o.x, o.y, o.z));
+	set_transform(&s, rotation_y(M_PI));
 	s.m.color = rgb_color(elem[3], 1, SP);
+	if (n == 4)
+		return (s);
 	d = init_sphere(n, elem);
 	s.has_effects = true;
-	s.pattern = uv_checkers(s.raduis * M_2_PI, s.raduis * M_PI, s.m.color,
-			create_color(0, 0, 0));
-	s.mapping = texture_map(s.pattern, sphere_uv_map);
+	if (d.nb == 0)
+	{
+		s.type = checkers;
+		s.pattern = uv_checkers(s.raduis * 2 * M_PI, s.raduis * M_PI, s.m.color,
+				create_color(0, 0, 0));
+		s.mapping = texture_map(s.pattern, sphere_uv_map);
+		return (s);
+	}
+	s.type = texture;
+	s.mapping.uv_map = sphere_uv_map;
+	s.img = mlx_load_png(d.path);
 	return (s);
 }
