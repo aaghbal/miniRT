@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 15:35:23 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/09 19:48:21 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/11 14:31:28 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ t_shape	parsing_sphere(char **elem, int n)
 	set_transform(&s, translation(o.x, o.y, o.z));
 	s.m.color = rgb_color(elem[3], 1, SP);
 	d = init_sphere(n, elem);
+	if (n == 4)
+		return (s);
 	s.has_effects = true;
 	s.pattern = uv_checkers(s.raduis * M_2_PI, s.raduis * M_PI, s.m.color,
 			create_color(0, 0, 0));

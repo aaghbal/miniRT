@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 15:32:52 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/09 19:48:52 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/11 14:31:05 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,10 @@ t_shape	parsing_plan(char **elem, int n)
 	set_transform(&s, s.tranform);
 	s.m.color = rgb_color(elem[3], 1, PL);
 	d = init_plan(n, elem);
+	if (n == 4)
+		return (s);
 	s.has_effects = true;
-	s.pattern = uv_checkers(2, 2, s.m.color, create_color(255, 0, 0));
+	s.pattern = uv_checkers(2, 2, s.m.color, d.c);
 	s.mapping = texture_map(s.pattern, plan_uv_map);
 	return (s);
 }
