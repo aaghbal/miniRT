@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memset.c                                        :+:      :+:    :+:   */
+/*   utils_3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/16 18:40:17 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/09 20:27:10 by aaghbal          ###   ########.fr       */
+/*   Created: 2023/10/09 20:29:27 by aaghbal           #+#    #+#             */
+/*   Updated: 2023/10/09 20:29:46 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minirt.h"
 
-void	*ft_memset(void *b, int c, size_t len)
+int	count_elem(char **elem)
 {
-	unsigned char	*s;
-	size_t			i;
+	int	i;
 
-	s = b;
 	i = 0;
-	while (i < len)
-	{
-		s[i] = c;
+	while (elem[i])
 		i++;
-	}
-	return (b);
+	return (i);
 }

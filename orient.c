@@ -12,9 +12,9 @@
 
 #include "minirt.h"
 
-double **orientaion_matrix(t_vector up, t_vector forw, t_vector right)
+double	**orientaion_matrix(t_vector up, t_vector forw, t_vector right)
 {
-	double **res;
+	double	**res;
 
 	res = identity();
 	res[0][0] = up.x;
@@ -33,33 +33,32 @@ double **orientaion_matrix(t_vector up, t_vector forw, t_vector right)
 	res[1][3] = 0;
 	res[2][3] = 0;
 	res[3][3] = 1;
-	return(res);
+	return (res);
 }
 
-double **orient(t_vector orie)
+double	**orient(t_vector orie)
 {
-	t_vector up;
-	t_vector forw;
-	t_vector right;
-	
+	t_vector	up;
+	t_vector	forw;
+	t_vector	right;
+
 	up = normalize(orie);
 	forw = normalize(cross_product(create_vector(0, 1, 0), up));
-	right = cross_product(up , forw);
+	right = cross_product(up, forw);
 	if (equal(orie.x, 0) && equal(orie.z, 0))
 	{
 		if (orie.y > 0)
 		{
 			up = create_vector(0, 1, 0);
 			right = create_vector(1, 0, 0);
-		forw = create_vector(0, 0, 1);
+			forw = create_vector(0, 0, 1);
 		}
 		else if (orie.y < 0)
 		{
-			
 			up = create_vector(0, -1, 0);
 			right = create_vector(-1, 0, 0);
-		forw = create_vector(0, 0, -1);
+			forw = create_vector(0, 0, -1);
 		}
 	}
-	return(orientaion_matrix(right, up, forw));
+	return (orientaion_matrix(right, up, forw));
 }

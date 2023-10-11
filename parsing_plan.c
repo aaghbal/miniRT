@@ -3,23 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_plan.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 15:32:52 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/08 13:19:25 by houmanso         ###   ########.fr       */
+/*   Updated: 2023/10/09 19:48:52 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
+t_d_bonus	init_plan(int n, char **elem)
+{
+	t_d_bonus	d;
 
-t_shape	parsing_plan(char **elem)
+	if (n == 6 && elem[4])
+		d.nb = conver_ratio_number(elem[4], PL);
+	if (n == 6 && !equal(d.nb, 0) && !equal(d.nb, 1))
+		print_error(PL);
+	if (n == 6 && elem[5] && d.nb == 0)
+		d.c = rgb_color(elem[5], 1, PL);
+	else if (n == 6 && elem[5] && d.nb == 1)
+	{
+		d.path = ft_strdup(elem[5]);
+		ft_free(ADD, d.path);
+	}
+	return (d);
+}
+
+t_shape	parsing_plan(char **elem, int n)
 {
 	t_shape		s;
 	t_point		o;
 	t_vector	orie;
+	t_d_bonus	d;
 
-	if (!elem[0] || !elem[1] || !elem[2] || !elem[3] || elem[4])
+	if (n != 4 && n != 6)
 		print_error(PL);
 	s = default_shape();
 	s.obj = pl;
@@ -29,7 +47,8 @@ t_shape	parsing_plan(char **elem)
 	s.tranform = multiple_matrice(orient(orie), translation(o.x, o.y, o.z));
 	set_transform(&s, s.tranform);
 	s.m.color = rgb_color(elem[3], 1, PL);
-	s.has_effects	= true;
+	d = init_plan(n, elem);
+	s.has_effects = true;
 	s.pattern = uv_checkers(2, 2, s.m.color, create_color(255, 0, 0));
 	s.mapping = texture_map(s.pattern, plan_uv_map);
 	return (s);

@@ -6,7 +6,7 @@
 /*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 14:33:38 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/09 16:24:04 by houmanso         ###   ########.fr       */
+/*   Updated: 2023/10/11 09:03:04 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,65 +58,61 @@ t_ray	ray_for_pixel(t_camera camera, double px, double py)
 	return (r);
 }
 
-typedef struct s_d {
-	t_word			w;
-	t_mlx			*mlx;
-	t_mlx_image		*img;
-} t_d;
-
-// void rez(int width, int height, void *v)
+// void resize(int width, int height, void *v)
 // {
-// 	t_d *d =v;
+// 	t_d			*d;
 // 	t_color		col;
 // 	t_camera	c;
-	
-// 	mlx_delete_image(d.mlx, d->img);
+
+// 	d = v;
+// 	mlx_delete_image(d->mlx, d->img);
 // 	c = camera(height, width, M_PI / 3);
 // 	c.trans = view_transformation(create_point(0, 5.5, -7), create_point(0, 1,
 // 				1), create_vector(0, 1, 0));
 // 	d->img = mlx_new_image(d->mlx, c.vsize, c.hsize);
 // 	mlx_image_to_window(d->mlx, d->img, 0, 0);
-// 	int i = 1, j;
+// 	int i = 0, j;
 // 	while (i < c.vsize)
 // 	{
-// 		j = 1;
+// 		j = 0;
 // 		while (j < c.hsize)
 // 		{
-// 			col = color_at(d->w, ray_for_pixel(c, i, j), 5);
-// 			mlx_putpixel(d->img, i, j, conv_color(col.red, col.green, col.blue));
+// 			col = color_at(d->w, ray_for_pixel(c, i, j), d->p);
+// 			mlx_putpixel(d->img, i, j, conv_color(col.red, col.green,
+// 						col.blue));
 // 			j++;
 // 		}
 // 		i++;
 // 	}
 // }
 
-void	render(t_word w, t_camera c, t_d_pars p)
+void	render(t_word w, t_camera ca, t_d_pars p)
 {
-	int			i;
-	int			j;
 	t_mlx		*mlx;
 	t_mlx_image	*img;
-	t_color		col;
-	t_d		d;
+	t_color		c;
+	t_d			d;
 
-	i = 0;
+	d.i = 0;
 	mlx = mlx_init(WIDTH, HEIGHT, "test", true);
-	img = mlx_new_image(mlx, c.vsize, c.hsize);
+	img = mlx_new_image(mlx, ca.vsize, ca.hsize);
 	mlx_image_to_window(mlx, img, 0, 0);
-	while (i < c.vsize)
+	while (d.i < ca.vsize)
 	{
-		j = 0;
-		while (j < c.hsize)
+		d.j = 0;
+		while (d.j < ca.hsize)
 		{
-			col = color_at(w, ray_for_pixel(c, i, j), p);
-			mlx_putpixel(img, i, j, conv_color(col.red, col.green, col.blue));
-			j++;
+			c = color_at(w, ray_for_pixel(ca, d.i, d.j), p);
+			mlx_putpixel(img, d.i, d.j, conv_color(c.red, c.green, c.blue));
+			d.j++;
 		}
-		i++;
+		d.i++;
 	}
-	d.img = img;
-	d.mlx = mlx;
-	d.w = w;
-	// mlx_resize_hook(mlx, rez, &d);
+	// d.img = img;
+	// d.mlx = mlx;
+	// d.w = w;
+	// d.p = p;
+	// mlx_resize_hook(mlx, resize, &d);
+	ft_free(FREE, NULL);
 	mlx_loop(mlx);
 }

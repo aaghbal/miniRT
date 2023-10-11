@@ -6,7 +6,7 @@
 /*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:13:01 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/09 16:25:50 by houmanso         ###   ########.fr       */
+/*   Updated: 2023/10/11 09:03:42 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,20 +34,19 @@
 # define SP 3
 # define PL 4
 # define CY 5
-# define ERR_ID 6
-# define ERR_CAL 7
-# define EXTE 8
-# define OP 9
-
-
+# define CO 6
+# define ERR_ID 7
+# define ERR_CAL 8
+# define EXTE 9
+# define OP 10
 # define WIDTH 500
 # define HEIGHT 500
 
 typedef struct s_cal
 {
-	int camera;
-	int ambiant;
-	int light;
+	int	camera;
+	int	ambiant;
+	int	light;
 }t_cal;
 
 typedef struct s_uv
@@ -55,7 +54,6 @@ typedef struct s_uv
 	double	u;
 	double	v;
 }	t_uv;
-
 
 typedef enum s_obj
 {
@@ -151,7 +149,6 @@ typedef struct s_check
 	double		height;
 }	t_check;
 
-
 typedef struct s_texture_map
 {
 	t_check		uv_pattern;
@@ -216,7 +213,7 @@ typedef struct s_word
 {
 	t_shape	*s;
 	t_light	*l;
-	t_color ambiant;
+	t_color	ambiant;
 }	t_word;
 
 typedef struct s_intersec
@@ -248,11 +245,11 @@ typedef struct s_variable_lighting
 	t_vector	eyev;
 	t_vector	normalv;
 	t_light		l;
-	t_color		effective_color;
+	t_color		effect;
 	t_vector	lightv;
 	t_color		ambient;
 	t_color		defuse;
-	t_color		specular;
+	t_color		spc;
 	t_vector	reflectv;
 	t_color		res;
 	t_color		am_rati;
@@ -280,10 +277,45 @@ typedef struct s_data_parsing
 typedef struct s_data_am
 {
 	double	ratio;
-	double *res;
+	double	*res;
 }	t_d_am;
 
+typedef struct s_data_bonus
+{
+	t_color	c;
+	double	nb;
+	char	*path;
+	double	dm;
+	double	h;
+}t_d_bonus;
 
+typedef struct s_norm_word
+{
+	char		*line;
+	char		**spl;
+	int			i;
+	int			j;
+	t_camera	c;
+	t_word		w;
+
+}	t_norm;
+
+typedef struct s_data_matr
+{
+	int		col;
+	int		i;
+	int		row;
+}	t_matr;
+
+typedef struct s_d
+{
+	t_word		w;
+	t_mlx		*mlx;
+	t_mlx_image	*img;
+	int			i;
+	int			j;
+	t_d_pars	p;
+}				t_d;
 
 t_vector		create_vector(double x, double y, double z);
 t_point			create_point(double x, double y, double z);
@@ -365,7 +397,8 @@ t_vector		reflect(t_vector in, t_vector normal);
 
 t_light			point_light(t_point pos, t_color intensit);
 t_material		material(void);
-t_color			lighting(t_shape s, t_light light, t_var_light v, bool shadowed);
+t_color			lighting(t_shape s, t_light light, t_var_light v,
+					bool shadowed);
 // word 
 t_word			default_word(void);
 t_word			word(t_shape *s, t_light *l);
@@ -407,37 +440,41 @@ t_intersect		*cone_intersect(t_shape s, t_ray ray);
 t_vector		cone_normal_at(t_shape s, t_point word_point);
 
 // cube
-
-t_intersect *cube_intersect(t_shape s, t_ray ray);
-t_vector	cube_normal_at(t_shape s, t_point word_point);
+t_intersect		*cube_intersect(t_shape s, t_ray ray);
+t_vector		cube_normal_at(t_shape s, t_point word_point);
 
 // free
-t_free	*new_addr(void *address);
-void	ft_free(int flag, void *addr);
-void	add_addr(t_free **lst, t_free *new);
-void free_doublep(char **tab);
+t_free			*new_addr(void *address);
+void			ft_free(int flag, void *addr);
+void			add_addr(t_free **lst, t_free *new);
+void			free_doublep(char **tab);
 
 // parsing 
-
-void read_file(char *file);
-int	check_exten(char *argv);
-char	**ft_split(char const *s, char c);
-t_shape	check_ident_shap(char **elem);
-t_color	rgb_color(char *str, double ratio, int flag);
-double	ft_itod(char *str);
-t_color parsing_am_light(char **elem);
-t_shape	parsing_sphere(char **elem);
-t_shape	parsing_plan(char **elem);
-t_point	parse_origine(char *elem, int flag);
-t_vector	parse_vector(char *elem, int flag);
-t_light	parsing_light(char	**elem);
-t_camera parsing_camera(char **elem);
-double	conver_ratio_number(char *rat, int flag);
-double	conver_color_number(char *rat, int flag);
-double	conver_normal_number(char *rat, int flag);
-t_shape	parsing_cyl(char **elem);
-double **orient(t_vector orie);
-double radiane(double deg);
+void			read_file(char *file);
+int				check_exten(char *argv);
+char			**ft_split(char const *s, char c);
+t_shape			check_ident_shap(char **elem);
+t_color			rgb_color(char *str, double ratio, int flag);
+double			ft_itod(char *str);
+t_color			parsing_am_light(char **elem);
+t_shape			parsing_sphere(char **elem, int n);
+t_shape			parsing_plan(char **elem, int n);
+t_point			parse_origine(char *elem, int flag);
+t_vector		parse_vector(char *elem, int flag);
+t_light			parsing_light(char	**elem);
+t_camera		parsing_camera(char **elem);
+double			conver_ratio_number(char *rat, int flag);
+double			conver_color_number(char *rat, int flag);
+double			conver_normal_number(char *rat, int flag);
+t_shape			parsing_cyl(char **elem, int n);
+double			**orient(t_vector orie);
+double			radiane(double deg);
+t_shape			parsing_cone(char **elem, int n);
+int				count_elem(char **elem);
+int				check_exten(char *argv);
+void			check_element(char *line);
+int				count_shape(char *line);
+t_d_pars		data_shape(int fd);
 
 // pattern
 
@@ -454,9 +491,9 @@ t_uv			plan_uv_map(t_point p);
 t_uv			cyl_uv_map(t_point p);
 t_texture_map	texture_map(t_check pattern, t_uv (*map)(t_point));
 // syntax
-void	syntax_color(char *elem, int flag);
-void	syntax_ratio(char *elem, int flag);
-void	print_error(int flag);
-double	conver_origine_number(char *rat, int flag);
-int	ft_strcmp(const char *s1, const char *s2);
+void			syntax_color(char *elem, int flag);
+void			syntax_ratio(char *elem, int flag);
+void			print_error(int flag);
+double			conver_origine_number(char *rat, int flag);
+int				ft_strcmp(const char *s1, const char *s2);
 #endif

@@ -6,10 +6,10 @@
 /*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 16:33:51 by houmanso          #+#    #+#             */
-/*   Updated: 2023/10/09 19:07:07 by houmanso         ###   ########.fr       */
+/*   Updated: 2023/10/11 09:02:27 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_color	
+// t_color	

@@ -12,7 +12,6 @@
 
 #include "minirt.h"
 
-
 t_uv	cyl_uv_map(t_point p)
 {
 	t_uv	uv;

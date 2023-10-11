@@ -6,7 +6,7 @@
 /*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 17:28:41 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/09 16:26:28 by houmanso         ###   ########.fr       */
+/*   Updated: 2023/10/11 09:03:27 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ t_shape	default_shape(void)
 	s.tranform = identity();
 	s.ivers_tran = s.tranform;
 	s.m = material();
-	s.min = -0.5;
-	s.max = 0.5;
+	s.min = -1;
+	s.max = 1;
 	s.closed = true;
 	s.path = NULL;
 	s.img = NULL;
