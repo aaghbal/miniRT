@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   normal_at.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
+/*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 18:35:58 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/10 11:04:52 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/12 13:34:31 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,20 @@ t_vector	plan_normal_at(t_shape *sp, t_point word_point)
 	double		**inv;
 	t_vector	world_normal;
 	t_vector	vect;
+	t_vector	bump;
 
 	(void)word_point;
-	inv = inverse_gauss(sp->tranform);
+	inv = sp->ivers_tran;
 	world_normal = mul_mat_vector(transposing(inv), create_vector(0, 1, 0));
 	world_normal.w = 0;
 	vect = normalize(world_normal);
-	return (vect);
+	bump = normalize(create_vector(.1, .2, 0));
+	t_vector tmp = normalize(create_vector(
+		vect.x * bump.z * 0.2,
+		vect.y * bump.x * 0.2,
+		vect.z * bump.y * 0.2
+	));
+	return (tmp);
 }
 
 t_vector	sphere_normal_at(t_shape *sp, t_point word_point)
@@ -58,13 +65,19 @@ t_vector	sphere_normal_at(t_shape *sp, t_point word_point)
 	t_vector	world_normal;
 	t_vector	vect;
 
-	inv = inverse_gauss(sp->tranform);
+	inv = sp->ivers_tran;
 	object_point = mul_mat_point(inv, word_point);
 	object_normal = sub_to_point(object_point, create_point(0, 0, 0));
 	world_normal = mul_mat_vector(transposing(inv), object_normal);
 	world_normal.w = 0;
 	vect = normalize(world_normal);
-	return (vect);
+	t_vector new_normal;
+	new_normal = normalize(create_vector(
+		vect.x + sin(vect.z * 100.0) * 0.2,
+		vect.y + sin(vect.x * 100.0) * 0.2,
+		vect.z + sin(vect.y * 100.0) * 0.2
+	));
+	return (new_normal);
 }
 
 t_vector	reflect(t_vector in, t_vector normal)

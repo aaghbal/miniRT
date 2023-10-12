@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color_at.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
+/*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:43:20 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/05 17:31:09 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/11 23:03:10 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_color	color_at(t_word w, t_ray r, t_d_pars p)
 unsigned char	float_to_char(float n)
 {
 	if (n < 0)
-		n = 0.0;
+		n = 0.000001;
 	else if (n > 1)
 		n = 1.0;
 	return ((unsigned char)ceil(n * 255));

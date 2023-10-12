@@ -6,7 +6,7 @@
 /*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 15:35:23 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/11 18:46:58 by houmanso         ###   ########.fr       */
+/*   Updated: 2023/10/11 23:15:21 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ t_shape	parsing_sphere(char **elem, int n)
 	{
 		s.type = checkers;
 		s.pattern = uv_checkers(s.raduis * 2 * M_PI, s.raduis * M_PI, s.m.color,
-				create_color(0, 0, 0));
+				d.c);
 		s.mapping = texture_map(s.pattern, sphere_uv_map);
 		return (s);
 	}
