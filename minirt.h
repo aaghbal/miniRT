@@ -6,7 +6,7 @@
 /*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:13:01 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/11 18:50:37 by houmanso         ###   ########.fr       */
+/*   Updated: 2023/10/12 21:15:05 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,6 +179,7 @@ typedef struct s_shape
 	t_check			pattern;
 	t_texture_map	mapping;
 	t_mlx_texture	*img;
+	t_mlx_texture	*mapimg;
 	char			*path;
 	t_txtr_type		type;
 	t_mlx			*mlx;
@@ -502,6 +503,8 @@ t_color			uv_texture_at(t_shape s, t_uv uv);
 t_uv			sphere_uv_map(t_point p);
 t_uv			plan_uv_map(t_point p);
 t_uv			cyl_uv_map(t_point p);
+t_vector		uv_texture_vector(t_shape s, t_uv uv);
+t_vector	bump_normal(t_shape s, t_vector n, t_vector eye, t_point p);
 t_texture_map	texture_map(t_check pattern, t_uv (*map)(t_point));
 // syntax
 void			syntax_color(char *elem, int flag);

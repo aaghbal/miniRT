@@ -6,7 +6,7 @@
 /*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:43:20 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/11 23:03:10 by houmanso         ###   ########.fr       */
+/*   Updated: 2023/10/12 21:00:33 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ t_color	color_at(t_word w, t_ray r, t_d_pars p)
 		return (create_color(0, 0, 0));
 	i = intersection(h.min, h.s);
 	c = prepare_computations(i, r);
+	if (c.obj.obj == sp)
+		c.normalv = bump_normal(c.obj, c.normalv, c.eyev, c.point);
 	col = shade_hit(w, c, p);
 	return (col);
 }

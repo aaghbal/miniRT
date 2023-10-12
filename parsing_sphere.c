@@ -6,7 +6,7 @@
 /*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 15:35:23 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/11 23:15:21 by houmanso         ###   ########.fr       */
+/*   Updated: 2023/10/12 22:04:17 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ t_shape	parsing_sphere(char **elem, int n)
 		s.mapping = texture_map(s.pattern, sphere_uv_map);
 		return (s);
 	}
+	// s.mapimg = mlx_load_png("./earth.png");
 	s.type = texture;
 	s.mapping.uv_map = sphere_uv_map;
 	s.img = mlx_load_png(d.path);
