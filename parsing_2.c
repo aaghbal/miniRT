@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
+/*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 18:54:38 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/09 20:35:19 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/11 14:22:16 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	check_exten(char *argv)
 	return (1);
 }
 
-t_shape	check_ident_shap(char **elem)
+t_shape	check_ident_shap(char **elem, t_d_pars p)
 {
 	t_shape	s;
 	int		n;
@@ -48,6 +48,7 @@ t_shape	check_ident_shap(char **elem)
 		s = parsing_cyl(elem, n);
 	else if (!ft_strcmp("co", elem[0]))
 		s = parsing_cone(elem, n);
+	s.mlx = p.mlx;
 	return (s);
 }
 

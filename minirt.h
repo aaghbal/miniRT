@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
+/*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:13:01 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/10 13:14:46 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/11 18:50:37 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@
 # define ERR_CAL 8
 # define EXTE 9
 # define OP 10
-# define WIDTH 500
-# define HEIGHT 500
+# define WIDTH 800
+# define HEIGHT 800
 
 typedef struct s_cal
 {
@@ -63,6 +63,14 @@ typedef enum s_obj
 	co,
 	cu
 }t_obj;
+
+typedef enum s_txtr_type
+{
+	pattern,
+	checkers,
+	texture,
+	none
+}	t_txtr_type;
 
 typedef struct s_vector
 {
@@ -170,6 +178,10 @@ typedef struct s_shape
 	bool			has_effects;
 	t_check			pattern;
 	t_texture_map	mapping;
+	t_mlx_texture	*img;
+	char			*path;
+	t_txtr_type		type;
+	t_mlx			*mlx;
 }	t_shape;
 
 typedef struct t_intersection
@@ -270,6 +282,7 @@ typedef struct s_data_parsing
 {
 	int		num_shap;
 	int		num_ligh;
+	t_mlx	*mlx;
 }	t_d_pars;
 
 typedef struct s_data_am
@@ -451,7 +464,7 @@ void			free_doublep(char **tab);
 void			read_file(char *file);
 int				check_exten(char *argv);
 char			**ft_split(char const *s, char c);
-t_shape			check_ident_shap(char **elem);
+t_shape			check_ident_shap(char **elem, t_d_pars p);
 t_color			rgb_color(char *str, double ratio, int flag);
 double			ft_itod(char *str);
 t_color			parsing_am_light(char **elem);
@@ -483,7 +496,9 @@ t_pattern		stripe_pattern(t_color a, t_color b);
 t_color			stripe_at(t_pattern p, t_point point);
 t_color			stripe_at_shape(t_pattern p, t_shape s, t_point point);
 t_color			uv_checkers_at(t_check ch, double u, double v);
+t_color			checkers_at_shape(t_texture_map tm, t_shape s, t_point p);
 t_color			checkers_at(t_texture_map tm, t_point p);
+t_color			uv_texture_at(t_shape s, t_uv uv);
 t_uv			sphere_uv_map(t_point p);
 t_uv			plan_uv_map(t_point p);
 t_uv			cyl_uv_map(t_point p);

@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:00:30 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/11 14:32:03 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/12 22:23:52 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,12 @@ t_shape	parsing_cone(char **elem, int n)
 		print_error(CO);
 	s = default_shape();
 	s.obj = co;
-	s.m.specular = 0.1;
 	o = parse_origine(elem[1], CO);
 	orie = parse_vector(elem[2], CO);
 	d.dm = conver_ratio_number(elem[3], CO) / 2;
 	d.h = conver_ratio_number(elem[4], CO);
-	s.tranform = multiple_matrice(scaling(d.dm, 1, d.dm), scaling(1, d.h, 1));
+	s.tranform = multiple_matrice(s.tranform, scaling(d.dm, 1, d.dm));
+	s.tranform = multiple_matrice(s.tranform, scaling(1, d.h, 1));
 	s.tranform = multiple_matrice(s.tranform, orient(orie));
 	s.tranform = multiple_matrice(s.tranform, translation(o.x, o.y, o.z));
 	set_transform(&s, s.tranform);
@@ -55,7 +55,7 @@ t_shape	parsing_cone(char **elem, int n)
 	if (n == 6)
 		return (s);
 	s.has_effects = true;
-	s.pattern = uv_checkers(2, 2, s.m.color, create_color(0, 0, 0));
+	s.pattern = uv_checkers(2*M_PI, d.h, s.m.color, create_color(0, 0, 0));
 	s.mapping = texture_map(s.pattern, cyl_uv_map);
 	return (s);
 }

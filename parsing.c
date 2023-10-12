@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
+/*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 17:45:38 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/10 13:19:36 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/11 14:25:37 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	ft_create_world(int fd, t_d_pars p)
 		else if (!ft_strcmp("C", n.spl[0]))
 			n.c = parsing_camera(n.spl);
 		else
-			n.w.s[n.i++] = check_ident_shap(n.spl);
+			n.w.s[n.i++] = check_ident_shap(n.spl, p);
 		free_split(n.spl, n.line);
 	}
 	render(n.w, n.c, p);
@@ -68,6 +68,7 @@ void	read_file(char *file)
 	p = data_shape(fd);
 	close(fd);
 	fd = open(file, O_RDONLY);
+	p.mlx = mlx_init(WIDTH, HEIGHT, "miniRT", true);
 	ft_create_world(fd, p);
 	close(fd);
 }

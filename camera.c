@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   camera.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
+/*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 14:33:38 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/10 13:44:42 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/11 14:20:41 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	render(t_word w, t_camera ca, t_d_pars p)
 	t_d			d;
 
 	d.i = 0;
-	mlx = mlx_init(WIDTH, HEIGHT, "test", true);
+	mlx = p.mlx;
 	img = mlx_new_image(mlx, ca.vsize, ca.hsize);
 	mlx_image_to_window(mlx, img, 0, 0);
 	while (d.i < ca.vsize)
@@ -108,11 +108,6 @@ void	render(t_word w, t_camera ca, t_d_pars p)
 		}
 		d.i++;
 	}
-	// d.img = img;
-	// d.mlx = mlx;
-	// d.w = w;
-	// d.p = p;
-	// mlx_resize_hook(mlx, resize, &d);
 	ft_free(FREE, NULL);
 	mlx_loop(mlx);
 }

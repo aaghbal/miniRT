@@ -6,7 +6,7 @@
 /*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 19:48:21 by houmanso          #+#    #+#             */
-/*   Updated: 2023/10/08 12:08:29 by houmanso         ###   ########.fr       */
+/*   Updated: 2023/10/11 11:16:02 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,15 @@ t_color	checkers_at(t_texture_map tm, t_point p)
 	t_uv	uv;
 
 	uv = tm.uv_map(p);
+	return (uv_checkers_at(tm.uv_pattern, uv.u, uv.v));
+}
+
+t_color	checkers_at_shape(t_texture_map tm, t_shape s, t_point p)
+{
+	t_uv	uv;
+	t_point	obj_point;
+
+	obj_point = mul_mat_point(s.ivers_tran, p);
+	uv = tm.uv_map(obj_point);
 	return (uv_checkers_at(tm.uv_pattern, uv.u, uv.v));
 }
