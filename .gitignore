@@ -1,3 +1,7 @@
 miniRT.dSYM
 miniRT.dSYM/*
 *.o
+*.a
+.DS_Store
+./vscode
+.vscode/*

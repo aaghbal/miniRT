@@ -6,7 +6,7 @@
 /*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 15:32:52 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/13 20:34:45 by houmanso         ###   ########.fr       */
+/*   Updated: 2023/10/13 20:35:08 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,6 @@ t_shape	parsing_plan(char **elem, int n)
 	}
 	s.type = texture;
 	puts("here");
-	s.img = mlx_load_png(d.path);
+	// s.img = mlx_load_png(d.path);
 	return (s);
 }
