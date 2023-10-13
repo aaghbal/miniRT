@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color_at.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:43:20 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/12 21:00:33 by houmanso         ###   ########.fr       */
+/*   Updated: 2023/10/13 20:40:26 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_color	color_at(t_word w, t_ray r, t_d_pars p)
 		return (create_color(0, 0, 0));
 	i = intersection(h.min, h.s);
 	c = prepare_computations(i, r);
-	if (c.obj.obj == sp)
+	if (c.obj.type == texture)
 		c.normalv = bump_normal(c.obj, c.normalv, c.eyev, c.point);
 	col = shade_hit(w, c, p);
 	return (col);

@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 14:03:42 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/13 20:11:57 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/13 20:36:26 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,15 @@ t_d_bonus	init_cyl(int n, char **elem)
 	char		**spl;
 	char		*str;
 
-	if (n == 8 && elem[6])
-		d.nb = conver_ratio_number(elem[6], CY);
-	if (n == 8 && !equal(d.nb, 0) && !equal(d.nb, 1))
+	if (n == 9 && elem[7])
+		d.nb = conver_ratio_number(elem[7], CY);
+	if (n == 9 && !equal(d.nb, 0) && !equal(d.nb, 1))
 		print_error(CY);
-	if (n == 8 && elem[7] && d.nb == 0)
-		d.c = rgb_color(elem[7], 1, CY);
-	else if (n == 8 && elem[7] && d.nb == 1)
+	if (n == 9 && elem[8] && d.nb == 0)
+		d.c = rgb_color(elem[8], 1, CY);
+	else if (n == 9 && elem[8] && d.nb == 1)
 	{
-		str = ft_strdup(elem[7]);
+		str = ft_strdup(elem[8]);
 		ft_free(ADD, str);
 		spl = ft_split(str, '|');
 		if (!spl || !spl[0] || !spl[1] || spl[2]
@@ -46,11 +46,11 @@ t_shape	parsing_cyl(char **elem, int n)
 	t_shape		s;
 	t_d_bonus	d;
 
-	if (n != 6 && n != 8)
+	if (n != 7 && n != 9)
 		print_error(CY);
 	s = default_shape();
 	s.obj = cy;
-	s.m.specular = 0.1;
+	s.m.specular = conver_ratio_number(elem[6], CY);;
 	o = parse_origine(elem[1], CY);
 	orie = parse_vector(elem[2], CY);
 	d.dm = conver_ratio_number(elem[3], CY) / 2;
@@ -61,7 +61,7 @@ t_shape	parsing_cyl(char **elem, int n)
 	set_transform(&s, s.tranform);
 	s.m.color = rgb_color(elem[5], 1, CY);
 	d = init_cyl(n, elem);
-	if (n == 6)
+	if (n == 7)
 		return (s);
 	s.has_effects = true;
 	s.pattern = uv_checkers(2, 2, s.m.color, create_color(0, 0, 0));
