@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_sphere.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
+/*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 15:35:23 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/12 20:01:56 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/13 15:19:50 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ t_shape	parsing_sphere(char **elem, int n)
 	s.obj = sp;
 	o = parse_origine(elem[1], SP);
 	s.raduis = conver_ratio_number(elem[2], SP) / 2;
-	set_transform(&s, multiple_matrice( translation(o.x, o.y, o.z), rotation_y(M_PI + M_PI / 5)));
+	set_transform(&s, multiple_matrice( translation(o.x, o.y, o.z),
+			rotation_y(M_PI + M_PI / 5)));
 	s.m.color = rgb_color(elem[3], 1, SP);
 	if (n == 4)
 		return (s);
