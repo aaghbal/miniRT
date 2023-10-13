@@ -6,7 +6,7 @@
 /*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 15:32:52 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/13 15:23:38 by houmanso         ###   ########.fr       */
+/*   Updated: 2023/10/13 20:24:03 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,11 @@ t_shape	parsing_plan(char **elem, int n)
 	s.tranform = multiple_matrice(orient(orie), translation(o.x, o.y, o.z));
 	set_transform(&s, s.tranform);
 	s.m.color = rgb_color(elem[3], 1, PL);
-	d = init_plan(n, elem);
 	if (n == 4)
 		return (s);
+	s.mapping.uv_map = plan_uv_map;
+	s.bumpimg = mlx_load_png("./scenes/imgs/watter/wood.png");
+	d = init_plan(n, elem);
 	s.has_effects = true;
 	if (d.nb == 0)
 	{
@@ -59,7 +61,7 @@ t_shape	parsing_plan(char **elem, int n)
 		return (s);
 	}
 	s.type = texture;
-	s.mapping.uv_map = plan_uv_map;
+	puts("here");
 	s.img = mlx_load_png(d.path);
 	return (s);
 }

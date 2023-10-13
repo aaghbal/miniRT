@@ -6,7 +6,7 @@
 /*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:13:01 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/13 15:24:45 by houmanso         ###   ########.fr       */
+/*   Updated: 2023/10/13 15:46:38 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,7 +179,7 @@ typedef struct s_shape
 	t_check			pattern;
 	t_texture_map	mapping;
 	t_mlx_texture	*img;
-	t_mlx_texture	*mapimg;
+	t_mlx_texture	*bumpimg;
 	char			*path;
 	t_txtr_type		type;
 	t_mlx			*mlx;

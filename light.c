@@ -6,7 +6,7 @@
 /*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 13:35:55 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/13 15:24:20 by houmanso         ###   ########.fr       */
+/*   Updated: 2023/10/13 18:55:22 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,15 @@ t_color	lighting(t_shape s, t_light light, t_var_light v, bool shadowed)
 	double	lihgt_dot_normal;
 	double	reflect_dot_eye;
 	double	fa;
-	// t_point	p_beta;
+	t_point	p_beta;
 
-	// if (s.has_effects && s.type == checkers)
-	// 	s.m.color = checkers_at_shape(s.mapping, s, v.point);
-	// else if (s.has_effects && s.type == texture)
-	// {
-	// 	p_beta = mul_mat_point(s.ivers_tran, v.point);
-	// 	s.m.color = uv_texture_at(s, s.mapping.uv_map(p_beta));
-	// }
+	if (s.has_effects && s.type == checkers)
+		s.m.color = checkers_at_shape(s.mapping, s, v.point);
+	else if (s.has_effects && s.type == texture)
+	{
+		p_beta = mul_mat_point(s.ivers_tran, v.point);
+		s.m.color = uv_texture_at(s, s.mapping.uv_map(p_beta));
+	}
 	v.effect = mul_color(s.m.color, light.intensity);
 	v.lightv = normalize(sub_to_point(light.position, v.point));
 	v.ambient = mul_color(v.effect, v.am_rati);

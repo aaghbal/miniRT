@@ -6,7 +6,7 @@
 /*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 15:35:23 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/13 15:22:58 by houmanso         ###   ########.fr       */
+/*   Updated: 2023/10/13 19:36:00 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,10 @@ t_shape	parsing_sphere(char **elem, int n)
 	o = parse_origine(elem[1], SP);
 	s.raduis = conver_ratio_number(elem[2], SP) / 2;
 	set_transform(&s, multiple_matrice( translation(o.x, o.y, o.z),
-			rotation_y(M_PI + M_PI / 5)));
+			rotation_y(M_PI)));
 	s.m.color = rgb_color(elem[3], 1, SP);
+	s.mapping.uv_map = sphere_uv_map;
+	s.bumpimg = mlx_load_png("./scenes/imgs/watter/wood.png");
 	if (n == 4)
 		return (s);
 	d = init_sphere(n, elem);
@@ -69,14 +71,12 @@ t_shape	parsing_sphere(char **elem, int n)
 	if (d.nb == 0)
 	{
 		s.type = checkers;
-		s.pattern = uv_checkers(s.raduis * 2 * M_PI, s.raduis * M_PI, s.m.color,
-				d.c);
+		s.mapping.uv_pattern = uv_checkers(s.raduis * 2 * M_PI, s.raduis * M_PI,
+				s.m.color, d.c);
 		s.mapping = texture_map(s.pattern, sphere_uv_map);
 		return (s);
 	}
-	// s.mapimg = mlx_load_png("./earth.png");
 	s.type = texture;
-	s.mapping.uv_map = sphere_uv_map;
 	s.img = mlx_load_png(d.path);
 	return (s);
 }
