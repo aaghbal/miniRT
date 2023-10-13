@@ -6,7 +6,7 @@
 /*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 15:32:52 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/12 15:19:59 by houmanso         ###   ########.fr       */
+/*   Updated: 2023/10/13 15:23:38 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ t_shape	parsing_plan(char **elem, int n)
 	set_transform(&s, s.tranform);
 	s.m.color = rgb_color(elem[3], 1, PL);
 	d = init_plan(n, elem);
+	if (n == 4)
+		return (s);
 	s.has_effects = true;
 	if (d.nb == 0)
 	{

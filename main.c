@@ -6,7 +6,7 @@
 /*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:08:58 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/11 16:21:19 by houmanso         ###   ########.fr       */
+/*   Updated: 2023/10/13 13:45:11 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,7 @@ int	main(int ac, char **av)
 		read_file(av[1]);
 	else
 	{
-		ft_putstr_fd("Error\nCorrect syntax ./minirt {File_Name.rt}\n", 2);
+		ft_putstr_fd("Error\nUsage: ./minirt FileName.rt\n", 2);
 		exit(1);
 	}
 }
-

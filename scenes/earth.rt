@@ -1,0 +1,5 @@
+A 0.1 255,255,255
+L 0,4,-25 1 255,255,255
+C 0,4,-20 0,-0.25,1 40
+pl 00,0,10 0,0,-1 0,255,0 1 ./scenes/imgs/earth/stars.png
+sp 0,0,-3 8 255,240,240 1 ./scenes/imgs/earth/earth_map.png

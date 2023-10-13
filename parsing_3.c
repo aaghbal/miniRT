@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_3.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
+/*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 20:23:55 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/09 20:33:16 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/13 13:43:40 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,4 @@ t_d_pars	data_shape(int fd)
 	if (c.ambiant != 1 || c.camera != 1 || c.light < 1)
 		print_error(ERR_CAL);
 	return (p);
-}
+}// leaks line at trim.
