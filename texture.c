@@ -6,7 +6,7 @@
 /*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 16:33:51 by houmanso          #+#    #+#             */
-/*   Updated: 2023/10/13 13:09:39 by houmanso         ###   ########.fr       */
+/*   Updated: 2023/10/13 15:21:47 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ static t_color	pixel_at(t_shape s, int u, int v)
 {
 	t_color	c;
 	int		pixel;
+
 
 	pixel = ((int *)s.img->pixels)[u + v * s.img->width];
 	c = int_to_color(pixel);

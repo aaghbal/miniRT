@@ -6,13 +6,13 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 15:35:23 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/13 20:03:11 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/13 20:09:14 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_shape		texture_checkerboard(t_shape s, t_d_bonus d)
+t_shape	texture_checkerboard(t_shape s, t_d_bonus d)
 {
 	s.has_effects = true;
 	if (d.nb == 0)
@@ -85,6 +85,18 @@ t_shape	parsing_sphere(char **elem, int n)
 	if (n == 4)
 		return (s);
 	d = init_sphere(n, elem);
-	s = texture_checkerboard(s, d);
+	s.has_effects = true;
+	if (d.nb == 0)
+	{
+		s.type = checkers;
+		s.pattern = uv_checkers(s.raduis * 2 * M_PI, s.raduis * M_PI, s.m.color,
+				d.c);
+		s.mapping = texture_map(s.pattern, sphere_uv_map);
+		return (s);
+	}
+	// s.mapimg = mlx_load_png("./earth.png");
+	s.type = texture;
+	s.mapping.uv_map = sphere_uv_map;
+	// s.img = mlx_load_png(d.path);
 	return (s);
 }
