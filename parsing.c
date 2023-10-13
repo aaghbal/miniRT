@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 17:45:38 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/13 19:45:46 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/13 20:11:25 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ void	ft_create_world(int fd, t_d_pars p)
 			n.w.s[n.i++] = check_ident_shap(n.spl, p);
 		free_split(n.spl, n.line);
 	}
-	exit(1);
 	render(n.w, n.c, p);
 }
 

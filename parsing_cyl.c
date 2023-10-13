@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 14:03:42 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/13 19:54:57 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/13 20:11:57 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_d_bonus	init_cyl(int n, char **elem)
 		spl = ft_split(str, '|');
 		if (!spl || !spl[0] || !spl[1] || spl[2]
 				|| (!ret_str(spl[0]) && !ret_str(spl[1])))
-			print_error(SP);
+			print_error(CY);
 		d.path_txtr = ret_str(spl[0]);
 		d.path_bump = ret_str(spl[1]);
 		free_doublep(spl);
