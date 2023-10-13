@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   camera.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 14:33:38 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/11 14:20:41 by houmanso         ###   ########.fr       */
+/*   Updated: 2023/10/13 22:49:13 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,28 +86,67 @@ t_ray	ray_for_pixel(t_camera camera, double px, double py)
 // 	}
 // }
 
+t_tr	prepare_thr(t_word w, t_camera ca, t_d_pars p, t_mlx_image	*img)
+{
+	t_tr	data;
+
+	data.img = img;
+	data.w = w;
+	data.c = ca;
+	data.p = p;
+	return (data);
+}
+
+void	*rotine(void *d)
+{
+	t_tr	*da;
+	int		y_end;
+	t_color	c;
+	int		y;
+	int		x;
+	
+	x = 0;
+	da = (t_tr *)d;
+	y_end = da->y_sta + HEIGHT / 4;
+	while (x < da->c.hsize)
+	{
+		y = da->y_sta;
+		while (y < y_end)
+		{
+			c = color_at(da->w, ray_for_pixel(da->c, x, y), da->p);
+			mlx_putpixel(da->img, x, y, conv_color(c.red, c.green, c.blue));
+			y++;
+		}
+		x++;
+	}
+	return (NULL);
+}
+
 void	render(t_word w, t_camera ca, t_d_pars p)
 {
 	t_mlx		*mlx;
 	t_mlx_image	*img;
-	t_color		c;
 	t_d			d;
+	pthread_t	thr[4];
+	t_tr		data[4];
 
 	d.i = 0;
 	mlx = p.mlx;
 	img = mlx_new_image(mlx, ca.vsize, ca.hsize);
+	if (!img)
+		exit(printf("ikhan"));////hgjgjhh
 	mlx_image_to_window(mlx, img, 0, 0);
-	while (d.i < ca.vsize)
+	d.y_start = 0;
+	while (d.i < 4)
 	{
-		d.j = 0;
-		while (d.j < ca.hsize)
-		{
-			c = color_at(w, ray_for_pixel(ca, d.i, d.j), p);
-			mlx_putpixel(img, d.i, d.j, conv_color(c.red, c.green, c.blue));
-			d.j++;
-		}
+		data[d.i] = (t_tr){mlx, img, d.y_start, w, ca, p};
+		d.y_start += HEIGHT / 4;
+		pthread_create(&thr[d.i], NULL, rotine, &(data[d.i]));
 		d.i++;
 	}
+	d.i = 0;
+	while (d.i < 4)
+		pthread_join(thr[d.i++], NULL);
 	ft_free(FREE, NULL);
 	mlx_loop(mlx);
 }

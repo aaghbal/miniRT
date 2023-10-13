@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:13:01 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/13 20:08:25 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/13 22:41:58 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,11 +235,11 @@ typedef struct s_intersec
 	struct s_intersec	*next;
 }	t_intersect;
 
-typedef struct s_thread
-{
-	int	start_x;
-	int	start_y;
-}	t_thread;
+// typedef struct s_thread
+// {
+// 	int	start_x;
+// 	int	start_y;
+// }	t_thread;
 
 typedef struct s_r_of_pixel
 {
@@ -328,7 +328,19 @@ typedef struct s_d
 	int			i;
 	int			j;
 	t_d_pars	p;
+	int			y_start;
 }				t_d;
+
+typedef struct s_thr
+{
+	t_mlx		*mlx;
+	t_mlx_image	*img;
+	int			y_sta;
+	t_word		w;
+	t_camera	c;
+	t_d_pars	p;
+}			t_tr;
+
 
 t_vector		create_vector(double x, double y, double z);
 t_point			create_point(double x, double y, double z);
