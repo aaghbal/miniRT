@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:00:30 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/12 22:23:52 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/13 19:55:13 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 t_d_bonus	init_cone(int n, char **elem)
 {
 	t_d_bonus	d;
+	char		**spl;
+	char		*str;
 
 	if (n == 8 && elem[6])
 		d.nb = conver_ratio_number(elem[6], CY);
@@ -24,9 +26,16 @@ t_d_bonus	init_cone(int n, char **elem)
 		d.c = rgb_color(elem[7], 1, CY);
 	else if (n == 8 && elem[7] && d.nb == 1)
 	{
-		d.path = ft_strdup(elem[7]);
-		ft_free(ADD, d.path);
-	}
+		str = ft_strdup(elem[7]);
+		ft_free(ADD, str);
+		spl = ft_split(str, '|');
+		if (!spl || !spl[0] || !spl[1] || spl[2]
+				|| (!ret_str(spl[0]) && !ret_str(spl[1])))
+			print_error(SP);
+		d.path_txtr = ret_str(spl[0]);
+		d.path_bump = ret_str(spl[1]);
+		free_doublep(spl);
+}
 	return (d);
 }
 

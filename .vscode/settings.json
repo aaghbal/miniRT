@@ -1,7 +1,8 @@
 {
   "files.associations": {
-    "*.excalidraw": "json",
-    "*.excalidrawlib": "json",
-    "locale": "c"
-  }
+	"*.excalidraw": "json",
+	"*.excalidrawlib": "json",
+	"locale": "c",
+	"sstream": "c"
+}
 }

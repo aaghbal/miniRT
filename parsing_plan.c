@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 15:32:52 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/12 20:47:49 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/13 19:54:23 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 t_d_bonus	init_plan(int n, char **elem)
 {
 	t_d_bonus	d;
+	char		**spl;
+	char		*str;
 
 	if (n == 6 && elem[4])
 		d.nb = conver_ratio_number(elem[4], PL);
@@ -24,8 +26,15 @@ t_d_bonus	init_plan(int n, char **elem)
 		d.c = rgb_color(elem[5], 1, PL);
 	else if (n == 6 && elem[5] && d.nb == 1)
 	{
-		d.path = ft_strdup(elem[5]);
-		ft_free(ADD, d.path);
+		str = ft_strdup(elem[5]);
+		ft_free(ADD, str);
+		spl = ft_split(str, '|');
+		if (!spl || !spl[0] || !spl[1] || spl[2]
+				|| (!ret_str(spl[0]) && !ret_str(spl[1])))
+			print_error(SP);
+		d.path_txtr = ret_str(spl[0]);
+		d.path_bump = ret_str(spl[1]);
+		free_doublep(spl);
 	}
 	return (d);
 }
@@ -61,6 +70,6 @@ t_shape	parsing_plan(char **elem, int n)
 	}
 	s.type = texture;
 	s.mapping.uv_map = plan_uv_map;
-	s.img = mlx_load_png(d.path);
+	// s.img = mlx_load_png(d.path);
 	return (s);
 }
