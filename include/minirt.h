@@ -6,7 +6,7 @@
 /*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:13:01 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/13 15:46:38 by houmanso         ###   ########.fr       */
+/*   Updated: 2023/10/13 20:34:02 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -296,7 +296,8 @@ typedef struct s_data_bonus
 {
 	t_color	c;
 	double	nb;
-	char	*path;
+	char	*path_txtr;
+	char	*path_bump;
 	double	dm;
 	double	h;
 }t_d_bonus;
@@ -512,4 +513,5 @@ void			syntax_ratio(char *elem, int flag);
 void			print_error(int flag);
 double			conver_origine_number(char *rat, int flag);
 int				ft_strcmp(const char *s1, const char *s2);
+char			*ret_str(char *str);
 #endif

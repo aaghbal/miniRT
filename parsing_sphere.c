@@ -6,7 +6,7 @@
 /*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 15:35:23 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/13 19:36:00 by houmanso         ###   ########.fr       */
+/*   Updated: 2023/10/13 20:35:19 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,26 @@ t_shape	texture_checkerboard(t_shape s, t_d_bonus d)
 	}
 	s.type = texture;
 	s.mapping.uv_map = sphere_uv_map;
-	s.img = mlx_load_png(d.path);
-	return (s);
+	// s.img = mlx_load_png(d.path);
+	return(s);
+}
+
+char	*ret_str(char *str)
+{
+	char	*dup_str;
+
+	if (!ft_strcmp(str, "<NULL>"))
+		return(NULL);
+	dup_str = ft_strdup(str);
+	ft_free(ADD, dup_str);
+	return(dup_str);
 }
 
 t_d_bonus	init_sphere(int n, char **elem)
 {
 	t_d_bonus	d;
+	char		**spl;
+	char		*str;
 
 	if (n == 6 && elem[4])
 		d.nb = conver_ratio_number(elem[4], SP);
@@ -41,8 +54,15 @@ t_d_bonus	init_sphere(int n, char **elem)
 		d.c = rgb_color(elem[5], 1, SP);
 	else if (n == 6 && elem[5] && d.nb == 1)
 	{
-		d.path = ft_strdup(elem[5]);
-		ft_free(ADD, d.path);
+		str = ft_strdup(elem[5]);
+		ft_free(ADD, str);
+		spl = ft_split(str, '|');
+		if (!spl || !spl[0] || !spl[1] || spl[2]
+				|| (!ret_str(spl[0]) && !ret_str(spl[1])))
+			print_error(SP);
+		d.path_txtr = ret_str(spl[0]);
+		d.path_bump = ret_str(spl[1]);
+		free_doublep(spl);
 	}
 	return (d);
 }
@@ -77,6 +97,6 @@ t_shape	parsing_sphere(char **elem, int n)
 		return (s);
 	}
 	s.type = texture;
-	s.img = mlx_load_png(d.path);
+	// s.img = mlx_load_png(d.path);
 	return (s);
 }
