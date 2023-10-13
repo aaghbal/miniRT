@@ -6,7 +6,7 @@
 /*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:13:01 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/11 18:50:37 by houmanso         ###   ########.fr       */
+/*   Updated: 2023/10/13 13:01:55 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <pthread.h>
 # include "MLX42/MLX42.h"
 # include "get_next_line.h"
-# include "Libft/libft.h"
+# include "libft.h"
 
 # define EPSILON 0.00001
 
