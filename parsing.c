@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
+/*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 17:45:38 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/13 20:11:25 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/14 17:35:10 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	ft_create_world(int fd, t_d_pars p)
 		if (!n.line)
 			break ;
 		n.line = ft_strtrim(n.line, "\n");
-		if (!*n.line)
+		if (free_nl(n.line))
 			continue ;
 		n.spl = ft_split(n.line, ' ');
 		if (!ft_strcmp("A", n.spl[0]))
@@ -53,6 +53,16 @@ void	ft_create_world(int fd, t_d_pars p)
 		free_split(n.spl, n.line);
 	}
 	render(n.w, n.c, p);
+}
+
+int	free_nl(char *line)
+{
+	if (!*line)
+	{
+		free(line);
+		return (1);
+	}
+	return (0);
 }
 
 void	read_file(char *file)

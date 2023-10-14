@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
+/*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:13:01 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/14 12:34:44 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/14 17:33:50 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -473,7 +473,8 @@ void			ft_free(int flag, void *addr);
 void			add_addr(t_free **lst, t_free *new);
 void			free_doublep(char **tab);
 
-// parsing 
+// parsing
+int				free_nl(char *line);
 void			read_file(char *file);
 int				check_exten(char *argv);
 char			**ft_split(char const *s, char c);

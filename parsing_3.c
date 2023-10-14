@@ -6,7 +6,7 @@
 /*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 20:23:55 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/14 03:08:07 by houmanso         ###   ########.fr       */
+/*   Updated: 2023/10/14 17:34:11 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ t_d_pars	data_shape(int fd)
 		if (!line)
 			break ;
 		line = ft_strtrim(line, "\n");
-		if (!*line)
+		if (free_nl(line))
 			continue ;
 		spl = split_line(line);
 		check_cal(spl[0], &c);
