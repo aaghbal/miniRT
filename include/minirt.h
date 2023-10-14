@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:13:01 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/14 11:46:09 by houmanso         ###   ########.fr       */
+/*   Updated: 2023/10/14 12:34:44 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -339,7 +339,6 @@ typedef struct s_thr
 	t_camera	c;
 	t_d_pars	p;
 }			t_tr;
-
 
 void			_err(char *msg);
 t_vector		create_vector(double x, double y, double z);

@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 10:43:42 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/10 13:03:25 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/14 12:53:19 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,29 @@ void	free_all(t_free *f)
 
 void	ft_free(int flag, void *addr)
 {
-	static t_free	*f;
+	static t_free			*f;
+	static pthread_mutex_t	*lock;
 
+	if (!lock)
+	{
+		lock = malloc(sizeof(pthread_mutex_t));
+		ft_free(ADD, lock);
+		pthread_mutex_init(lock, NULL);
+	}
 	if (flag == ADD)
 	{
 		if (!addr)
-		{
-			ft_putstr_fd("Error\nallocation failed\n", 2);
-			exit(1);
-		}
+			_err("allocation failed");
+		pthread_mutex_lock(lock);
 		add_addr(&f, new_addr(addr));
+		pthread_mutex_unlock(lock);
 	}
 	else if (flag == FREE)
+	{
 		free_all(f);
+		f = NULL;
+		lock = NULL;
+	}
 }
 
 t_free	*new_addr(void *address)
