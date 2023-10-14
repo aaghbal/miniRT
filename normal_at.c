@@ -6,7 +6,7 @@
 /*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 18:35:58 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/12 21:00:52 by houmanso         ###   ########.fr       */
+/*   Updated: 2023/10/14 03:03:50 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,29 +64,6 @@ t_vector	sphere_normal_at(t_shape *sp, t_point word_point)
 	world_normal = mul_mat_vector(transposing(inv), object_normal);
 	world_normal.w = 0;
 	vect = normalize(world_normal);
-
-	// t_vector	t;
-	// t_vector	b;
-	// t = cross_product(vect, create_vector(0, 1, 0));
-	// if (magnitude(t) < EPSILON) // if t is zero vector
-	// 	b = cross_product(vect, create_vector(0, 0, 1));
-	// t = normalize(t);
-	// b = normalize(cross_product(vect, t));
-
-	// double	**m = identity();
-	// m[0][0] = t.x;
-	// m[1][0] = t.y;
-	// m[2][0] = t.z;
-	// m[0][1] = b.x;
-	// m[1][1] = b.y;
-	// m[2][1] = b.z;
-	// m[0][2] = vect.x;
-	// m[1][2] = vect.y;
-	// m[2][2] = vect.z;
-	// word_point = mul_mat_point(sp->ivers_tran, word_point);
-	// vect = mul_mat_vector(m, uv_texture_vector(*sp,sp->mapping.uv_map(word_point)));
-	
-	// return bump_normal(*sp, vect, create_vector(0, 0, 1), word_point);
 	return (vect);
 }
 

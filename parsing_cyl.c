@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_cyl.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
+/*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 14:03:42 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/13 20:11:57 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/14 03:02:56 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,21 @@ t_d_bonus	init_cyl(int n, char **elem)
 		ft_free(ADD, str);
 		spl = ft_split(str, '|');
 		if (!spl || !spl[0] || !spl[1] || spl[2]
-				|| (!ret_str(spl[0]) && !ret_str(spl[1])))
+			|| (!ret_str(spl[0]) && !ret_str(spl[1])))
 			print_error(CY);
 		d.path_txtr = ret_str(spl[0]);
 		d.path_bump = ret_str(spl[1]);
 		free_doublep(spl);
 	}
 	return (d);
+}
+
+static void	parse_transform(t_shape *s, t_vector orie, t_point o, t_d_bonus d)
+{
+	s->tranform = multiple_matrice(scaling(d.dm, 1, d.dm), scaling(1, d.h, 1));
+	s->tranform = multiple_matrice(s->tranform, orient(orie));
+	s->tranform = multiple_matrice(s->tranform, translation(o.x, o.y, o.z));
+	set_transform(s, s->tranform);
 }
 
 t_shape	parsing_cyl(char **elem, int n)
@@ -55,16 +63,15 @@ t_shape	parsing_cyl(char **elem, int n)
 	orie = parse_vector(elem[2], CY);
 	d.dm = conver_ratio_number(elem[3], CY) / 2;
 	d.h = conver_ratio_number(elem[4], CY);
-	s.tranform = multiple_matrice(scaling(d.dm, 1, d.dm), scaling(1, d.h, 1));
-	s.tranform = multiple_matrice(s.tranform, orient(orie));
-	s.tranform = multiple_matrice(s.tranform, translation(o.x, o.y, o.z));
-	set_transform(&s, s.tranform);
+	parse_transform(&s, orie, o, d);
 	s.m.color = rgb_color(elem[5], 1, CY);
-	d = init_cyl(n, elem);
 	if (n == 6)
 		return (s);
-	s.has_effects = true;
-	s.pattern = uv_checkers(2, 2, s.m.color, create_color(0, 0, 0));
-	s.mapping = texture_map(s.pattern, cyl_uv_map);
-	return (s);
+	d = init_cyl(n, elem);
+	if (d.nb == 0)
+	{
+		s.mapping = texture_map(uv_checkers(2, 2, s.m.color, d.c), cyl_uv_map);
+		return (s.effects = true, s.type = checkers, s);
+	}
+	return (s.effects = true, s.mapping.uv_map = cyl_uv_bump, set_txtr(s, d));
 }

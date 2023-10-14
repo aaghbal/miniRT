@@ -6,7 +6,7 @@
 /*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 16:33:51 by houmanso          #+#    #+#             */
-/*   Updated: 2023/10/13 19:54:31 by houmanso         ###   ########.fr       */
+/*   Updated: 2023/10/14 03:08:49 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ typedef struct s_bump
 	int			bu;
 	int			bv;
 }	t_bump;
-
 
 static t_color	int_to_color(int pxl)
 {
@@ -50,7 +49,7 @@ static t_color	pixel_at(t_shape s, int u, int v)
 	t_color	c;
 	int		pixel;
 
-	pixel = ((int *)s.img->pixels)[u + v * s.img->width];
+	pixel = ((int *)s.txtr_img->pixels)[u + v * s.txtr_img->width];
 	c = int_to_color(pixel);
 	return (c);
 }
@@ -60,8 +59,9 @@ t_color	uv_texture_at(t_shape s, t_uv uv)
 	int	x;
 	int	y;
 
-	x = uv.u * (s.img->width - 1);
-	y = (1 - uv.v) * (s.img->height - 1);
+	uv.v = 1 - uv.v;
+	x = uv.u * (s.txtr_img->width - 1);
+	y = uv.v * (s.txtr_img->height - 1);
 	return (pixel_at(s, x, y));
 }
 
@@ -82,7 +82,7 @@ t_vector	bump_normal(t_shape s, t_vector n, t_vector eye, t_point p)
 	double		b_scale[2];
 	t_tools		b;
 
-	b.t = s.bumpimg;
+	b.t = s.bump_img;
 	b.uv = s.mapping.uv_map(mul_mat_point(s.ivers_tran, p));
 	x[0] = b.uv.u * (b.t->width - 1);
 	y[0] = (1 - b.uv.v) * (b.t->height - 1);

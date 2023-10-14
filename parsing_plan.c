@@ -6,7 +6,7 @@
 /*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 15:32:52 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/13 20:35:08 by houmanso         ###   ########.fr       */
+/*   Updated: 2023/10/14 02:42:54 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_d_bonus	init_plan(int n, char **elem)
 		ft_free(ADD, str);
 		spl = ft_split(str, '|');
 		if (!spl || !spl[0] || !spl[1] || spl[2]
-				|| (!ret_str(spl[0]) && !ret_str(spl[1])))
+			|| (!ret_str(spl[0]) && !ret_str(spl[1])))
 			print_error(PL);
 		d.path_txtr = ret_str(spl[0]);
 		d.path_bump = ret_str(spl[1]);
@@ -58,19 +58,12 @@ t_shape	parsing_plan(char **elem, int n)
 	s.m.color = rgb_color(elem[3], 1, PL);
 	if (n == 4)
 		return (s);
-	s.mapping.uv_map = plan_uv_map;
-	s.bumpimg = mlx_load_png("./scenes/imgs/watter/wood.png");
 	d = init_plan(n, elem);
-	s.has_effects = true;
+	s.effects = true;
 	if (d.nb == 0)
 	{
-		s.type = checkers;
-		s.pattern = uv_checkers(2, 2, s.m.color, d.c);
-		s.mapping = texture_map(s.pattern, plan_uv_map);
-		return (s);
+		s.mapping = texture_map(uv_checkers(2, 2, s.m.color, d.c), plan_uv_map);
+		return (s.type = checkers, s);
 	}
-	s.type = texture;
-	puts("here");
-	// s.img = mlx_load_png(d.path);
-	return (s);
+	return (s.mapping.uv_map = plan_uv_bump, set_txtr(s, d));
 }

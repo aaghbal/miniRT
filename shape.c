@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shape.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
+/*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 17:28:41 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/12 19:03:51 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/14 01:50:44 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ t_shape	default_shape(void)
 	s.max = 1;
 	s.type = none;
 	s.closed = true;
-	s.has_effects = false;
-	s.path = NULL;
-	s.img = NULL;
+	s.effects = false;
+	s.txtr_img = NULL;
+	s.bump_img = NULL;
 	return (s);
 }

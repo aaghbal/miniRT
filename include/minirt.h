@@ -6,7 +6,7 @@
 /*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:13:01 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/13 20:34:02 by houmanso         ###   ########.fr       */
+/*   Updated: 2023/10/14 02:45:53 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,24 +165,23 @@ typedef struct s_texture_map
 
 typedef struct s_shape
 {
-	double			**tranform;
 	t_material		m;
 	t_vector		normal_pl;
+	double			**tranform;
 	double			**ivers_tran;
-	t_obj			obj;
-	bool			closed;
 	double			raduis;
 	double			min;
 	double			max;
-	t_shearing		shearing;
-	bool			has_effects;
-	t_check			pattern;
-	t_texture_map	mapping;
-	t_mlx_texture	*img;
-	t_mlx_texture	*bumpimg;
-	char			*path;
-	t_txtr_type		type;
+	bool			closed;
+	bool			effects;
+	t_obj			obj;
 	t_mlx			*mlx;
+	t_check			pattern;
+	t_shearing		shearing;
+	t_txtr_type		type;
+	t_texture_map	mapping;
+	t_mlx_texture	*txtr_img;
+	t_mlx_texture	*bump_img;
 }	t_shape;
 
 typedef struct t_intersection
@@ -329,6 +328,8 @@ typedef struct s_d
 	int			j;
 	t_d_pars	p;
 }				t_d;
+
+void			_err(char *msg);
 
 t_vector		create_vector(double x, double y, double z);
 t_point			create_point(double x, double y, double z);
@@ -483,6 +484,7 @@ t_shape			parsing_cyl(char **elem, int n);
 double			**orient(t_vector orie);
 double			radiane(double deg);
 t_shape			parsing_cone(char **elem, int n);
+t_shape			set_txtr(t_shape s, t_d_bonus d);
 int				count_elem(char **elem);
 int				check_exten(char *argv);
 void			check_element(char *line);
@@ -503,9 +505,10 @@ t_color			checkers_at(t_texture_map tm, t_point p);
 t_color			uv_texture_at(t_shape s, t_uv uv);
 t_uv			sphere_uv_map(t_point p);
 t_uv			plan_uv_map(t_point p);
+t_uv			plan_uv_bump(t_point p);
 t_uv			cyl_uv_map(t_point p);
-t_vector		uv_texture_vector(t_shape s, t_uv uv);
-t_vector	bump_normal(t_shape s, t_vector n, t_vector eye, t_point p);
+t_uv			cyl_uv_bump(t_point p);
+t_vector		bump_normal(t_shape s, t_vector n, t_vector eye, t_point p);
 t_texture_map	texture_map(t_check pattern, t_uv (*map)(t_point));
 // syntax
 void			syntax_color(char *elem, int flag);
