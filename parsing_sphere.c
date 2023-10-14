@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_sphere.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 15:35:23 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/14 11:48:14 by houmanso         ###   ########.fr       */
+/*   Updated: 2023/10/14 12:03:35 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ t_shape	set_txtr(t_shape s, t_d_bonus d)
 	if (d.path_txtr)
 	{
 		s.txtr_img = mlx_load_png(d.path_txtr);
-		printf("%p | %p\n", s.txtr_img, d.path_txtr);
 		if (!s.txtr_img)
 			_err("Something wrong with texture image");
 	}
