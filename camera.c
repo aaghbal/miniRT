@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 14:33:38 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/14 12:22:50 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/14 15:32:48 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,34 +57,6 @@ t_ray	ray_for_pixel(t_camera camera, double px, double py)
 	r = ray(origine, direc);
 	return (r);
 }
-
-// void resize(int width, int height, void *v)
-// {
-// 	t_d			*d;
-// 	t_color		col;
-// 	t_camera	c;
-
-// 	d = v;
-// 	mlx_delete_image(d->mlx, d->img);
-// 	c = camera(height, width, M_PI / 3);
-// 	c.trans = view_transformation(create_point(0, 5.5, -7), create_point(0, 1,
-// 				1), create_vector(0, 1, 0));
-// 	d->img = mlx_new_image(d->mlx, c.vsize, c.hsize);
-// 	mlx_image_to_window(d->mlx, d->img, 0, 0);
-// 	int i = 0, j;
-// 	while (i < c.vsize)
-// 	{
-// 		j = 0;
-// 		while (j < c.hsize)
-// 		{
-// 			col = color_at(d->w, ray_for_pixel(c, i, j), d->p);
-// 			mlx_putpixel(d->img, i, j, conv_color(col.red, col.green,
-// 						col.blue));
-// 			j++;
-// 		}
-// 		i++;
-// 	}
-// }
 
 t_tr	prepare_thr(t_word w, t_camera ca, t_d_pars p, t_mlx_image	*img)
 {
