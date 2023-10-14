@@ -6,7 +6,7 @@
 /*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 14:33:38 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/14 15:35:47 by houmanso         ###   ########.fr       */
+/*   Updated: 2023/10/14 16:17:16 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,10 +95,11 @@ void	*rotine(void *d)
 	return (NULL);
 }
 
-void	render(t_word w, t_camera ca, t_d_pars p)
+void	render(t_word w, t_camera ca, t_d_pars p, int fd)
 {
 	t_d			d;
 
+	close(fd);
 	d.i = 0;
 	d.mlx = p.mlx;
 	d.ca = &ca;

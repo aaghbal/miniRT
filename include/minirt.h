@@ -6,7 +6,7 @@
 /*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:13:01 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/14 15:36:08 by houmanso         ###   ########.fr       */
+/*   Updated: 2023/10/14 16:27:23 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -283,6 +283,7 @@ typedef struct s_data_parsing
 	int		num_shap;
 	int		num_ligh;
 	t_mlx	*mlx;
+	char	*line;
 }	t_d_pars;
 
 typedef struct s_data_am
@@ -435,12 +436,11 @@ t_color			color_at(t_word w, t_ray r, t_d_pars p);
 double			**view_transformation(t_point from, t_point to, t_vector up);
 t_ray			ray_for_pixel(t_camera camera, double px, double py);
 t_camera		camera(double width, double height, double field_view);
-void			render(t_word w, t_camera c, t_d_pars p);
+void			render(t_word w, t_camera c, t_d_pars p, int fd);
 
 /////////////
 bool			is_shadowed(t_word w, t_point point, int n_obj, t_light l);
 double			**inverse_gauss(double **n);
-void			print_matrice(double **m);
 
 //inverse matrix
 
