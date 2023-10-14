@@ -3,27 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   camera.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
+/*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 14:33:38 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/14 15:32:48 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/14 17:39:01 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_camera	camera(double hsize, double vsize, double field_view)
+t_camera	camera(double width, double height, double field_view)
 {
 	t_camera	c;
 	double		half_view;
 	double		aspect;
 
-	c.hsize = hsize;
-	c.vsize = vsize;
+	c.width = width;
+	c.height = height;
 	c.field_of_view = field_view;
 	c.trans = identity();
+	c.trans[0][0] = 2;
 	half_view = tan(c.field_of_view / 2);
-	aspect = c.hsize / c.vsize;
+	aspect = c.width / c.height;
 	if (aspect >= 1)
 	{
 		c.half_width = half_view;
@@ -34,7 +35,7 @@ t_camera	camera(double hsize, double vsize, double field_view)
 		c.half_width = half_view * aspect;
 		c.half_height = half_view;
 	}
-	c.pixel_size = (c.half_width * 2) / c.hsize;
+	c.pixel_size = (c.half_width * 2) / c.width;
 	return (c);
 }
 
@@ -79,8 +80,8 @@ void	*rotine(void *d)
 
 	x = 0;
 	da = (t_tr *)d;
-	y_end = da->y_sta + HEIGHT / 4;
-	while (x < da->c.hsize)
+	y_end = da->y_sta + da->c.height / 4;
+	while (x < da->c.width)
 	{
 		y = da->y_sta;
 		while (y < y_end)
@@ -96,29 +97,19 @@ void	*rotine(void *d)
 
 void	render(t_word w, t_camera ca, t_d_pars p)
 {
-	t_mlx		*mlx;
-	t_mlx_image	*img;
 	t_d			d;
-	pthread_t	thr[4];
-	t_tr		data[4];
 
 	d.i = 0;
-	mlx = p.mlx;
-	img = mlx_new_image(mlx, ca.vsize, ca.hsize);
-	if (!img)
+	d.mlx = p.mlx;
+	d.ca = &ca;
+	d.p = &p;
+	d.w = &w;
+	d.img = mlx_new_image(d.mlx, ca.width, ca.height);
+	if (!d.img)
 		_err("Something wrong with image");
-	mlx_image_to_window(mlx, img, 0, 0);
-	d.y_start = 0;
-	while (d.i < 4)
-	{
-		data[d.i] = (t_tr){mlx, img, d.y_start, w, ca, p};
-		d.y_start += HEIGHT / 4;
-		pthread_create(&thr[d.i], NULL, rotine, &(data[d.i]));
-		d.i++;
-	}
-	d.i = 0;
-	while (d.i < 4)
-		pthread_join(thr[d.i++], NULL);
-	ft_free(FREE, NULL);
-	mlx_loop(mlx);
+	mlx_image_to_window(d.mlx, d.img, 0, 0);
+	run_workers(d);
+	mlx_resize_hook(d.mlx, resize, &d);
+	mlx_key_hook(d.mlx, on_click, NULL);
+	mlx_loop(d.mlx);
 }

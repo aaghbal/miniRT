@@ -6,7 +6,7 @@
 /*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 17:45:38 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/14 17:35:10 by houmanso         ###   ########.fr       */
+/*   Updated: 2023/10/14 17:38:34 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ void	read_file(char *file)
 	close(fd);
 	fd = open(file, O_RDONLY);
 	p.mlx = mlx_init(WIDTH, HEIGHT, "miniRT", true);
+	if (p.mlx == NULL)
+		_err("mlx failed");
 	ft_create_world(fd, p);
 	close(fd);
 }
