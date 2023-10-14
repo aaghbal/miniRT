@@ -6,7 +6,7 @@
 /*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 15:35:23 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/14 02:13:53 by houmanso         ###   ########.fr       */
+/*   Updated: 2023/10/14 11:48:14 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,15 @@ t_d_bonus	init_sphere(int n, char **elem)
 	char		**spl;
 	char		*str;
 
-	if (n == 6 && elem[4])
-		d.nb = conver_ratio_number(elem[4], SP);
-	if (n == 6 && !equal(d.nb, 0) && !equal(d.nb, 1))
+	if (n == 7 && elem[5])
+		d.nb = conver_ratio_number(elem[5], SP);
+	if (n == 7 && !equal(d.nb, 0) && !equal(d.nb, 1))
 		print_error(SP);
-	if (n == 6 && elem[5] && d.nb == 0)
-		d.c = rgb_color(elem[5], 1, SP);
-	else if (n == 6 && elem[5] && d.nb == 1)
+	if (n == 7 && elem[6] && d.nb == 0)
+		d.c = rgb_color(elem[6], 1, SP);
+	else if (n == 7 && elem[6] && d.nb == 1)
 	{
-		str = ft_strdup(elem[5]);
+		str = ft_strdup(elem[6]);
 		ft_free(ADD, str);
 		spl = ft_split(str, '|');
 		if (!spl || !spl[0] || !spl[1] || spl[2]
@@ -75,25 +75,25 @@ t_shape	parsing_sphere(char **elem, int n)
 	t_shape		s;
 	t_d_bonus	d;
 
-	if (n != 4 && n != 6)
+	if (n != 5 && n != 7)
 		print_error(SP);
 	s = default_shape();
+	s.m.specular = conver_ratio_number(elem[4], SP);
 	s.obj = sp;
 	o = parse_origine(elem[1], SP);
 	s.raduis = conver_ratio_number(elem[2], SP) / 2;
 	set_transform(&s, multiple_matrice(translation(o.x, o.y, o.z),
 			rotation_y(M_PI)));
 	s.m.color = rgb_color(elem[3], 1, SP);
-	if (n == 4)
+	if (n == 5)
 		return (s);
 	d = init_sphere(n, elem);
 	s.effects = true;
 	if (d.nb == 0)
 	{
-		s.type = checkers;
 		s.mapping.uv_pattern = uv_checkers(s.raduis * 2 * M_PI, s.raduis * M_PI,
 				s.m.color, d.c);
-		return (s.mapping.uv_map = sphere_uv_map, s);
+		return (s.type = checkers, s.mapping.uv_map = sphere_uv_map, s);
 	}
 	return (s.mapping.uv_map = sphere_uv_map, set_txtr(s, d));
 }
