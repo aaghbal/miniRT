@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_3.c                                          :+:      :+:    :+:   */
+/*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/09 20:29:27 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/14 15:59:40 by houmanso         ###   ########.fr       */
+/*   Created: 2023/10/14 12:43:54 by houmanso          #+#    #+#             */
+/*   Updated: 2023/10/14 15:32:04 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	count_elem(char **elem)
+void	run_workers(t_d d)
 {
-	int	i;
+	pthread_t	thr[4];
+	t_tr		data[4];
 
-	i = 0;
-	while (elem[i])
-		i++;
-	return (i);
-}
-
-void	_err(char *msg)
-{
-	ft_putendl_fd("Error", 2);
-	ft_putendl_fd(msg, 2);
-	ft_free(FREE, NULL);
-	exit(1);
+	d.y_start = 0;
+	while (d.i < 4)
+	{
+		data[d.i] = (t_tr){d.mlx, d.img, d.y_start, *d.w, *d.ca, *d.p};
+		d.y_start += d.ca->height / 4;
+		pthread_create(&thr[d.i], NULL, rotine, &(data[d.i]));
+		d.i++;
+	}
+	d.i = 0;
+	while (d.i < 4)
+		pthread_join(thr[d.i++], NULL);
 }

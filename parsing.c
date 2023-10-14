@@ -3,24 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
+/*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 17:45:38 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/13 20:11:25 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/14 16:25:21 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	init_word(t_word *w, t_d_pars p)
+static void	init_word(t_word *w, t_d_pars p, t_norm *n)
 {
+	n->i = 0;
+	n->j = 0;
 	w->s = malloc(sizeof(t_shape) * p.num_shap);
 	w->l = malloc(sizeof(t_light) * p.num_ligh);
 	ft_free(ADD, w->s);
 	ft_free(ADD, w->l);
 }
 
-void	free_split(char **elem, char *line)
+static void	free_split(char **elem, char *line)
 {
 	free_doublep(elem);
 	free(line);
@@ -30,17 +32,17 @@ void	ft_create_world(int fd, t_d_pars p)
 {
 	t_norm	n;
 
-	n.i = 0;
-	n.j = 0;
-	init_word(&n.w, p);
+	init_word(&n.w, p, &n);
 	while (1)
 	{
 		n.line = get_next_line(fd);
 		if (!n.line)
 			break ;
-		n.line = ft_strtrim(n.line, "\n");
-		if (!*n.line)
+		if (*n.line == '\n')
+		{
+			free(n.line);
 			continue ;
+		}
 		n.spl = ft_split(n.line, ' ');
 		if (!ft_strcmp("A", n.spl[0]))
 			n.w.ambiant = parsing_am_light(n.spl);
@@ -52,7 +54,7 @@ void	ft_create_world(int fd, t_d_pars p)
 			n.w.s[n.i++] = check_ident_shap(n.spl, p);
 		free_split(n.spl, n.line);
 	}
-	render(n.w, n.c, p);
+	render(n.w, n.c, p, fd);
 }
 
 void	read_file(char *file)
@@ -69,6 +71,7 @@ void	read_file(char *file)
 	close(fd);
 	fd = open(file, O_RDONLY);
 	p.mlx = mlx_init(WIDTH, HEIGHT, "miniRT", true);
+	if (p.mlx == NULL)
+		_err("mlx failed");
 	ft_create_world(fd, p);
-	close(fd);
 }
