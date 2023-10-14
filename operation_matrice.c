@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 14:40:18 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/03 09:14:04 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/10 10:43:55 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,30 +15,28 @@
 double	**multiple_matrice(double **m1, double **m2)
 {
 	double	**res;
-	int		col;
-	int		i;
-	int		row;
+	t_matr	d;
 
-	row = 0;
+	d.row = 0;
 	res = malloc(sizeof(double *) * 4);
 	ft_free(ADD, res);
-	while (row < 4)
+	while (d.row < 4)
 	{
-		col = 0;
-		res[row] = malloc(sizeof(double) * 4);
-		ft_free(ADD, res[row]);
-		while (col < 4)
+		d.col = 0;
+		res[d.row] = malloc(sizeof(double) * 4);
+		ft_free(ADD, res[d.row]);
+		while (d.col < 4)
 		{
-			i = 0;
-			res[row][col] = 0;
-			while (i < 4)
+			d.i = 0;
+			res[d.row][d.col] = 0;
+			while (d.i < 4)
 			{
-				res[row][col] += m1[row][i] * m2[i][col];
-				i++;
+				res[d.row][d.col] += m1[d.row][d.i] * m2[d.i][d.col];
+				d.i++;
 			}
-			col++;
+			d.col++;
 		}
-		row++;
+		d.row++;
 	}
 	return (res);
 }

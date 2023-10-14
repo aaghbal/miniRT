@@ -6,13 +6,13 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/01 16:09:24 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/02 14:24:28 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/09 20:43:14 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-double ft_max(double n1, double n2, double n3)
+double	ft_max(double n1, double n2, double n3)
 {
 	if (n1 > n2 && n1 > n3)
 		return (n1);
@@ -23,7 +23,7 @@ double ft_max(double n1, double n2, double n3)
 	return (n1);
 }
 
-double ft_min(double n1, double n2, double n3)
+double	ft_min(double n1, double n2, double n3)
 {
 	if (n1 < n2 && n1 < n3)
 		return (n1);
@@ -34,7 +34,7 @@ double ft_min(double n1, double n2, double n3)
 	return (n1);
 }
 
-t_cube check_axis(double ori, double dire)
+t_cube	check_axis(double ori, double dire)
 {
 	t_cube	t;
 	double	tmin_numerator;
@@ -42,10 +42,10 @@ t_cube check_axis(double ori, double dire)
 
 	tmin_numerator = (-1 - ori);
 	tmax_numerator = (1 - ori);
-	if(fabs(dire) >= EPSILON)
+	if (fabs(dire) >= EPSILON)
 	{
-		t.min = tmin_numerator/ dire;
-		t.max = tmax_numerator/ dire;
+		t.min = tmin_numerator / dire;
+		t.max = tmax_numerator / dire;
 	}
 	else
 	{
@@ -59,14 +59,14 @@ t_cube check_axis(double ori, double dire)
 
 t_vector	cube_normal_at(t_shape s, t_point word_point)
 {
-	double		maxc;
-	double		**inv;
-	t_point		obj_p;
+	double	maxc;
+	double	**inv;
+	t_point	obj_p;
 
 	(void)s;
-	inv = inverse_gauss(s.tranform);
+	inv = s.ivers_tran;
 	obj_p = mul_mat_point(inv, word_point);
-	maxc = ft_max(fabs(obj_p.x),fabs(obj_p.y),fabs(obj_p.z));
+	maxc = ft_max(fabs(obj_p.x), fabs(obj_p.y), fabs(obj_p.z));
 	if (equal(maxc, fabs(obj_p.x)))
 		return (create_vector(obj_p.x, 0, 0));
 	if (equal(maxc, fabs(obj_p.y)))
@@ -74,13 +74,13 @@ t_vector	cube_normal_at(t_shape s, t_point word_point)
 	return (create_vector(0, 0, obj_p.z));
 }
 
-t_intersect *cube_intersect(t_shape s, t_ray ray)
+t_intersect	*cube_intersect(t_shape s, t_ray ray)
 {
-	t_ray 	r;
-	t_cube 	*res;
-	t_cube 	t;
-	t_intersect *xs;
-	
+	t_ray		r;
+	t_cube		*res;
+	t_cube		t;
+	t_intersect	*xs;
+
 	res = malloc(sizeof(t_cube) * 3);
 	ft_free(ADD, res);
 	r = transform(ray, inverse_gauss(s.tranform));

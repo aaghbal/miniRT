@@ -6,7 +6,7 @@
 /*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 15:31:08 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/04 18:38:56 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/10 11:09:04 by aaghbal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ double	plan_intersect(t_shape s, t_ray ray)
 	t_ray	r;
 	double	t;
 
-	r = transform(ray, inverse_gauss(s.tranform));
+	r = transform(ray, s.ivers_tran);
 	if (equal(r.direction.y, EPSILON))
 		return (0);
 	t = -r.origine.y / r.direction.y;
@@ -32,11 +32,11 @@ t_intersect	*sphere_intersect(t_shape s, t_ray ray)
 	t_vector	sph_to_ray;
 
 	res = NULL;
-	r = transform(ray, inverse_gauss(s.tranform));
+	r = transform(ray, s.ivers_tran);
 	sph_to_ray = sub_to_point(r.origine, create_point(0, 0, 0));
 	data.a = dot_product(r.direction, r.direction);
 	data.b = 2 * dot_product(r.direction, sph_to_ray);
-	data.c = dot_product(sph_to_ray, sph_to_ray) - 1;
+	data.c = dot_product(sph_to_ray, sph_to_ray) - (s.raduis * s.raduis);
 	data.discr = pow(data.b, 2) - 4 * data.a * data.c;
 	if (data.discr < 0)
 	{
@@ -68,8 +68,6 @@ t_intersect	*intersect_world(t_word w, t_ray r, int n_object)
 			new = new_intersec(plan_intersect(w.s[i], r), w.s[i]);
 		else if (w.s[i].obj == cy)
 			new = cyl_intersect(w.s[i], r);
-		else if (w.s[i].obj == cu)
-			new = cube_intersect(w.s[i], r);
 		else if (w.s[i].obj == co)
 			new = cone_intersect(w.s[i], r);
 		if (!xs)

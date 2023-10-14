@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   camera.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
+/*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 14:33:38 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/05 19:10:16 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/14 11:48:59 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ t_ray	ray_for_pixel(t_camera camera, double px, double py)
 	data.yoffset = (py + 0.5) * camera.pixel_size;
 	data.word_x = camera.half_width - data.xoffset;
 	data.word_y = camera.half_height - data.yoffset;
-	data.inv = inverse_gauss(camera.trans);
+	data.inv = camera.inverse;
 	pixel = mul_mat_point(data.inv, create_point(data.word_x, data.word_y, -1));
 	origine = mul_mat_point(data.inv, create_point(0, 0, 0));
 	direc = normalize(sub_to_point(pixel, origine));
@@ -58,65 +58,95 @@ t_ray	ray_for_pixel(t_camera camera, double px, double py)
 	return (r);
 }
 
-typedef struct s_d {
-	t_word	w;
-	t_mlx	*mlx;
-	t_mlx_image *img;
-} t_d;
-
-// void rez(int width, int height, void *v)
+// void resize(int width, int height, void *v)
 // {
-// 	t_d *d =v;
+// 	t_d			*d;
 // 	t_color		col;
 // 	t_camera	c;
-	
-// 	mlx_delete_image(d.mlx, d->img);
+
+// 	d = v;
+// 	mlx_delete_image(d->mlx, d->img);
 // 	c = camera(height, width, M_PI / 3);
 // 	c.trans = view_transformation(create_point(0, 5.5, -7), create_point(0, 1,
 // 				1), create_vector(0, 1, 0));
 // 	d->img = mlx_new_image(d->mlx, c.vsize, c.hsize);
 // 	mlx_image_to_window(d->mlx, d->img, 0, 0);
-// 	int i = 1, j;
+// 	int i = 0, j;
 // 	while (i < c.vsize)
 // 	{
-// 		j = 1;
+// 		j = 0;
 // 		while (j < c.hsize)
 // 		{
-// 			col = color_at(d->w, ray_for_pixel(c, i, j), 5);
-// 			mlx_putpixel(d->img, i, j, conv_color(col.red, col.green, col.blue));
+// 			col = color_at(d->w, ray_for_pixel(c, i, j), d->p);
+// 			mlx_putpixel(d->img, i, j, conv_color(col.red, col.green,
+// 						col.blue));
 // 			j++;
 // 		}
 // 		i++;
 // 	}
 // }
 
-void	render(t_word w, t_camera c, t_d_pars p)
+t_tr	prepare_thr(t_word w, t_camera ca, t_d_pars p, t_mlx_image	*img)
 {
-	int			i;
-	int			j;
+	t_tr	data;
+
+	data.img = img;
+	data.w = w;
+	data.c = ca;
+	data.p = p;
+	return (data);
+}
+
+void	*rotine(void *d)
+{
+	t_tr	*da;
+	int		y_end;
+	t_color	c;
+	int		y;
+	int		x;
+
+	x = 0;
+	da = (t_tr *)d;
+	y_end = da->y_sta + HEIGHT / 4;
+	while (x < da->c.hsize)
+	{
+		y = da->y_sta;
+		while (y < y_end)
+		{
+			c = color_at(da->w, ray_for_pixel(da->c, x, y), da->p);
+			mlx_putpixel(da->img, x, y, conv_color(c.red, c.green, c.blue));
+			y++;
+		}
+		x++;
+	}
+	return (NULL);
+}
+
+void	render(t_word w, t_camera ca, t_d_pars p)
+{
 	t_mlx		*mlx;
 	t_mlx_image	*img;
-	t_color		col;
-	t_d		d;
+	t_d			d;
+	pthread_t	thr[4];
+	t_tr		data[4];
 
-	i = 0;
-	mlx = mlx_init(WIDTH, HEIGHT, "test", true);
-	img = mlx_new_image(mlx, c.vsize, c.hsize);
+	d.i = 0;
+	mlx = p.mlx;
+	img = mlx_new_image(mlx, ca.vsize, ca.hsize);
+	if (!img)
+		_err("Something wrong with image");
 	mlx_image_to_window(mlx, img, 0, 0);
-	while (i < c.vsize)
+	d.y_start = 0;
+	while (d.i < 4)
 	{
-		j = 0;
-		while (j < c.hsize)
-		{
-			col = color_at(w, ray_for_pixel(c, i, j), p);
-			mlx_putpixel(img, i, j, conv_color(col.red, col.green, col.blue));
-			j++;
-		}
-		i++;
+		data[d.i] = (t_tr){mlx, img, d.y_start, w, ca, p};
+		d.y_start += HEIGHT / 4;
+		pthread_create(&thr[d.i], NULL, rotine, &(data[d.i]));
+		d.i++;
 	}
-	d.img = img;
-	d.mlx = mlx;
-	d.w = w;
-	// mlx_resize_hook(mlx, rez, &d);
+	d.i = 0;
+	while (d.i < 4)
+		pthread_join(thr[d.i++], NULL);
+	ft_free(FREE, NULL);
 	mlx_loop(mlx);
 }
