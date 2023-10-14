@@ -6,7 +6,7 @@
 /*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:13:01 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/14 16:27:23 by houmanso         ###   ########.fr       */
+/*   Updated: 2023/10/14 16:40:12 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -534,5 +534,6 @@ char			*ret_str(char *str);
 void			resize(int width, int height, void *v);
 void			*rotine(void *d);
 void			run_workers(t_d d);
+void			ft_close(void *p);
 void			on_click(t_mlx_key_cbdata keydata, void *param);
 #endif

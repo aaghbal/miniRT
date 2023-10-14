@@ -6,7 +6,7 @@
 /*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 12:43:33 by houmanso          #+#    #+#             */
-/*   Updated: 2023/10/14 15:30:53 by houmanso         ###   ########.fr       */
+/*   Updated: 2023/10/14 16:40:06 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,11 @@ void	on_click(t_mlx_key_cbdata keydata, void *param)
 		ft_free(FREE, NULL);
 		exit(0);
 	}
+}
+
+void	ft_close(void *p)
+{
+	(void)p;
+	ft_free(FREE, NULL);
+	exit(0);
 }

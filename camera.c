@@ -6,7 +6,7 @@
 /*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 14:33:38 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/14 16:17:16 by houmanso         ###   ########.fr       */
+/*   Updated: 2023/10/14 16:40:32 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,5 +112,6 @@ void	render(t_word w, t_camera ca, t_d_pars p, int fd)
 	run_workers(d);
 	mlx_resize_hook(d.mlx, resize, &d);
 	mlx_key_hook(d.mlx, on_click, NULL);
+	mlx_close_hook(d.mlx, ft_close, NULL);
 	mlx_loop(d.mlx);
 }

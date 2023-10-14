@@ -6,7 +6,7 @@
 #    By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/27 09:51:25 by houmanso          #+#    #+#              #
-#    Updated: 2023/10/14 15:49:52 by houmanso         ###   ########.fr        #
+#    Updated: 2023/10/14 16:40:40 by houmanso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,10 +30,9 @@ OBJ		=	$(SRC:.c=.o)
 NAME	=	miniRT
 OBJ		=	$(SRC:.c=.o)
 
-CFLAGS += -g
 CFLAGS += -I ./include -I ./MLX42/include -I $(GLFW)/include -I ./Libft
 
-all : libft mlx $(NAME)
+all : mlx libft $(NAME)
 
 libft :
 	@make -C ./Libft
