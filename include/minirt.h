@@ -6,7 +6,7 @@
 /*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:13:01 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/14 11:46:09 by houmanso         ###   ########.fr       */
+/*   Updated: 2023/10/14 15:32:18 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@
 # define ERR_CAL 8
 # define EXTE 9
 # define OP 10
-# define WIDTH 800
-# define HEIGHT 800
+# define WIDTH 1000
+# define HEIGHT 1000
 
 typedef struct s_cal
 {
@@ -209,8 +209,8 @@ typedef struct s_comps
 
 typedef struct s_camera
 {
-	double	hsize;
-	double	vsize;
+	double	width;
+	double	height;
 	double	field_of_view;
 	double	half_width;
 	double	half_height;
@@ -321,12 +321,13 @@ typedef struct s_data_matr
 
 typedef struct s_d
 {
-	t_word		w;
+	t_word		*w;
 	t_mlx		*mlx;
 	t_mlx_image	*img;
+	t_camera	*ca;
 	int			i;
 	int			j;
-	t_d_pars	p;
+	t_d_pars	*p;
 	int			y_start;
 }				t_d;
 
@@ -340,8 +341,8 @@ typedef struct s_thr
 	t_d_pars	p;
 }			t_tr;
 
-
 void			_err(char *msg);
+void			camera_set_transform(t_camera *c, double **m);
 t_vector		create_vector(double x, double y, double z);
 t_point			create_point(double x, double y, double z);
 bool			equal(double a, double b);
@@ -433,7 +434,7 @@ t_intersect		hit(t_intersect *res);
 t_color			color_at(t_word w, t_ray r, t_d_pars p);
 double			**view_transformation(t_point from, t_point to, t_vector up);
 t_ray			ray_for_pixel(t_camera camera, double px, double py);
-t_camera		camera(double hsize, double vsize, double field_view);
+t_camera		camera(double width, double height, double field_view);
 void			render(t_word w, t_camera c, t_d_pars p);
 
 /////////////
@@ -528,4 +529,10 @@ void			print_error(int flag);
 double			conver_origine_number(char *rat, int flag);
 int				ft_strcmp(const char *s1, const char *s2);
 char			*ret_str(char *str);
+
+//others
+void			resize(int width, int height, void *v);
+void			*rotine(void *d);
+void			run_workers(t_d d);
+void			on_click(t_mlx_key_cbdata keydata, void *param);
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
+/*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 10:43:42 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/10 13:03:25 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/14 13:43:29 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,10 @@ void	ft_free(int flag, void *addr)
 		add_addr(&f, new_addr(addr));
 	}
 	else if (flag == FREE)
+	{
 		free_all(f);
+		f = NULL;
+	}
 }
 
 t_free	*new_addr(void *address)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaghbal <aaghbal@student.42.fr>            +#+  +:+       +#+        */
+/*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 17:45:38 by aaghbal           #+#    #+#             */
-/*   Updated: 2023/10/13 20:11:25 by aaghbal          ###   ########.fr       */
+/*   Updated: 2023/10/14 12:36:57 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ void	read_file(char *file)
 	close(fd);
 	fd = open(file, O_RDONLY);
 	p.mlx = mlx_init(WIDTH, HEIGHT, "miniRT", true);
+	if (p.mlx == NULL)
+		_err("mlx failed");
 	ft_create_world(fd, p);
 	close(fd);
 }
