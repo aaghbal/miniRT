@@ -1,6 +1,6 @@
 # MiniRT - 42 Network Project
 
-**MiniRT** is a minimal Ray Tracer project created as part of the 42 Network curriculum. This project focuses on building a simple, efficient ray-tracing engine from scratch, rendering realistic 3D scenes with basic geometric shapes, lighting, and shading. Through this project, students gain a deep understanding of computer graphics fundamentals, including ray-object intersection calculations, light modeling, and the math behind 3D rendering.
+**MiniRT** is a minimal Ray Tracer project created as part of the 42 Network curriculum. This project focuses on building a simple, efficient ray-tracing engine from scratch, rendering realistic 3D scenes with basic geometric shapes, lighting, and shading. Through this project, we gain a deep understanding of computer graphics fundamentals, including ray-object intersection calculations, light modeling, and the math behind 3D rendering.
 
 ## Features
 - **Geometric Shapes**: Support for spheres, planes, and cylinders with custom parameters.
